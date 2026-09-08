@@ -8,22 +8,68 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-color: #050810;
+            --bg-gradient: radial-gradient(circle at center, #111827 0%, #050810 100%);
             --card-glass: rgba(255, 255, 255, 0.03);
             --border-glass: rgba(255, 255, 255, 0.1);
             --primary-glow: #38bdf8;
+            --text-main: #ffffff;
+            --text-sub: #94a3b8;
+            --modal-bg: #111827;
+            --overlay-bg: rgba(5, 8, 16, 0.85);
+            --link-bg: rgba(255, 255, 255, 0.05);
+        }
+
+        /* متغيرات الوضع النهاري */
+        [data-theme="light"] {
+            --bg-gradient: radial-gradient(circle at center, #f8fafc 0%, #e2e8f0 100%);
+            --card-glass: rgba(255, 255, 255, 0.7);
+            --border-glass: rgba(148, 163, 184, 0.2);
+            --primary-glow: #0284c7;
+            --text-main: #0f172a;
+            --text-sub: #475569;
+            --modal-bg: #ffffff;
+            --overlay-bg: rgba(241, 245, 249, 0.85);
+            --link-bg: rgba(241, 245, 249, 0.9);
         }
 
         body {
             font-family: 'Tajawal', sans-serif;
-            background: radial-gradient(circle at center, #111827 0%, #050810 100%);
-            color: #fff;
+            background: var(--bg-gradient);
+            color: var(--text-main);
             margin: 0;
             padding: 0;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* زر تبديل الثيم */
+        .theme-toggle-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--card-glass);
+            border: 1px solid var(--border-glass);
+            color: var(--text-main);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            z-index: 1001;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .theme-toggle-btn:hover {
+            transform: scale(1.1);
+            border-color: var(--primary-glow);
         }
 
         header {
@@ -35,9 +81,7 @@
             font-size: 2.8rem;
             font-weight: 900;
             letter-spacing: -1px;
-            background: linear-gradient(to bottom, #fff, #94a3b8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--text-main);
             margin-bottom: 12px;
         }
 
@@ -47,6 +91,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             opacity: 0.9;
+            font-weight: 700;
         }
 
         .container {
@@ -83,7 +128,7 @@
         .card:hover {
             transform: translateY(-10px) scale(1.02);
             border-color: var(--primary-glow);
-            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.2);
         }
 
         .card:hover::before {
@@ -117,7 +162,7 @@
 
         .card h3 {
             font-size: 1.5rem;
-            color: #fff;
+            color: var(--text-main);
             margin-bottom: 10px;
             position: relative;
             z-index: 2;
@@ -125,7 +170,7 @@
 
         .card p {
             font-size: 0.95rem;
-            color: #94a3b8;
+            color: var(--text-sub);
             line-height: 1.6;
             position: relative;
             z-index: 2;
@@ -135,7 +180,7 @@
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(5, 8, 16, 0.85);
+            background: var(--overlay-bg);
             backdrop-filter: blur(10px);
             display: flex;
             align-items: center;
@@ -152,13 +197,13 @@
         }
 
         .modal-content {
-            background: #111827;
+            background: var(--modal-bg);
             border: 1px solid var(--border-glass);
             border-radius: 25px;
             width: 90%;
             max-width: 600px;
             padding: 30px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
             position: relative;
             transform: scale(0.8);
             transition: all 0.3s ease;
@@ -188,14 +233,14 @@
         .close-btn {
             background: transparent;
             border: none;
-            color: #94a3b8;
+            color: var(--text-sub);
             font-size: 1.5rem;
             cursor: pointer;
             transition: 0.2s;
         }
 
         .close-btn:hover {
-            color: #fff;
+            color: var(--text-main);
         }
 
         .links-list {
@@ -209,10 +254,10 @@
             align-items: center;
             justify-content: space-between;
             padding: 15px 20px;
-            background: rgba(255, 255, 255, 0.05);
+            background: var(--link-bg);
             border: 1px solid var(--border-glass);
             border-radius: 15px;
-            color: #fff;
+            color: var(--text-main);
             text-decoration: none;
             transition: all 0.3s ease;
             cursor: pointer;
@@ -231,13 +276,18 @@
         .footer {
             margin-top: auto;
             padding: 30px;
-            color: #64748b;
+            color: var(--text-sub);
             font-size: 0.9rem;
             text-align: center;
         }
     </style>
 </head>
 <body>
+
+<!-- زر الوضع الليلي/النهاري -->
+<button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="تبديل الوضع">
+    <i class="fas fa-moon" id="themeIcon"></i>
+</button>
 
 <header>
     <h1>بوابة الكفايات اللغوية</h1>
@@ -302,33 +352,32 @@
             <h2>نماذج الكفاية النحوية</h2>
             <button class="close-btn" onclick="closeModal('grammar-modal')">&times;</button>
         </div>
-        <a class="model-link" 
-   data-url="https://school1school2-stack.github.io/ALgamlh1/" 
-   data-start="2026-08-13T20:00" 
-   data-end="2026-08-18T23:59" 
-   onclick="handleLinkClick(this)">
-    <span><i class="fas fa-clock"></i> نموذج (1): الجملة الاسمية (مجدول)</span>
-    <i class="fas fa-lock"></i>
+        <div class="links-list">
+            <a class="model-link" 
+               data-url="https://school1school2-stack.github.io/ALgamlh1/" 
+               data-start="2026-08-13T20:00" 
+               data-end="2026-08-18T23:59" 
+               onclick="handleLinkClick(this)">
+                <span><i class="fas fa-clock"></i> نموذج (1): الجملة الاسمية (مجدول)</span>
+                <i class="fas fa-lock"></i>
             </a>
 
-<a class="model-link" 
-   data-url="https://school1school2-stack.github.io/almtara/" 
-   data-start="2026-09-13T20:00" 
-   data-end="2026-09-18T23:59" 
-   onclick="handleLinkClick(this)">
-    <span><i class="fas fa-clock"></i> نموذج (2): الجملة الفعلية (مجدول)</span>
-    <i class="fas fa-lock"></i>
-</a>
+            <a class="model-link" 
+               data-url="https://school1school2-stack.github.io/almtara/" 
+               data-start="2026-09-13T20:00" 
+               data-end="2026-09-18T23:59" 
+               onclick="handleLinkClick(this)">
+                <span><i class="fas fa-clock"></i> نموذج (2): الجملة الفعلية (مجدول)</span>
+                <i class="fas fa-lock"></i>
             </a>
 
-<a class="model-link" 
-   data-url="https://school1school2-stack.github.io/almtara/" 
-   data-start="2026-08-13T20:00" 
-   data-end="2026-08-15T23:59" 
-   onclick="handleLinkClick(this)">
-    <span><i class="fas fa-clock"></i> نموذج (3): الجملة الفعلية (الفاعل ونائب الفاعل (مجدول)</span>
-    <i class="fas fa-lock"></i>
-</a>
+            <a class="model-link" 
+               data-url="https://school1school2-stack.github.io/almtara/" 
+               data-start="2026-08-13T20:00" 
+               data-end="2026-08-15T23:59" 
+               onclick="handleLinkClick(this)">
+                <span><i class="fas fa-clock"></i> نموذج (3): الفاعل ونائب الفاعل (مجدول)</span>
+                <i class="fas fa-lock"></i>
             </a>
         </div>
     </div>
@@ -350,7 +399,7 @@
     </div>
 </div>
 
-<!-- باقي النوافذ تفعل بنفس الطريقة... -->
+<!-- باقي النوافذ بنفس المبدأ... -->
 
 <div class="footer">
     إعداد وتنفيذ: أ. عبدالعزيز الفيفي - ثانوية الأمير عبدالمجيد 😉 &copy; 2026
@@ -389,14 +438,40 @@
         if (endTimeStr) {
             const endTime = new Date(endTimeStr);
             if (now > endTime) {
-                alert('انتهى موعد تقديم هذا النموذج مغلق حالياً.');
+                alert('انتهى موعد تقديم هذا النموذج ومغلق حالياً.');
                 return;
             }
         }
 
-        // إذا كان الوقت مناسباً يفتح الرابط في نافذة جديدة
         window.open(url, '_blank');
     }
+
+    // دالة التحكم في الوضع الليلي والنهاري
+    function toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        
+        updateThemeIcon(newTheme);
+    }
+
+    function updateThemeIcon(theme) {
+        const icon = document.getElementById('themeIcon');
+        if (theme === 'light') {
+            icon.className = 'fas fa-sun';
+        } else {
+            icon.className = 'fas fa-moon';
+        }
+    }
+
+    // استعادة الوضع المفصل عند فتح الصفحة
+    (function initTheme() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+    })();
 </script>
 
 </body>
