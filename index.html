@@ -17,6 +17,7 @@
             --modal-bg: #111827;
             --overlay-bg: rgba(5, 8, 16, 0.85);
             --link-bg: rgba(255, 255, 255, 0.05);
+            --announcement-bg: linear-gradient(135deg, #0284c7 0%, #1e40af 100%);
         }
 
         [data-theme="light"] {
@@ -29,6 +30,7 @@
             --modal-bg: #ffffff;
             --overlay-bg: rgba(241, 245, 249, 0.85);
             --link-bg: rgba(241, 245, 249, 0.9);
+            --announcement-bg: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
         }
 
         body {
@@ -72,7 +74,7 @@
 
         header {
             text-align: center;
-            padding: 70px 20px 40px;
+            padding: 60px 20px 20px;
         }
 
         header h1 {
@@ -90,6 +92,81 @@
             letter-spacing: 1px;
             opacity: 0.9;
             font-weight: 700;
+        }
+
+        /* تنسيقات الشريط الإعلاني البارز */
+        .announcement-banner {
+            width: 90%;
+            max-width: 1200px;
+            background: var(--announcement-bg);
+            border: 1px solid var(--primary-glow);
+            border-radius: 20px;
+            padding: 20px 25px;
+            margin-bottom: 35px;
+            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            position: relative;
+            box-sizing: border-box;
+            animation: pulse-border 2s infinite alternate;
+        }
+
+        @keyframes pulse-border {
+            0% { box-shadow: 0 0 15px rgba(56, 189, 248, 0.2); }
+            100% { box-shadow: 0 0 30px rgba(56, 189, 248, 0.6); }
+        }
+
+        .announcement-content {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            color: #ffffff;
+            width: 100%;
+        }
+
+        .announcement-icon {
+            font-size: 2.2rem;
+            color: #facc15;
+            animation: ring 1.5s infinite;
+        }
+
+        @keyframes ring {
+            0% { transform: rotate(0); }
+            10% { transform: rotate(15deg); }
+            20% { transform: rotate(-10deg); }
+            30% { transform: rotate(15deg); }
+            40% { transform: rotate(0); }
+        }
+
+        .announcement-text {
+            font-size: 1.3rem;
+            font-weight: 800;
+            line-height: 1.5;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .close-banner-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: #ffffff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            flex-shrink: 0;
+        }
+
+        .close-banner-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1);
         }
 
         .container {
@@ -354,6 +431,17 @@
     <p>مرجع التدريبات والتطبيقات التفاعلية اللغوية 📚 - أ. عبدالعزيز الفيفي ثانوية الأمير عبدالمجيد 🎓</p>
 </header>
 
+<!-- ==================== الشريط الإعلاني البارز ==================== -->
+<div class="announcement-banner" id="announcementBanner">
+    <div class="announcement-content">
+        <i class="fas fa-bullhorn announcement-icon"></i>
+        <p class="announcement-text">
+            📢 **تنويه هام للطلاب:** تم رفع ورقة عمل جديدة في قسم أوراق العمل، واختبار الجملة الفعلية متاح الآن للتطبيق! 🚀
+        </p>
+    </div>
+    <button class="close-banner-btn" onclick="closeBanner()" title="إغلاق الإعلان">&times;</button>
+</div>
+
 <div class="container">
 
     <div class="card" onclick="openModal('grammar-modal')">
@@ -441,18 +529,7 @@
                     </a>
                 </div>
             </div>
-            <!-- الملف الثالث -->
-            <div class="pdf-item">
-                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> الجملة الاسمية</span>
-                <div class="pdf-actions">
-                    <a href="present-verb-2.pdf" class="btn-action btn-view" target="_blank">
-                        <i class="fas fa-eye"></i> معاينة
-                    </a>
-                    <a href="present-verb-2.pdf" class="btn-action btn-download" download="الجملة الاسمية.pdf">
-                        <i class="fas fa-download"></i> تحميل
-                    </a>
-                </div>
-            </div>
+
         </div>
     </div>
 </div>
@@ -527,84 +604,4 @@
         document.getElementById(modalId).classList.remove('active');
     }
 
-    function closeModalOnOuterClick(event, modalId) {
-        if (event.target.id === modalId) {
-            closeModal(modalId);
-        }
-    }
-
-    function handleLinkClick(element) {
-        const url = element.getAttribute('data-url');
-        const startTimeStr = element.getAttribute('data-start');
-        const endTimeStr = element.getAttribute('data-end');
-        const now = new Date();
-
-        if (startTimeStr) {
-            const startTime = new Date(startTimeStr);
-            if (now < startTime) {
-                alert(`سيكون هذا النموذج متاحاً قريباً بإذن الله ⏳\nموعد الفتح: ${startTime.toLocaleString('ar-SA')}`);
-                return;
-            }
-        }
-
-        if (endTimeStr) {
-            const endTime = new Date(endTimeStr);
-            if (now > endTime) {
-                alert('عذراً، انتهت الفترة المحددة لتقديم هذا النموذج وهومغلق حالياً 🔒');
-                return;
-            }
-        }
-
-        window.open(url, '_blank');
-    }
-
-    function updateAllBadges() {
-        const links = document.querySelectorAll('.model-link');
-        const now = new Date();
-
-        links.forEach(link => {
-            const startStr = link.getAttribute('data-start');
-            const endStr = link.getAttribute('data-end');
-            const statusBox = link.querySelector('.status-box');
-            
-            if (!statusBox) return;
-
-            if (startStr && new Date(startStr) > now) {
-                statusBox.innerHTML = `<span class="status-badge badge-upcoming">قريباً ⏳</span><i class="fas fa-lock"></i>`;
-            } else if (endStr && new Date(endStr) < now) {
-                statusBox.innerHTML = `<span class="status-badge badge-expired">مغلق 🔒</span><i class="fas fa-times-circle"></i>`;
-            } else {
-                statusBox.innerHTML = `<span class="status-badge badge-active">متاح الآن 🟢</span><i class="fas fa-external-link-alt"></i>`;
-            }
-        });
-    }
-
-    function toggleTheme() {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-        
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        
-        updateThemeIcon(newTheme);
-    }
-
-    function updateThemeIcon(theme) {
-        const icon = document.getElementById('themeIcon');
-        if (theme === 'light') {
-            icon.className = 'fas fa-sun';
-        } else {
-            icon.className = 'fas fa-moon';
-        }
-    }
-
-    (function initTheme() {
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        document.documentElement.setAttribute('data-theme', savedTheme);
-        updateThemeIcon(savedTheme);
-        updateAllBadges();
-    })();
-</script>
-
-</body>
-</html>
+    function closeModalOnOuterClick(event, 
