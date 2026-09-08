@@ -19,7 +19,6 @@
             --link-bg: rgba(255, 255, 255, 0.05);
         }
 
-        /* متغيرات الوضع النهاري */
         [data-theme="light"] {
             --bg-gradient: radial-gradient(circle at center, #f8fafc 0%, #e2e8f0 100%);
             --card-glass: rgba(255, 255, 255, 0.7);
@@ -45,7 +44,6 @@
             transition: background 0.3s ease, color 0.3s ease;
         }
 
-        /* زر تبديل الثيم */
         .theme-toggle-btn {
             position: fixed;
             top: 20px;
@@ -176,7 +174,6 @@
             z-index: 2;
         }
 
-        /* تنسيقات النافذة المنبثقة Modal */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -273,6 +270,18 @@
             color: var(--primary-glow);
         }
 
+        /* شارات الحالة */
+        .status-badge {
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        .badge-upcoming { background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.4); }
+        .badge-active { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); }
+        .badge-expired { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); }
+
         .footer {
             margin-top: auto;
             padding: 30px;
@@ -284,7 +293,6 @@
 </head>
 <body>
 
-<!-- زر الوضع الليلي/النهاري -->
 <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="تبديل الوضع">
     <i class="fas fa-moon" id="themeIcon"></i>
 </button>
@@ -296,7 +304,6 @@
 
 <div class="container">
 
-    <!-- قسم الكفاية النحوية -->
     <div class="card" onclick="openModal('grammar-modal')">
         <div class="icon-box icon-grammar">
             <i class="fas fa-book-open"></i>
@@ -305,7 +312,6 @@
         <p>اضغط لاستعراض كافة نماذج وتدريبات النحو والإعراب.</p>
     </div>
 
-    <!-- قسم الكفاية الإملائية -->
     <div class="card" onclick="openModal('spelling-modal')">
         <div class="icon-box icon-spelling">
             <i class="fas fa-pen-nib"></i>
@@ -314,7 +320,6 @@
         <p>اضغط لاستعراض تمارين علامات الترقيم والأعراف الإملائية.</p>
     </div>
 
-    <!-- قسم الكفاية القرائية -->
     <div class="card" onclick="openModal('reading-modal')">
         <div class="icon-box icon-reading">
             <i class="fas fa-brain"></i>
@@ -323,7 +328,6 @@
         <p>اضغط لاستعراض نماذج الفهم القرائي والقراءة التحليلية.</p>
     </div>
 
-    <!-- قسم الكفاية الكتابية -->
     <div class="card" onclick="openModal('writing-modal')">
         <div class="icon-box icon-writing">
             <i class="fas fa-file-alt"></i>
@@ -332,7 +336,6 @@
         <p>اضغط لاستعراض تطبيقات مهارات التعبير والكتابة.</p>
     </div>
 
-    <!-- قسم الاختبارات الشاملة -->
     <div class="card" onclick="openModal('exam-modal')">
         <div class="icon-box icon-exam">
             <i class="fas fa-tasks"></i>
@@ -343,7 +346,7 @@
 
 </div>
 
-<!-- ==================== النوافذ المنبثقة (Modals) ==================== -->
+<!-- ==================== النوافذ المنبثقة ==================== -->
 
 <!-- نافذة النحو -->
 <div id="grammar-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'grammar-modal')">
@@ -358,8 +361,8 @@
                data-start="2026-08-13T20:00" 
                data-end="2026-08-18T23:59" 
                onclick="handleLinkClick(this)">
-                <span><i class="fas fa-clock"></i> نموذج (1): الجملة الاسمية (مجدول)</span>
-                <i class="fas fa-lock"></i>
+                <span><i class="fas fa-file-signature"></i> نموذج (1): الجملة الاسمية</span>
+                <span class="status-box"></span>
             </a>
 
             <a class="model-link" 
@@ -367,8 +370,8 @@
                data-start="2026-09-13T20:00" 
                data-end="2026-09-18T23:59" 
                onclick="handleLinkClick(this)">
-                <span><i class="fas fa-clock"></i> نموذج (2): الجملة الفعلية (مجدول)</span>
-                <i class="fas fa-lock"></i>
+                <span><i class="fas fa-file-signature"></i> نموذج (2): الجملة الفعلية</span>
+                <span class="status-box"></span>
             </a>
 
             <a class="model-link" 
@@ -376,8 +379,8 @@
                data-start="2026-08-13T20:00" 
                data-end="2026-08-15T23:59" 
                onclick="handleLinkClick(this)">
-                <span><i class="fas fa-clock"></i> نموذج (3): الفاعل ونائب الفاعل (مجدول)</span>
-                <i class="fas fa-lock"></i>
+                <span><i class="fas fa-file-signature"></i> نموذج (3): الفاعل ونائب الفاعل</span>
+                <span class="status-box"></span>
             </a>
         </div>
     </div>
@@ -391,15 +394,17 @@
             <button class="close-btn" onclick="closeModal('spelling-modal')">&times;</button>
         </div>
         <div class="links-list">
-            <a class="model-link" data-url="ضع_رابط_نموذج_1_هنا" data-start="" data-end="" onclick="handleLinkClick(this)">
+            <a class="model-link" 
+               data-url="ضع_الرابط_هنا" 
+               data-start="2026-09-15T08:00" 
+               data-end="2026-09-20T23:59" 
+               onclick="handleLinkClick(this)">
                 <span><i class="fas fa-file-signature"></i> نموذج (1): علامات الترقيم والأعراف</span>
-                <i class="fas fa-external-link-alt"></i>
+                <span class="status-box"></span>
             </a>
         </div>
     </div>
 </div>
-
-<!-- باقي النوافذ بنفس المبدأ... -->
 
 <div class="footer">
     إعداد وتنفيذ: أ. عبدالعزيز الفيفي - ثانوية الأمير عبدالمجيد 😉 &copy; 2026
@@ -408,6 +413,7 @@
 <script>
     function openModal(modalId) {
         document.getElementById(modalId).classList.add('active');
+        updateAllBadges();
     }
 
     function closeModal(modalId) {
@@ -420,7 +426,7 @@
         }
     }
 
-    // دالة التحقق من تاريخ ووقت فتح النموذج
+    // دالة فتح وتدقيق حالة الموعد
     function handleLinkClick(element) {
         const url = element.getAttribute('data-url');
         const startTimeStr = element.getAttribute('data-start');
@@ -430,7 +436,7 @@
         if (startTimeStr) {
             const startTime = new Date(startTimeStr);
             if (now < startTime) {
-                alert(`سوف يتاح هذا النموذج بتاريخ:\n${startTime.toLocaleString('ar-SA')}`);
+                alert(`سيكون هذا النموذج متاحاً قريباً بإذن الله ⏳\nموعد الفتح: ${startTime.toLocaleString('ar-SA')}`);
                 return;
             }
         }
@@ -438,7 +444,7 @@
         if (endTimeStr) {
             const endTime = new Date(endTimeStr);
             if (now > endTime) {
-                alert('انتهى موعد تقديم هذا النموذج ومغلق حالياً.');
+                alert('عذراً، انتهت الفترة المحددة لتقديم هذا النموذج وهومغلق حالياً 🔒');
                 return;
             }
         }
@@ -446,7 +452,28 @@
         window.open(url, '_blank');
     }
 
-    // دالة التحكم في الوضع الليلي والنهاري
+    // تحديث الأيقونات والشارات ديناميكياً بحسب الوقت الحالي
+    function updateAllBadges() {
+        const links = document.querySelectorAll('.model-link');
+        const now = new Date();
+
+        links.forEach(link => {
+            const startStr = link.getAttribute('data-start');
+            const endStr = link.getAttribute('data-end');
+            const statusBox = link.querySelector('.status-box');
+            
+            if (!statusBox) return;
+
+            if (startStr && new Date(startStr) > now) {
+                statusBox.innerHTML = `<span class="status-badge badge-upcoming">قريباً ⏳</span><i class="fas fa-lock"></i>`;
+            } else if (endStr && new Date(endStr) < now) {
+                statusBox.innerHTML = `<span class="status-badge badge-expired">مغلق 🔒</span><i class="fas fa-times-circle"></i>`;
+            } else {
+                statusBox.innerHTML = `<span class="status-badge badge-active">متاح الآن 🟢</span><i class="fas fa-external-link-alt"></i>`;
+            }
+        });
+    }
+
     function toggleTheme() {
         const currentTheme = document.documentElement.getAttribute('data-theme');
         const newTheme = currentTheme === 'light' ? 'dark' : 'light';
@@ -466,11 +493,11 @@
         }
     }
 
-    // استعادة الوضع المفصل عند فتح الصفحة
     (function initTheme() {
         const savedTheme = localStorage.getItem('theme') || 'dark';
         document.documentElement.setAttribute('data-theme', savedTheme);
         updateThemeIcon(savedTheme);
+        updateAllBadges();
     })();
 </script>
 
