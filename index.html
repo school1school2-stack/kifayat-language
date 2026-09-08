@@ -271,7 +271,6 @@
             color: var(--primary-glow);
         }
 
-        /* أزرار معاينة وتحميل ملفات PDF */
         .pdf-item {
             display: flex;
             align-items: center;
@@ -324,7 +323,6 @@
             color: #000;
         }
 
-        /* شارات الحالة */
         .status-badge {
             font-size: 0.8rem;
             padding: 4px 10px;
@@ -398,7 +396,6 @@
         <p>اضغط لاستعراض نماذج الاختبارات المحاكية الشاملة.</p>
     </div>
 
-    <!-- قسم أوراق العمل والملفات -->
     <div class="card" onclick="openModal('pdf-modal')">
         <div class="icon-box icon-pdf">
             <i class="fas fa-file-pdf"></i>
@@ -411,7 +408,6 @@
 
 <!-- ==================== النوافذ المنبثقة ==================== -->
 
-<!-- نافذة أوراق العمل PDF -->
 <div id="pdf-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'pdf-modal')">
     <div class="modal-content">
         <div class="modal-header">
@@ -420,39 +416,22 @@
         </div>
         <div class="links-list">
 
-            <!-- ملف 1 (المرفوع حالياً) -->
             <div class="pdf-item">
                 <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> حالات الفعل المضارع</span>
                 <div class="pdf-actions">
-                    <a href="حالات الفعل المضارع.pdf" class="btn-action btn-view" target="_blank">
+                    <a href="%D8%AD%D8%A7%D9%84%D8%A7%D8%AA%20%D8%A7%D9%84%D9%81%D8%B9%D9%84%20%D8%A7%D9%84%D9%85%D8%B6%D8%A7%D8%B1%D8%B9.pdf" class="btn-action btn-view" target="_blank">
                         <i class="fas fa-eye"></i> معاينة
                     </a>
-                    <a href="حالات الفعل المضارع.pdf" class="btn-action btn-download" download>
+                    <a href="%D8%AD%D8%A7%D9%84%D8%A7%D8%AA%20%D8%A7%D9%84%D9%81%D8%B9%D9%84%20%D8%A7%D9%84%D9%85%D8%B6%D8%A7%D8%B1%D8%B9.pdf" class="btn-action btn-download" download="حالات_الفعل_المضارع.pdf">
                         <i class="fas fa-download"></i> تحميل
                     </a>
                 </div>
             </div>
-
-            <!-- نموذج لإضافة ملف جديد مستقبلاً (انسخ هذا الجزء عند رفع ملف جديد) -->
-            <!--
-            <div class="pdf-item">
-                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> اسم_الملف_الجديد</span>
-                <div class="pdf-actions">
-                    <a href="اسم_الملف_في_جيت_هاب.pdf" class="btn-action btn-view" target="_blank">
-                        <i class="fas fa-eye"></i> معاينة
-                    </a>
-                    <a href="اسم_الملف_في_جيت_هاب.pdf" class="btn-action btn-download" download>
-                        <i class="fas fa-download"></i> تحميل
-                    </a>
-                </div>
-            </div>
-            -->
 
         </div>
     </div>
 </div>
 
-<!-- نافذة النحو -->
 <div id="grammar-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'grammar-modal')">
     <div class="modal-content">
         <div class="modal-header">
@@ -490,7 +469,6 @@
     </div>
 </div>
 
-<!-- نافذة الإملاء -->
 <div id="spelling-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'spelling-modal')">
     <div class="modal-content">
         <div class="modal-header">
