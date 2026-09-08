@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة الكفايات اللغوية | أ. عبدالعزيز الفيفي ثانوية الأمير عبدالمجيد 😉</title>
+    <title>بوابة الكفايات اللغوية | أ. عبدالعزيز الفيفي ثانوية الأمير عبدالمجيد 😉</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -64,7 +64,7 @@
             border-radius: 25px;
             padding: 35px 20px;
             text-align: center;
-            text-decoration: none;
+            cursor: pointer;
             transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
             position: relative;
             overflow: hidden;
@@ -105,7 +105,6 @@
             z-index: 2;
         }
 
-        /* تدرجات ألوان للنماذج والوحدات */
         .icon-grammar { background: linear-gradient(135deg, #38bdf8, #1e40af); box-shadow: 0 10px 20px rgba(56, 189, 248, 0.3); }
         .icon-spelling { background: linear-gradient(135deg, #f59e0b, #d97706); box-shadow: 0 10px 20px rgba(245, 158, 11, 0.3); }
         .icon-reading { background: linear-gradient(135deg, #10b981, #064e3b); box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3); }
@@ -132,6 +131,102 @@
             z-index: 2;
         }
 
+        /* تنسيقات النافذة المنبثقة Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 8, 16, 0.85);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: #111827;
+            border: 1px solid var(--border-glass);
+            border-radius: 25px;
+            width: 90%;
+            max-width: 600px;
+            padding: 30px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            position: relative;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-glass);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.6rem;
+            color: var(--primary-glow);
+        }
+
+        .close-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .close-btn:hover {
+            color: #fff;
+        }
+
+        .links-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .model-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-glass);
+            border-radius: 15px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .model-link:hover {
+            background: rgba(56, 189, 248, 0.15);
+            border-color: var(--primary-glow);
+            transform: translateX(-5px);
+        }
+
+        .model-link i {
+            color: var(--primary-glow);
+        }
+
         .footer {
             margin-top: auto;
             padding: 30px;
@@ -144,62 +239,180 @@
 <body>
 
 <header>
-    <h1>منصة الكفايات اللغوية</h1>
+    <h1>بوابة الكفايات اللغوية</h1>
     <p>مرجع التدريبات والتطبيقات التفاعلية - أ. عبدالعزيز الفيفي ثانوية الأمير عبدالمجيد 😉</p>
 </header>
 
 <div class="container">
 
-    <!--  ( الجملة الاسمية )نموذج 1: الكفاية النحوية -->
-    <a href="https://school1school2-stack.github.io/ALgamlh1/" class="card" target="_blank">
+    <!-- قسم الكفاية النحوية -->
+    <div class="card" onclick="openModal('grammar-modal')">
         <div class="icon-box icon-grammar">
             <i class="fas fa-book-open"></i>
         </div>
         <h3>الكفاية النحوية</h3>
-        <p>تدريبات شاملة على التطبيقات النحوية، الإعراب، والجملة الأساسية ومكملاتهاوالجملة الفعلية والأساليب النحوية الشاملة.</p>
-    </a>
+        <p>اضغط لاستعراض كافة نماذج وتدريبات النحو والإعراب.</p>
+    </div>
 
-    <!-- نموذج 2: الكفاية الإملائية -->
-    <a href="ضع_رابط_التدريب_هنا" class="card" target="_blank">
+    <!-- قسم الكفاية الإملائية -->
+    <div class="card" onclick="openModal('spelling-modal')">
         <div class="icon-box icon-spelling">
             <i class="fas fa-pen-nib"></i>
         </div>
         <h3>الكفاية الإملائية</h3>
-        <p>تمارين على علامات الترقيم، أعراف الكتابة، وعلامات الحذف والوصل.</p>
-    </a>
+        <p>اضغط لاستعراض تمارين علامات الترقيم والأعراف الإملائية.</p>
+    </div>
 
-    <!-- نموذج 3: الكفاية القرائية -->
-    <a href="ضع_رابط_التدريب_هنا" class="card" target="_blank">
+    <!-- قسم الكفاية القرائية -->
+    <div class="card" onclick="openModal('reading-modal')">
         <div class="icon-box icon-reading">
             <i class="fas fa-brain"></i>
         </div>
         <h3>الكفاية القرائية</h3>
-        <p>اختبارات تفاعلية لقياس الفهم القرائي والتحليلي ومستويات القراءة.</p>
-    </a>
+        <p>اضغط لاستعراض نماذج الفهم القرائي والقراءة التحليلية.</p>
+    </div>
 
-    <!-- نموذج 4: الكفاية الكتابية -->
-    <a href="ضع_رابط_التدريب_هنا" class="card" target="_blank">
+    <!-- قسم الكفاية الكتابية -->
+    <div class="card" onclick="openModal('writing-modal')">
         <div class="icon-box icon-writing">
             <i class="fas fa-file-alt"></i>
         </div>
         <h3>الكفاية الكتابية</h3>
-        <p>نماذج وتدريبات على مهارات التعبير والكتابة الأدبية والوظيفية.</p>
-    </a>
+        <p>اضغط لاستعراض تطبيقات مهارات التعبير والكتابة.</p>
+    </div>
 
-    <!-- نموذج 5: نماذج الاختبارات الشاملة -->
-    <a href="ضع_رابط_التدريب_هنا" class="card" target="_blank">
+    <!-- قسم الاختبارات الشاملة -->
+    <div class="card" onclick="openModal('exam-modal')">
         <div class="icon-box icon-exam">
             <i class="fas fa-tasks"></i>
         </div>
         <h3>اختبارات تجريبية شاملة</h3>
-        <p>نماذج اختبارات محاكية تقيس جميع الكفايات اللغوية لتهيئتك للتميز.</p>
-    </a>
+        <p>اضغط لاستعراض نماذج الاختبارات المحاكية الشاملة.</p>
+    </div>
 
+</div>
+
+<!-- ==================== النوافذ المنبثقة (Modals) ==================== -->
+
+<!-- نافذة النحو -->
+<div id="grammar-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'grammar-modal')">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>نماذج الكفاية النحوية</h2>
+            <button class="close-btn" onclick="closeModal('grammar-modal')">&times;</button>
+        </div>
+        <div class="links-list">
+            <a href="ضع_رابط_نموذج_1_هنا" class="model-link" target="_blank">
+                <span><i class="fas fa-file-signature"></i> نموذج (1): الجملة الاسمية ونواسخها</span>
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+            <a href="ضع_رابط_نموذج_2_هنا" class="model-link" target="_blank">
+                <span><i class="fas fa-file-signature"></i> نموذج (2): المتممات المنصوبة والمجرورة</span>
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+            <a href="ضع_رابط_نموذج_3_هنا" class="model-link" target="_blank">
+                <span><i class="fas fa-file-signature"></i> نموذج (3): تدريبات إعرابية تفاعلية</span>
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- نافذة الإملاء -->
+<div id="spelling-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'spelling-modal')">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>نماذج الكفاية الإملائية</h2>
+            <button class="close-btn" onclick="closeModal('spelling-modal')">&times;</button>
+        </div>
+        <div class="links-list">
+            <a href="ضع_رابط_نموذج_1_هنا" class="model-link" target="_blank">
+                <span><i class="fas fa-file-signature"></i> نموذج (1): علامات الترقيم وأعراف الكتابة</span>
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+            <a href="ضع_رابط_نموذج_2_هنا" class="model-link" target="_blank">
+                <span><i class="fas fa-file-signature"></i> نموذج (2): الهمزات والوصل والقطع</span>
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- نافذة القراءة -->
+<div id="reading-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'reading-modal')">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>نماذج الكفاية القرائية</h2>
+            <button class="close-btn" onclick="closeModal('reading-modal')">&times;</button>
+        </div>
+        <div class="links-list">
+            <a href="ضع_رابط_نموذج_1_هنا" class="model-link" target="_blank">
+                <span><i class="fas fa-file-signature"></i> نموذج (1): مستويات الفهم القرائي</span>
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+            <a href="ضع_رابط_نموذج_2_هنا" class="model-link" target="_blank">
+                <span><i class="fas fa-file-signature"></i> نموذج (2): تحليلات النصوص الأدبية</span>
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- نافذة الكتابة -->
+<div id="writing-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'writing-modal')">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>نماذج الكفاية الكتابية</h2>
+            <button class="close-btn" onclick="closeModal('writing-modal')">&times;</button>
+        </div>
+        <div class="links-list">
+            <a href="ضع_رابط_نموذج_1_هنا" class="model-link" target="_blank">
+                <span><i class="fas fa-file-signature"></i> نموذج (1): مهام الكتابة الوظيفية</span>
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- نافذة الاختبارات -->
+<div id="exam-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'exam-modal')">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>نماذج الاختبارات الشاملة</h2>
+            <button class="close-btn" onclick="closeModal('exam-modal')">&times;</button>
+        </div>
+        <div class="links-list">
+            <a href="ضع_رابط_نموذج_1_هنا" class="model-link" target="_blank">
+                <span><i class="fas fa-file-signature"></i> الاختبار الشامل الأول</span>
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+            <a href="ضع_رابط_نموذج_2_هنا" class="model-link" target="_blank">
+                <span><i class="fas fa-file-signature"></i> الاختبار الشامل الثاني</span>
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+        </div>
+    </div>
 </div>
 
 <div class="footer">
     إعداد وتنفيذ: أ. عبدالعزيز الفيفي - ثانوية الأمير عبدالمجيد 😉 &copy; 2026
 </div>
+
+<script>
+    function openModal(modalId) {
+        document.getElementById(modalId).classList.add('active');
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).classList.remove('active');
+    }
+
+    function closeModalOnOuterClick(event, modalId) {
+        if (event.target.id === modalId) {
+            closeModal(modalId);
+        }
+    }
+</script>
 
 </body>
 </html>
