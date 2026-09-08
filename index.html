@@ -215,6 +215,7 @@
             color: #fff;
             text-decoration: none;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .model-link:hover {
@@ -302,20 +303,32 @@
             <button class="close-btn" onclick="closeModal('grammar-modal')">&times;</button>
         </div>
         <div class="links-list">
-            <a href="https://school1school2-stack.github.io/ALgamlh1/" class="model-link" target="_blank">
+            <!-- مثال: نموذج متاح دائماً بدون وقت (اترك data-start و data-end فارغة) -->
+            <a class="model-link" 
+               data-url="https://school1school2-stack.github.io/ALgamlh1/" 
+               data-start="" 
+               data-end="" 
+               onclick="handleLinkClick(this)">
                 <span><i class="fas fa-file-signature"></i> نموذج (1): الجملة الاسمية ونواسخها</span>
                 <i class="fas fa-external-link-alt"></i>
             </a>
-            <a href="https://school1school2-stack.github.io/almtara/" class="model-link" target="_blank">
-                <span><i class="fas fa-file-signature"></i> نموذج (2): الجملة الفعلية (الفعل المضارع)</span>
-                <i class="fas fa-external-link-alt"></i>
+
+            <!-- مثال: نموذج محدد ببوقت بداية ونهاية (صيغة الوقت: YYYY-MM-DDTHH:MM) -->
+            <a class="model-link" 
+               data-url="https://school1school2-stack.github.io/almtara/" 
+               data-start="2026-09-10T08:00" 
+               data-end="2026-09-15T23:59" 
+               onclick="handleLinkClick(this)">
+                <span><i class="fas fa-clock"></i> نموذج (2): الجملة الفعلية (مجدول)</span>
+                <i class="fas fa-lock"></i>
             </a>
-            <a href="ضع_رابط_نموذج_2_هنا" class="model-link" target="_blank">
+
+            <a class="model-link" 
+               data-url="ضع_رابط_نموذج_3_هنا" 
+               data-start="" 
+               data-end="" 
+               onclick="handleLinkClick(this)">
                 <span><i class="fas fa-file-signature"></i> نموذج (3): الفاعل ونائب الفاعل</span>
-                <i class="fas fa-external-link-alt"></i>
-            </a>
-            <a href="ضع_رابط_نموذج_3_هنا" class="model-link" target="_blank">
-                <span><i class="fas fa-file-signature"></i> نموذج (4): تدريبات إعرابية تفاعلية</span>
                 <i class="fas fa-external-link-alt"></i>
             </a>
         </div>
@@ -330,73 +343,15 @@
             <button class="close-btn" onclick="closeModal('spelling-modal')">&times;</button>
         </div>
         <div class="links-list">
-            <a href="ضع_رابط_نموذج_1_هنا" class="model-link" target="_blank">
-                <span><i class="fas fa-file-signature"></i> نموذج (1): علامات الترقيم وأعراف الكتابة</span>
-                <i class="fas fa-external-link-alt"></i>
-            </a>
-            <a href="ضع_رابط_نموذج_2_هنا" class="model-link" target="_blank">
-                <span><i class="fas fa-file-signature"></i> نموذج (2): الهمزات والوصل والقطع</span>
+            <a class="model-link" data-url="ضع_رابط_نموذج_1_هنا" data-start="" data-end="" onclick="handleLinkClick(this)">
+                <span><i class="fas fa-file-signature"></i> نموذج (1): علامات الترقيم والأعراف</span>
                 <i class="fas fa-external-link-alt"></i>
             </a>
         </div>
     </div>
 </div>
 
-<!-- نافذة القراءة -->
-<div id="reading-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'reading-modal')">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>نماذج الكفاية القرائية</h2>
-            <button class="close-btn" onclick="closeModal('reading-modal')">&times;</button>
-        </div>
-        <div class="links-list">
-            <a href="ضع_رابط_نموذج_1_هنا" class="model-link" target="_blank">
-                <span><i class="fas fa-file-signature"></i> نموذج (1): مستويات الفهم القرائي</span>
-                <i class="fas fa-external-link-alt"></i>
-            </a>
-            <a href="ضع_رابط_نموذج_2_هنا" class="model-link" target="_blank">
-                <span><i class="fas fa-file-signature"></i> نموذج (2): تحليلات النصوص الأدبية</span>
-                <i class="fas fa-external-link-alt"></i>
-            </a>
-        </div>
-    </div>
-</div>
-
-<!-- نافذة الكتابة -->
-<div id="writing-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'writing-modal')">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>نماذج الكفاية الكتابية</h2>
-            <button class="close-btn" onclick="closeModal('writing-modal')">&times;</button>
-        </div>
-        <div class="links-list">
-            <a href="ضع_رابط_نموذج_1_هنا" class="model-link" target="_blank">
-                <span><i class="fas fa-file-signature"></i> نموذج (1): مهام الكتابة الوظيفية</span>
-                <i class="fas fa-external-link-alt"></i>
-            </a>
-        </div>
-    </div>
-</div>
-
-<!-- نافذة الاختبارات -->
-<div id="exam-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'exam-modal')">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>نماذج الاختبارات الشاملة</h2>
-            <button class="close-btn" onclick="closeModal('exam-modal')">&times;</button>
-        </div>
-        <div class="links-list">
-            <a href="ضع_رابط_نموذج_1_هنا" class="model-link" target="_blank">
-                <span><i class="fas fa-file-signature"></i> الاختبار الشامل الأول</span>
-                <i class="fas fa-external-link-alt"></i>
-            </a>
-            <a href="ضع_رابط_نموذج_2_هنا" class="model-link" target="_blank">
-                <span><i class="fas fa-file-signature"></i> الاختبار الشامل الثاني</span>
-                <i class="fas fa-external-link-alt"></i>
-            </a>
-        </div>
-    </div>
-</div>
+<!-- باقي النوافذ تفعل بنفس الطريقة... -->
 
 <div class="footer">
     إعداد وتنفيذ: أ. عبدالعزيز الفيفي - ثانوية الأمير عبدالمجيد 😉 &copy; 2026
@@ -415,6 +370,33 @@
         if (event.target.id === modalId) {
             closeModal(modalId);
         }
+    }
+
+    // دالة التحقق من تاريخ ووقت فتح النموذج
+    function handleLinkClick(element) {
+        const url = element.getAttribute('data-url');
+        const startTimeStr = element.getAttribute('data-start');
+        const endTimeStr = element.getAttribute('data-end');
+        const now = new Date();
+
+        if (startTimeStr) {
+            const startTime = new Date(startTimeStr);
+            if (now < startTime) {
+                alert(`سوف يتاح هذا النموذج بتاريخ:\n${startTime.toLocaleString('ar-SA')}`);
+                return;
+            }
+        }
+
+        if (endTimeStr) {
+            const endTime = new Date(endTimeStr);
+            if (now > endTime) {
+                alert('انتهى موعد تقديم هذا النموذج مغلق حالياً.');
+                return;
+            }
+        }
+
+        // إذا كان الوقت مناسباً يفتح الرابط في نافذة جديدة
+        window.open(url, '_blank');
     }
 </script>
 
