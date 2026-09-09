@@ -94,7 +94,7 @@
             font-weight: 700;
         }
 
-        /* الشريط الإعلاني التفاعلي القابل للنقر */
+        /* المربع الإعلاني المزود بتأثير الحجم والتوهج المستمر */
         .announcement-banner {
             width: 90%;
             max-width: 1200px;
@@ -103,27 +103,29 @@
             border-radius: 20px;
             padding: 20px 25px;
             margin-bottom: 35px;
-            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.25);
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 15px;
             box-sizing: border-box;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            animation: pulse-border 2s infinite alternate;
+            animation: pulse-attention 1.8s infinite ease-in-out;
         }
 
-        .announcement-banner:hover {
-            transform: translateY(-5px) scale(1.01);
-            box-shadow: 0 15px 35px rgba(56, 189, 248, 0.5);
-            border-color: #ffffff;
-        }
-
-        @keyframes pulse-border {
-            0% { box-shadow: 0 0 15px rgba(56, 189, 248, 0.2); }
-            100% { box-shadow: 0 0 30px rgba(56, 189, 248, 0.6); }
+        /* الحركة التنبيهية: تكبير وتصغير مع توهج ملفت */
+        @keyframes pulse-attention {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+            }
+            50% {
+                transform: scale(1.025);
+                box-shadow: 0 0 35px rgba(56, 189, 248, 0.8), 0 0 10px rgba(250, 204, 21, 0.5);
+                border-color: #facc15;
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+            }
         }
 
         .announcement-content {
@@ -156,17 +158,6 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
-        .announcement-arrow {
-            font-size: 1.4rem;
-            color: #ffffff;
-            margin-right: 10px;
-            transition: transform 0.3s ease;
-        }
-
-        .announcement-banner:hover .announcement-arrow {
-            transform: translateX(-8px);
-        }
-
         .close-banner-btn {
             background: rgba(255, 255, 255, 0.2);
             border: none;
@@ -181,7 +172,6 @@
             justify-content: center;
             transition: 0.3s;
             flex-shrink: 0;
-            z-index: 10;
         }
 
         .close-banner-btn:hover {
@@ -451,17 +441,16 @@
     <p>مرجع التدريبات والتطبيقات التفاعلية اللغوية 📚 - أ. عبدالعزيز الفيفي ثانوية الأمير عبدالمجيد 🎓</p>
 </header>
 
-<!-- الشريط الإعلاني الرئيسي (قابل للنقر كـ كامل) -->
-<a href="https://school1school2-stack.github.io/ALgamlh1/" target="_blank" class="announcement-banner" id="announcementBanner">
+<!-- المربع الإعلاني المزود بالحركة النابضة والتكبير والتصغير -->
+<div class="announcement-banner" id="announcementBanner">
     <div class="announcement-content">
         <i class="fas fa-bullhorn announcement-icon"></i>
         <p class="announcement-text">
             📢 تنبيه هام للطلاب: تم إضافة أوراق عمل جديدة واختبار الجملة الفعلية والجملة الاسمية متاح الآن للتطبيق!
         </p>
-        <i class="fas fa-arrow-left announcement-arrow"></i>
     </div>
-    <button class="close-banner-btn" onclick="closeBanner(event)" title="إغلاق الإعلان">&times;</button>
-</a>
+    <button class="close-banner-btn" onclick="closeBanner()" title="إغلاق الإعلان">&times;</button>
+</div>
 
 <div class="container">
 
@@ -660,9 +649,7 @@
         }
     }
 
-    function closeBanner(event) {
-        event.preventDefault(); // منع فتح الرابط عند النقر على إغلاق
-        event.stopPropagation();
+    function closeBanner() {
         document.getElementById('announcementBanner').style.display = 'none';
     }
 
