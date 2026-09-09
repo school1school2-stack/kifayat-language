@@ -74,7 +74,7 @@
 
         header {
             text-align: center;
-            padding: 60px 20px 20px;
+            padding: 50px 20px 15px;
         }
 
         header h1 {
@@ -94,7 +94,46 @@
             font-weight: 700;
         }
 
-        /* المربع الإعلاني المزود بتأثير الحجم والتوهج المستمر */
+        /* شريط الإنجاز الشخصي */
+        .progress-section {
+            width: 90%;
+            max-width: 1200px;
+            background: var(--card-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 15px 25px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            box-sizing: border-box;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #10b981, #38bdf8);
+            border-radius: 10px;
+            transition: width 0.5s ease-in-out;
+        }
+
+        /* المربع الإعلاني */
         .announcement-banner {
             width: 90%;
             max-width: 1200px;
@@ -111,21 +150,10 @@
             animation: pulse-attention 1.8s infinite ease-in-out;
         }
 
-        /* الحركة التنبيهية: تكبير وتصغير مع توهج ملفت */
         @keyframes pulse-attention {
-            0% {
-                transform: scale(1);
-                box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
-            }
-            50% {
-                transform: scale(1.025);
-                box-shadow: 0 0 35px rgba(56, 189, 248, 0.8), 0 0 10px rgba(250, 204, 21, 0.5);
-                border-color: #facc15;
-            }
-            100% {
-                transform: scale(1);
-                box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
-            }
+            0% { transform: scale(1); box-shadow: 0 0 15px rgba(56, 189, 248, 0.3); }
+            50% { transform: scale(1.025); box-shadow: 0 0 35px rgba(56, 189, 248, 0.8), 0 0 10px rgba(250, 204, 21, 0.5); border-color: #facc15; }
+            100% { transform: scale(1); box-shadow: 0 0 15px rgba(56, 189, 248, 0.3); }
         }
 
         .announcement-content {
@@ -174,10 +202,7 @@
             flex-shrink: 0;
         }
 
-        .close-banner-btn:hover {
-            background: rgba(255, 255, 255, 0.4);
-            transform: scale(1.1);
-        }
+        .close-banner-btn:hover { background: rgba(255, 255, 255, 0.4); transform: scale(1.1); }
 
         .container {
             max-width: 1200px;
@@ -216,9 +241,7 @@
             box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.2);
         }
 
-        .card:hover::before {
-            opacity: 1;
-        }
+        .card:hover::before { opacity: 1; }
 
         .icon-box {
             width: 85px;
@@ -241,10 +264,9 @@
         .icon-writing { background: linear-gradient(135deg, #8b5cf6, #4c1d95); box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3); }
         .icon-exam { background: linear-gradient(135deg, #ef4444, #991b1b); box-shadow: 0 10px 20px rgba(239, 68, 68, 0.3); }
         .icon-pdf { background: linear-gradient(135deg, #ec4899, #be185d); box-shadow: 0 10px 20px rgba(236, 72, 153, 0.3); }
+        .icon-flashcards { background: linear-gradient(135deg, #a855f7, #6b21a8); box-shadow: 0 10px 20px rgba(168, 85, 247, 0.3); }
 
-        .card:hover .icon-box {
-            transform: rotateY(360deg);
-        }
+        .card:hover .icon-box { transform: rotateY(360deg); }
 
         .card h3 {
             font-size: 1.5rem;
@@ -276,10 +298,7 @@
             z-index: 1000;
         }
 
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
 
         .modal-content {
             background: var(--modal-bg);
@@ -296,9 +315,7 @@
             overflow-y: auto;
         }
 
-        .modal-overlay.active .modal-content {
-            transform: scale(1);
-        }
+        .modal-overlay.active .modal-content { transform: scale(1); }
 
         .modal-header {
             display: flex;
@@ -309,11 +326,7 @@
             margin-bottom: 20px;
         }
 
-        .modal-header h2 {
-            margin: 0;
-            font-size: 1.6rem;
-            color: var(--primary-glow);
-        }
+        .modal-header h2 { margin: 0; font-size: 1.6rem; color: var(--primary-glow); }
 
         .close-btn {
             background: transparent;
@@ -324,15 +337,9 @@
             transition: 0.2s;
         }
 
-        .close-btn:hover {
-            color: var(--text-main);
-        }
+        .close-btn:hover { color: var(--text-main); }
 
-        .links-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        .links-list { display: flex; flex-direction: column; gap: 12px; }
 
         .model-link {
             display: flex;
@@ -346,6 +353,8 @@
             text-decoration: none;
             transition: all 0.3s ease;
             cursor: pointer;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .model-link:hover {
@@ -354,8 +363,20 @@
             transform: translateX(-5px);
         }
 
-        .model-link i {
-            color: var(--primary-glow);
+        .model-link i { color: var(--primary-glow); }
+
+        /* العداد التنازلي المدمج للروابط */
+        .countdown-timer {
+            font-size: 0.82rem;
+            font-weight: bold;
+            color: #facc15;
+            background: rgba(250, 204, 21, 0.15);
+            padding: 4px 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(250, 204, 21, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .pdf-item {
@@ -371,10 +392,7 @@
             gap: 10px;
         }
 
-        .pdf-actions {
-            display: flex;
-            gap: 10px;
-        }
+        .pdf-actions { display: flex; gap: 10px; }
 
         .btn-action {
             padding: 8px 14px;
@@ -388,27 +406,11 @@
             transition: 0.3s ease;
         }
 
-        .btn-view {
-            background: rgba(56, 189, 248, 0.2);
-            color: #38bdf8;
-            border: 1px solid rgba(56, 189, 248, 0.4);
-        }
+        .btn-view { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
+        .btn-view:hover { background: #38bdf8; color: #000; }
 
-        .btn-view:hover {
-            background: #38bdf8;
-            color: #000;
-        }
-
-        .btn-download {
-            background: rgba(16, 185, 129, 0.2);
-            color: #10b981;
-            border: 1px solid rgba(16, 185, 129, 0.4);
-        }
-
-        .btn-download:hover {
-            background: #10b981;
-            color: #000;
-        }
+        .btn-download { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); }
+        .btn-download:hover { background: #10b981; color: #000; }
 
         .status-badge {
             font-size: 0.8rem;
@@ -420,6 +422,61 @@
         .badge-upcoming { background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.4); }
         .badge-active { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); }
         .badge-expired { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); }
+
+        /* بطاقات الاستذكار السريع (Flashcards) */
+        .flashcards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+        }
+
+        .flashcard {
+            background-color: transparent;
+            height: 140px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            box-sizing: border-box;
+            border: 1px solid var(--border-glass);
+            font-weight: bold;
+        }
+
+        .flashcard-front {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(30, 64, 175, 0.4));
+            color: #ffffff;
+            font-size: 1.1rem;
+        }
+
+        .flashcard-back {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(6, 78, 59, 0.6));
+            color: #ffffff;
+            transform: rotateY(180deg);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
 
         .footer {
             margin-top: auto;
@@ -441,7 +498,18 @@
     <p>مرجع التدريبات والتطبيقات التفاعلية اللغوية 📚 - أ. عبدالعزيز الفيفي ثانوية الأمير عبدالمجيد 🎓</p>
 </header>
 
-<!-- المربع الإعلاني المزود بالحركة النابضة والتكبير والتصغير -->
+<!-- شريط الإنجاز الشخصي للطالب -->
+<div class="progress-section">
+    <div class="progress-header">
+        <span><i class="fas fa-chart-line" style="color: #10b981;"></i> نسبة إنجازك في البوابة:</span>
+        <span id="progressText">0% (0 من 7 مكتمل)</span>
+    </div>
+    <div class="progress-bar-container">
+        <div class="progress-bar-fill" id="progressBarFill"></div>
+    </div>
+</div>
+
+<!-- المربع الإعلاني -->
 <div class="announcement-banner" id="announcementBanner">
     <div class="announcement-content">
         <i class="fas fa-bullhorn announcement-icon"></i>
@@ -455,56 +523,91 @@
 <div class="container">
 
     <div class="card" onclick="openModal('grammar-modal')">
-        <div class="icon-box icon-grammar">
-            <i class="fas fa-book-open"></i>
-        </div>
+        <div class="icon-box icon-grammar"><i class="fas fa-book-open"></i></div>
         <h3>الكفاية النحوية</h3>
         <p>اضغط لاستعراض كافة نماذج وتدريبات النحو والإعراب.</p>
     </div>
 
     <div class="card" onclick="openModal('spelling-modal')">
-        <div class="icon-box icon-spelling">
-            <i class="fas fa-pen-nib"></i>
-        </div>
+        <div class="icon-box icon-spelling"><i class="fas fa-pen-nib"></i></div>
         <h3>الكفاية الإملائية</h3>
         <p>اضغط لاستعراض تمارين علامات الترقيم والأعراف الإملائية.</p>
     </div>
 
     <div class="card" onclick="openModal('reading-modal')">
-        <div class="icon-box icon-reading">
-            <i class="fas fa-brain"></i>
-        </div>
+        <div class="icon-box icon-reading"><i class="fas fa-brain"></i></div>
         <h3>الكفاية القرائية</h3>
         <p>اضغط لاستعراض نماذج الفهم القرائي والقراءة التحليلية.</p>
     </div>
 
     <div class="card" onclick="openModal('writing-modal')">
-        <div class="icon-box icon-writing">
-            <i class="fas fa-file-alt"></i>
-        </div>
+        <div class="icon-box icon-writing"><i class="fas fa-file-alt"></i></div>
         <h3>الكفاية الكتابية</h3>
         <p>اضغط لاستعراض تطبيقات مهارات التعبير والكتابة.</p>
     </div>
 
     <div class="card" onclick="openModal('exam-modal')">
-        <div class="icon-box icon-exam">
-            <i class="fas fa-tasks"></i>
-        </div>
+        <div class="icon-box icon-exam"><i class="fas fa-tasks"></i></div>
         <h3>اختبارات تجريبية شاملة</h3>
         <p>اضغط لاستعراض نماذج الاختبارات المحاكية الشاملة.</p>
     </div>
 
+    <div class="card" onclick="openModal('flashcards-modal')">
+        <div class="icon-box icon-flashcards"><i class="fas fa-bolt"></i></div>
+        <h3>بطاقات الاستذكار السريع</h3>
+        <p>راجع أهم القواعد النحوية والإملائية سريعة الفهم باختصار.</p>
+    </div>
+
     <div class="card" onclick="openModal('pdf-modal')">
-        <div class="icon-box icon-pdf">
-            <i class="fas fa-file-pdf"></i>
-        </div>
+        <div class="icon-box icon-pdf"><i class="fas fa-file-pdf"></i></div>
         <h3>أوراق العمل والملخصات</h3>
         <p>اضغط للاطلاع على أوراق العمل وملفات PDF وتحميلها.</p>
     </div>
 
 </div>
 
-<!-- النوافذ المنبثقة -->
+<!-- ==================== النوافذ المنبثقة ==================== -->
+
+<!-- نافذة بطاقات الاستذكار السريع -->
+<div id="flashcards-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'flashcards-modal')">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>بطاقات الاستذكار السريع ⚡ (اضغط للقلب)</h2>
+            <button class="close-btn" onclick="closeModal('flashcards-modal')">&times;</button>
+        </div>
+        <div class="flashcards-grid">
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">💡 أركان الجملة الاسمية</div>
+                    <div class="flashcard-back">تتكون الجملة الاسمية من ركنين أساسيين مرفوعين هما: المبتدأ والخبر.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">⚡ عمل كان وأخواتها</div>
+                    <div class="flashcard-back">تدخل على الجملة الاسمية فترفع المبتدأ ويسمى اسمها، وتنصب الخبر ويسمى خبرها.</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">🎯 علامات جزم الفعل المضارع</div>
+                    <div class="flashcard-back">السكون (لصحيح الآخر)، حذف حرف العلة (لمعتل الآخر)، وحذف النون (للأفعال الخمسة).</div>
+                </div>
+            </div>
+
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">✍️ الهمزة المتوسطة</div>
+                    <div class="flashcard-back">تكتب بحسب الحركة الأقوى: الكسرة (على نبرة)، الضمة (على واو)، الفتحة (على ألف).</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <div id="pdf-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'pdf-modal')">
     <div class="modal-content">
@@ -517,58 +620,63 @@
             <div class="pdf-item">
                 <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> الجملة الاسمية 1</span>
                 <div class="pdf-actions">
-                    <a href="present-verb-2.pdf" class="btn-action btn-view" target="_blank">
+                    <a href="present-verb-2.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('pdf-1')">
                         <i class="fas fa-eye"></i> معاينة
                     </a>
-                    <a href="present-verb-2.pdf" class="btn-action btn-download" download="الجملة الاسمية 1.pdf">
+                    <a href="present-verb-2.pdf" class="btn-action btn-download" download="الجملة الاسمية 1.pdf" onclick="markCompleted('pdf-1')">
                         <i class="fas fa-download"></i> تحميل
                     </a>
                 </div>
             </div>
+
             <div class="pdf-item">
                 <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> الجملة الاسمية 2</span>
                 <div class="pdf-actions">
-                    <a href="present-verb-4.pdf" class="btn-action btn-view" target="_blank">
+                    <a href="present-verb-4.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('pdf-2')">
                         <i class="fas fa-eye"></i> معاينة
                     </a>
-                    <a href="present-verb-4.pdf" class="btn-action btn-download" download=" الجملة الاسمية 2.pdf">
+                    <a href="present-verb-4.pdf" class="btn-action btn-download" download="الجملة الاسمية 2.pdf" onclick="markCompleted('pdf-2')">
                         <i class="fas fa-download"></i> تحميل
                     </a>
                 </div>
             </div>
+
             <div class="pdf-item">
                 <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> كان وأخواتها</span>
                 <div class="pdf-actions">
-                    <a href="present-verb-1.pdf" class="btn-action btn-view" target="_blank">
+                    <a href="present-verb-1.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('pdf-3')">
                         <i class="fas fa-eye"></i> معاينة
                     </a>
-                    <a href="present-verb-1.pdf" class="btn-action btn-download" download="كان_وأخواتها.pdf">
+                    <a href="present-verb-1.pdf" class="btn-action btn-download" download="كان_وأخواتها.pdf" onclick="markCompleted('pdf-3')">
                         <i class="fas fa-download"></i> تحميل
                     </a>
                 </div>
             </div>
+
             <div class="pdf-item">
                 <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> ورقة عمل الفعل المضارع 1</span>
                 <div class="pdf-actions">
-                    <a href="present-verb.pdf" class="btn-action btn-view" target="_blank">
+                    <a href="present-verb.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('pdf-4')">
                         <i class="fas fa-eye"></i> معاينة
                     </a>
-                    <a href="present-verb.pdf" class="btn-action btn-download" download="ورقة عمل الفعل المضارع 1.pdf">
+                    <a href="present-verb.pdf" class="btn-action btn-download" download="ورقة عمل الفعل المضارع 1.pdf" onclick="markCompleted('pdf-4')">
                         <i class="fas fa-download"></i> تحميل
                     </a>
                 </div>
             </div>
+
             <div class="pdf-item">
                 <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> ورقة عمل الفعل المضارع 2</span>
                 <div class="pdf-actions">
-                    <a href="present-verb-3.pdf" class="btn-action btn-view" target="_blank">
+                    <a href="present-verb-3.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('pdf-5')">
                         <i class="fas fa-eye"></i> معاينة
                     </a>
-                    <a href="present-verb-3.pdf" class="btn-action btn-download" download="ورقة عمل الفعل المضارع 2.pdf">
+                    <a href="present-verb-3.pdf" class="btn-action btn-download" download="ورقة عمل الفعل المضارع 2.pdf" onclick="markCompleted('pdf-5')">
                         <i class="fas fa-download"></i> تحميل
                     </a>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
@@ -580,32 +688,40 @@
             <button class="close-btn" onclick="closeModal('grammar-modal')">&times;</button>
         </div>
         <div class="links-list">
+
             <a class="model-link" 
+               data-id="exam-1"
                data-url="https://school1school2-stack.github.io/ALgamlh1/" 
                data-start="2026-09-09T08:00" 
                data-end="2026-09-18T23:59" 
                onclick="handleLinkClick(this)">
                 <span><i class="fas fa-file-signature"></i> نموذج (1): الجملة الاسمية</span>
+                <span class="countdown-timer"></span>
                 <span class="status-box"></span>
             </a>
 
             <a class="model-link" 
+               data-id="exam-2"
                data-url="https://school1school2-stack.github.io/almtara/" 
                data-start="2026-09-08T08:00" 
                data-end="2026-09-18T23:59" 
                onclick="handleLinkClick(this)">
                 <span><i class="fas fa-file-signature"></i> نموذج (2): الجملة الفعلية</span>
+                <span class="countdown-timer"></span>
                 <span class="status-box"></span>
             </a>
 
             <a class="model-link" 
+               data-id="exam-3"
                data-url="https://school1school2-stack.github.io/almtara/" 
                data-start="2026-08-13T20:00" 
                data-end="2026-08-15T23:59" 
                onclick="handleLinkClick(this)">
                 <span><i class="fas fa-file-signature"></i> نموذج (3): الفاعل ونائب الفاعل</span>
+                <span class="countdown-timer"></span>
                 <span class="status-box"></span>
             </a>
+
         </div>
     </div>
 </div>
@@ -618,11 +734,13 @@
         </div>
         <div class="links-list">
             <a class="model-link" 
+               data-id="exam-spelling-1"
                data-url="ضع_الرابط_هنا" 
                data-start="2026-09-15T08:00" 
                data-end="2026-09-20T23:59" 
                onclick="handleLinkClick(this)">
                 <span><i class="fas fa-file-signature"></i> نموذج (1): علامات الترقيم والأعراف</span>
+                <span class="countdown-timer"></span>
                 <span class="status-box"></span>
             </a>
         </div>
@@ -634,6 +752,8 @@
 </div>
 
 <script>
+    const TOTAL_ITEMS = 7; // إجمالي المهام المتاحة للطالب (أوراق + اختبارات)
+
     function openModal(modalId) {
         document.getElementById(modalId).classList.add('active');
         updateAllBadges();
@@ -655,6 +775,7 @@
 
     function handleLinkClick(element) {
         const url = element.getAttribute('data-url');
+        const itemId = element.getAttribute('data-id');
         const startTimeStr = element.getAttribute('data-start');
         const endTimeStr = element.getAttribute('data-end');
         const now = new Date();
@@ -670,14 +791,35 @@
         if (endTimeStr) {
             const endTime = new Date(endTimeStr);
             if (now > endTime) {
-                alert('عذراً، انتهت الفترة المحددة لتقديم هذا النموذج وهومغلق حالياً 🔒');
+                alert('عذراً، انتهت الفترة المحددة لتقديم هذا النموذج وهو مغلق حالياً 🔒');
                 return;
             }
         }
 
+        if (itemId) markCompleted(itemId);
         window.open(url, '_blank');
     }
 
+    /* نظام تتبع الإنجاز الشخصي للطالب */
+    function markCompleted(id) {
+        let completedList = JSON.parse(localStorage.getItem('student_completed_items') || '[]');
+        if (!completedList.includes(id)) {
+            completedList.push(id);
+            localStorage.setItem('student_completed_items', JSON.stringify(completedList));
+            updateProgressBar();
+        }
+    }
+
+    function updateProgressBar() {
+        let completedList = JSON.parse(localStorage.getItem('student_completed_items') || '[]');
+        let completedCount = completedList.length;
+        let percentage = Math.min(Math.round((completedCount / TOTAL_ITEMS) * 100), 100);
+
+        document.getElementById('progressBarFill').style.width = percentage + '%';
+        document.getElementById('progressText').innerText = `${percentage}% (${completedCount} من ${TOTAL_ITEMS} مكتمل)`;
+    }
+
+    /* نظام العداد التنازلي وتحديث الشارات */
     function updateAllBadges() {
         const links = document.querySelectorAll('.model-link');
         const now = new Date();
@@ -686,15 +828,41 @@
             const startStr = link.getAttribute('data-start');
             const endStr = link.getAttribute('data-end');
             const statusBox = link.querySelector('.status-box');
+            const timerBox = link.querySelector('.countdown-timer');
             
             if (!statusBox) return;
 
+            let targetDate = null;
+            let timerPrefix = "";
+
             if (startStr && new Date(startStr) > now) {
                 statusBox.innerHTML = `<span class="status-badge badge-upcoming">قريباً ⏳</span><i class="fas fa-lock"></i>`;
+                targetDate = new Date(startStr);
+                timerPrefix = "يفتح بعد: ";
             } else if (endStr && new Date(endStr) < now) {
                 statusBox.innerHTML = `<span class="status-badge badge-expired">مغلق 🔒</span><i class="fas fa-times-circle"></i>`;
-            } else {
+                if (timerBox) timerBox.style.display = 'none';
+            } else if (endStr) {
                 statusBox.innerHTML = `<span class="status-badge badge-active">متاح الآن 🟢</span><i class="fas fa-external-link-alt"></i>`;
+                targetDate = new Date(endStr);
+                timerPrefix = "يغلق بعد: ";
+            }
+
+            if (targetDate && timerBox) {
+                const diff = targetDate - now;
+                if (diff > 0) {
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                    let timeString = timerPrefix;
+                    if (days > 0) timeString += `${days}ي `;
+                    timeString += `${hours}س ${minutes}د ${seconds}ث`;
+
+                    timerBox.innerText = timeString;
+                    timerBox.style.display = 'inline-flex';
+                }
             }
         });
     }
@@ -723,6 +891,8 @@
         document.documentElement.setAttribute('data-theme', savedTheme);
         updateThemeIcon(savedTheme);
         updateAllBadges();
+        updateProgressBar();
+        setInterval(updateAllBadges, 1000); // تحديث العداد التنازلي كل ثانية
     })();
 </script>
 
