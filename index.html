@@ -94,7 +94,6 @@
             font-weight: 700;
         }
 
-        /* شريط الإنجاز الشخصي */
         .progress-section {
             width: 90%;
             max-width: 1200px;
@@ -133,7 +132,6 @@
             transition: width 0.5s ease-in-out;
         }
 
-        /* المربع الإعلاني */
         .announcement-banner {
             width: 90%;
             max-width: 1200px;
@@ -422,7 +420,6 @@
         .badge-active { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); }
         .badge-expired { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); }
 
-        /* بطاقات الاستذكار السريع */
         .flashcards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -494,10 +491,9 @@
 
 <header>
     <h1>بوابة الكفايات اللغوية</h1>
-    <p>مرجع التدريبات والتطبيقات التفاعلية اللغوية 📚 - أ. عبدالعزيز الفيفي ثانوية الأمير عبدالمجيد 🎓</p>
+    <p>مرجع التدريبات والتطبيقات التفاعلية اللغوية 📚 - أ. عبدالعزيز الفيفي ثانوية الأمير عبدالمجيد 😉 🎓</p>
 </header>
 
-<!-- شريط الإنجاز الشخصي للطالب -->
 <div class="progress-section">
     <div class="progress-header">
         <span><i class="fas fa-chart-line" style="color: #10b981;"></i> نسبة إنجازك في البوابة:</span>
@@ -508,7 +504,6 @@
     </div>
 </div>
 
-<!-- المربع الإعلاني -->
 <div class="announcement-banner" id="announcementBanner">
     <div class="announcement-content">
         <i class="fas fa-bullhorn announcement-icon"></i>
@@ -565,7 +560,7 @@
 
 </div>
 
-<!-- ==================== النوافذ المنبثقة ==================== -->
+<!-- النوافذ المنبثقة -->
 
 <div id="flashcards-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'flashcards-modal')">
     <div class="modal-content">
@@ -702,17 +697,18 @@
                data-id="exam-2"
                data-url="https://school1school2-stack.github.io/almtara/" 
                data-start="2026-09-08T08:00" 
-               data-end="2026-09-18T23:59" 
+               data-end="2026-09-25T23:59" 
                onclick="handleLinkClick(this)">
                 <span><i class="fas fa-file-signature"></i> نموذج (2): الجملة الفعلية</span>
+                <span class="countdown-timer"></span>
                 <span class="status-box"></span>
             </a>
 
             <a class="model-link" 
                data-id="exam-3"
                data-url="https://school1school2-stack.github.io/almtara/" 
-               data-start="2026-08-13T20:00" 
-               data-end="2026-08-15T23:59" 
+               data-start="2026-09-15T08:00" 
+               data-end="2026-09-28T23:59" 
                onclick="handleLinkClick(this)">
                 <span><i class="fas fa-file-signature"></i> نموذج (3): الفاعل ونائب الفاعل</span>
                 <span class="countdown-timer"></span>
@@ -795,7 +791,6 @@
         window.open(url, '_blank');
     }
 
-    /* نظام تتبع الإنجاز الشخصي التلقائي للطالب */
     function markCompleted(id) {
         let completedList = JSON.parse(localStorage.getItem('student_completed_items') || '[]');
         if (!completedList.includes(id)) {
@@ -806,7 +801,6 @@
     }
 
     function updateProgressBar() {
-        // حساب إجمالي النماذج وأوراق العمل المتاحة في البوابة تلقائياً
         const totalExams = document.querySelectorAll('.model-link').length;
         const totalPdfs = document.querySelectorAll('.pdf-item').length;
         const TOTAL_ITEMS = totalExams + totalPdfs;
@@ -819,7 +813,7 @@
         document.getElementById('progressText').innerText = `${percentage}% (${completedCount} من ${TOTAL_ITEMS} مكتمل)`;
     }
 
-    /* نظام العداد التنازلي وتحديث الشارات */
+    /* نظام العداد التنازلي الشامل والمحدث لكل النماذج */
     function updateAllBadges() {
         const links = document.querySelectorAll('.model-link');
         const now = new Date();
@@ -830,25 +824,29 @@
             const statusBox = link.querySelector('.status-box');
             const timerBox = link.querySelector('.countdown-timer');
             
-            if (!statusBox) return;
+            if (!statusBox || !timerBox) return;
 
             let targetDate = null;
             let timerPrefix = "";
 
             if (startStr && new Date(startStr) > now) {
+                // النموذج قادم
                 statusBox.innerHTML = `<span class="status-badge badge-upcoming">قريباً ⏳</span><i class="fas fa-lock"></i>`;
                 targetDate = new Date(startStr);
                 timerPrefix = "يفتح بعد: ";
             } else if (endStr && new Date(endStr) < now) {
+                // النموذج انتهى ومغلق
                 statusBox.innerHTML = `<span class="status-badge badge-expired">مغلق 🔒</span><i class="fas fa-times-circle"></i>`;
-                if (timerBox) timerBox.style.display = 'none';
+                timerBox.style.display = 'none';
+                return;
             } else if (endStr) {
+                // النموذج متاح حالياً
                 statusBox.innerHTML = `<span class="status-badge badge-active">متاح الآن 🟢</span><i class="fas fa-external-link-alt"></i>`;
                 targetDate = new Date(endStr);
                 timerPrefix = "يغلق بعد: ";
             }
 
-            if (targetDate && timerBox) {
+            if (targetDate) {
                 const diff = targetDate - now;
                 if (diff > 0) {
                     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -862,6 +860,8 @@
 
                     timerBox.innerText = timeString;
                     timerBox.style.display = 'inline-flex';
+                } else {
+                    timerBox.style.display = 'none';
                 }
             }
         });
@@ -892,7 +892,7 @@
         updateThemeIcon(savedTheme);
         updateAllBadges();
         updateProgressBar();
-        setInterval(updateAllBadges, 1000); // تحديث العداد التنازلي كل ثانية
+        setInterval(updateAllBadges, 1000);
     })();
 </script>
 
