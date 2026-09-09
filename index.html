@@ -94,12 +94,12 @@
             font-weight: 700;
         }
 
-        /* تنسيق الشريط الإعلاني */
+        /* الشريط الإعلاني التفاعلي القابل للنقر */
         .announcement-banner {
             width: 90%;
             max-width: 1200px;
             background: var(--announcement-bg);
-            border: 1px solid var(--primary-glow);
+            border: 2px solid var(--primary-glow);
             border-radius: 20px;
             padding: 20px 25px;
             margin-bottom: 35px;
@@ -109,7 +109,16 @@
             justify-content: space-between;
             gap: 15px;
             box-sizing: border-box;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             animation: pulse-border 2s infinite alternate;
+        }
+
+        .announcement-banner:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 15px 35px rgba(56, 189, 248, 0.5);
+            border-color: #ffffff;
         }
 
         @keyframes pulse-border {
@@ -147,6 +156,17 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
+        .announcement-arrow {
+            font-size: 1.4rem;
+            color: #ffffff;
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .announcement-banner:hover .announcement-arrow {
+            transform: translateX(-8px);
+        }
+
         .close-banner-btn {
             background: rgba(255, 255, 255, 0.2);
             border: none;
@@ -161,6 +181,7 @@
             justify-content: center;
             transition: 0.3s;
             flex-shrink: 0;
+            z-index: 10;
         }
 
         .close-banner-btn:hover {
@@ -430,16 +451,17 @@
     <p>مرجع التدريبات والتطبيقات التفاعلية اللغوية 📚 - أ. عبدالعزيز الفيفي ثانوية الأمير عبدالمجيد 🎓</p>
 </header>
 
-<!-- الشريط الإعلاني الرئيسي -->
-<div class="announcement-banner" id="announcementBanner">
+<!-- الشريط الإعلاني الرئيسي (قابل للنقر كـ كامل) -->
+<a href="https://school1school2-stack.github.io/ALgamlh1/" target="_blank" class="announcement-banner" id="announcementBanner">
     <div class="announcement-content">
         <i class="fas fa-bullhorn announcement-icon"></i>
         <p class="announcement-text">
             📢 تنبيه هام للطلاب: تم إضافة أوراق عمل جديدة واختبار الجملة الفعلية والجملة الاسمية متاح الآن للتطبيق!
         </p>
+        <i class="fas fa-arrow-left announcement-arrow"></i>
     </div>
-    <button class="close-banner-btn" onclick="closeBanner()" title="إغلاق الإعلان">&times;</button>
-</div>
+    <button class="close-banner-btn" onclick="closeBanner(event)" title="إغلاق الإعلان">&times;</button>
+</a>
 
 <div class="container">
 
@@ -503,9 +525,8 @@
         </div>
         <div class="links-list">
 
-
-<div class="pdf-item">
-                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> الجملة الاسمية 1  </span>
+            <div class="pdf-item">
+                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> الجملة الاسمية 1</span>
                 <div class="pdf-actions">
                     <a href="present-verb-2.pdf" class="btn-action btn-view" target="_blank">
                         <i class="fas fa-eye"></i> معاينة
@@ -516,7 +537,7 @@
                 </div>
             </div>
             <div class="pdf-item">
-                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i>  الجملة الاسمية 2  </span>
+                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> الجملة الاسمية 2</span>
                 <div class="pdf-actions">
                     <a href="present-verb-4.pdf" class="btn-action btn-view" target="_blank">
                         <i class="fas fa-eye"></i> معاينة
@@ -537,7 +558,7 @@
                     </a>
                 </div>
             </div>
-                        <div class="pdf-item">
+            <div class="pdf-item">
                 <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> ورقة عمل الفعل المضارع 1</span>
                 <div class="pdf-actions">
                     <a href="present-verb.pdf" class="btn-action btn-view" target="_blank">
@@ -548,8 +569,8 @@
                     </a>
                 </div>
             </div>
-<div class="pdf-item">
-                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> ورقة عمل الفعل المضارع 2  </span>
+            <div class="pdf-item">
+                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> ورقة عمل الفعل المضارع 2</span>
                 <div class="pdf-actions">
                     <a href="present-verb-3.pdf" class="btn-action btn-view" target="_blank">
                         <i class="fas fa-eye"></i> معاينة
@@ -639,7 +660,9 @@
         }
     }
 
-    function closeBanner() {
+    function closeBanner(event) {
+        event.preventDefault(); // منع فتح الرابط عند النقر على إغلاق
+        event.stopPropagation();
         document.getElementById('announcementBanner').style.display = 'none';
     }
 
