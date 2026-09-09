@@ -262,7 +262,7 @@
         .icon-writing { background: linear-gradient(135deg, #8b5cf6, #4c1d95); box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3); }
         .icon-exam { background: linear-gradient(135deg, #ef4444, #991b1b); box-shadow: 0 10px 20px rgba(239, 68, 68, 0.3); }
         .icon-pdf { background: linear-gradient(135deg, #ec4899, #be185d); box-shadow: 0 10px 20px rgba(236, 72, 153, 0.3); }
-        .icon-flashcards { background: linear-gradient(135deg, #a855f7, #6b21a8); box-shadow: 0 10px 20px rgba(168, 85, 247, 0.3); }
+        .icon-summary { background: linear-gradient(135deg, #a855f7, #6b21a8); box-shadow: 0 10px 20px rgba(168, 85, 247, 0.3); }
 
         .card:hover .icon-box { transform: rotateY(360deg); }
 
@@ -420,60 +420,6 @@
         .badge-active { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); }
         .badge-expired { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); }
 
-        .flashcards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
-        }
-
-        .flashcard {
-            background-color: transparent;
-            height: 140px;
-            perspective: 1000px;
-            cursor: pointer;
-        }
-
-        .flashcard-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
-        }
-
-        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-
-        .flashcard-front, .flashcard-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
-            box-sizing: border-box;
-            border: 1px solid var(--border-glass);
-            font-weight: bold;
-        }
-
-        .flashcard-front {
-            background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(30, 64, 175, 0.4));
-            color: #ffffff;
-            font-size: 1.1rem;
-        }
-
-        .flashcard-back {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(6, 78, 59, 0.6));
-            color: #ffffff;
-            transform: rotateY(180deg);
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
         .footer {
             margin-top: auto;
             padding: 30px;
@@ -546,66 +492,27 @@
         <p>اضغط لاستعراض نماذج الاختبارات المحاكية الشاملة.</p>
     </div>
 
-    <div class="card" onclick="openModal('flashcards-modal')">
-        <div class="icon-box icon-flashcards"><i class="fas fa-bolt"></i></div>
-        <h3>بطاقات الاستذكار السريع</h3>
-        <p>راجع أهم القواعد النحوية والإملائية سريعة الفهم باختصار.</p>
+    <div class="card" onclick="openModal('pdf-modal')">
+        <div class="icon-box icon-pdf"><i class="fas fa-dumbbell"></i></div>
+        <h3>تدريبات وتمارين</h3>
+        <p>اضغط للاطلاع على الأوراق التدريبية وتمارين الكفايات وتحميلها.</p>
     </div>
 
-    <div class="card" onclick="openModal('pdf-modal')">
-        <div class="icon-box icon-pdf"><i class="fas fa-file-pdf"></i></div>
-        <h3>أوراق العمل والملخصات</h3>
-        <p>اضغط للاطلاع على أوراق العمل وملفات PDF وتحميلها.</p>
+    <div class="card" onclick="openModal('summaries-modal')">
+        <div class="icon-box icon-summary"><i class="fas fa-book-reader"></i></div>
+        <h3>ملخصات</h3>
+        <p>اضغط للاطلاع على المذكرات والملخصات القواعدية والتحميل.</p>
     </div>
 
 </div>
 
 <!-- النوافذ المنبثقة -->
 
-<div id="flashcards-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'flashcards-modal')">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>بطاقات الاستذكار السريع ⚡ (اضغط للقلب)</h2>
-            <button class="close-btn" onclick="closeModal('flashcards-modal')">&times;</button>
-        </div>
-        <div class="flashcards-grid">
-
-            <div class="flashcard" onclick="this.classList.toggle('flipped')">
-                <div class="flashcard-inner">
-                    <div class="flashcard-front">💡 أركان الجملة الاسمية</div>
-                    <div class="flashcard-back">تتكون الجملة الاسمية من ركنين أساسيين مرفوعين هما: المبتدأ والخبر.</div>
-                </div>
-            </div>
-
-            <div class="flashcard" onclick="this.classList.toggle('flipped')">
-                <div class="flashcard-inner">
-                    <div class="flashcard-front">⚡ عمل كان وأخواتها</div>
-                    <div class="flashcard-back">تدخل على الجملة الاسمية فترفع المبتدأ ويسمى اسمها، وتنصب الخبر ويسمى خبرها.</div>
-                </div>
-            </div>
-
-            <div class="flashcard" onclick="this.classList.toggle('flipped')">
-                <div class="flashcard-inner">
-                    <div class="flashcard-front">🎯 علامات جزم الفعل المضارع</div>
-                    <div class="flashcard-back">السكون (لصحيح الآخر)، حذف حرف العلة (لمعتل الآخر)، وحذف النون (للأفعال الخمسة).</div>
-                </div>
-            </div>
-
-            <div class="flashcard" onclick="this.classList.toggle('flipped')">
-                <div class="flashcard-inner">
-                    <div class="flashcard-front">✍️ الهمزة المتوسطة</div>
-                    <div class="flashcard-back">تكتب بحسب الحركة الأقوى: الكسرة (على نبرة)، الضمة (على واو)، الفتحة (على ألف).</div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-
+<!-- نافذة تدريبات وتمارين -->
 <div id="pdf-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'pdf-modal')">
     <div class="modal-content">
         <div class="modal-header">
-            <h2>أوراق العمل والملخصات (PDF)</h2>
+            <h2>تدريبات وتمارين (PDF)</h2>
             <button class="close-btn" onclick="closeModal('pdf-modal')">&times;</button>
         </div>
         <div class="links-list">
@@ -674,6 +581,31 @@
     </div>
 </div>
 
+<!-- نافذة ملخصات -->
+<div id="summaries-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'summaries-modal')">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>الملخصات والمذكرات القواعدية (PDF)</h2>
+            <button class="close-btn" onclick="closeModal('summaries-modal')">&times;</button>
+        </div>
+        <div class="links-list">
+
+            <div class="pdf-item">
+                <span><i class="fas fa-file-pdf" style="color: #a855f7; margin-left: 8px;"></i> ملخص قواعد النحو الشامل</span>
+                <div class="pdf-actions">
+                    <a href="summary-1.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('summary-1')">
+                        <i class="fas fa-eye"></i> معاينة
+                    </a>
+                    <a href="summary-1.pdf" class="btn-action btn-download" download="ملخص_قواعد_النحو.pdf" onclick="markCompleted('summary-1')">
+                        <i class="fas fa-download"></i> تحميل
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <div id="grammar-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'grammar-modal')">
     <div class="modal-content">
         <div class="modal-header">
@@ -686,7 +618,7 @@
                data-id="exam-1"
                data-url="https://school1school2-stack.github.io/ALgamlh1/" 
                data-start="2026-09-09T08:00" 
-               data-end="2026-09-11T23:59" 
+               data-end="2026-09-18T23:59" 
                onclick="handleLinkClick(this)">
                 <span><i class="fas fa-file-signature"></i> نموذج (1): الجملة الاسمية</span>
                 <span class="countdown-timer"></span>
@@ -697,7 +629,7 @@
                data-id="exam-2"
                data-url="https://school1school2-stack.github.io/almtara/" 
                data-start="2026-09-08T08:00" 
-               data-end="2026-09-12T23:59" 
+               data-end="2026-09-25T23:59" 
                onclick="handleLinkClick(this)">
                 <span><i class="fas fa-file-signature"></i> نموذج (2): الجملة الفعلية</span>
                 <span class="countdown-timer"></span>
@@ -707,8 +639,8 @@
             <a class="model-link" 
                data-id="exam-3"
                data-url="https://school1school2-stack.github.io/almtara/" 
-               data-start="2026-08-15T08:00" 
-               data-end="2026-08-28T23:59" 
+               data-start="2026-09-15T08:00" 
+               data-end="2026-09-28T23:59" 
                onclick="handleLinkClick(this)">
                 <span><i class="fas fa-file-signature"></i> نموذج (3): الفاعل ونائب الفاعل</span>
                 <span class="countdown-timer"></span>
@@ -729,8 +661,8 @@
             <a class="model-link" 
                data-id="exam-spelling-1"
                data-url="ضع_الرابط_هنا" 
-               data-start="2026-08-15T08:00" 
-               data-end="2026-08-20T23:59" 
+               data-start="2026-09-15T08:00" 
+               data-end="2026-09-20T23:59" 
                onclick="handleLinkClick(this)">
                 <span><i class="fas fa-file-signature"></i> نموذج (1): علامات الترقيم والأعراف</span>
                 <span class="countdown-timer"></span>
@@ -813,7 +745,6 @@
         document.getElementById('progressText').innerText = `${percentage}% (${completedCount} من ${TOTAL_ITEMS} مكتمل)`;
     }
 
-    /* نظام العداد التنازلي الشامل والمحدث لكل النماذج */
     function updateAllBadges() {
         const links = document.querySelectorAll('.model-link');
         const now = new Date();
@@ -830,17 +761,14 @@
             let timerPrefix = "";
 
             if (startStr && new Date(startStr) > now) {
-                // النموذج قادم
                 statusBox.innerHTML = `<span class="status-badge badge-upcoming">قريباً ⏳</span><i class="fas fa-lock"></i>`;
                 targetDate = new Date(startStr);
                 timerPrefix = "يفتح بعد: ";
             } else if (endStr && new Date(endStr) < now) {
-                // النموذج انتهى ومغلق
                 statusBox.innerHTML = `<span class="status-badge badge-expired">مغلق 🔒</span><i class="fas fa-times-circle"></i>`;
                 timerBox.style.display = 'none';
                 return;
             } else if (endStr) {
-                // النموذج متاح حالياً
                 statusBox.innerHTML = `<span class="status-badge badge-active">متاح الآن 🟢</span><i class="fas fa-external-link-alt"></i>`;
                 targetDate = new Date(endStr);
                 timerPrefix = "يغلق بعد: ";
