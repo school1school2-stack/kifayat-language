@@ -496,7 +496,7 @@
     <div class="card" onclick="openModal('textbook-modal')">
         <div class="icon-box icon-textbook"><i class="fas fa-book"></i></div>
         <h3>الكتاب المدرسي</h3>
-        <p>اضغط لاستعراض وتحميل نسخة الكتاب المدرسي الرقمية PDF.</p>
+        <p>اضغط لاستعراض وتصفح كتب المرحلة الرقمية المعتمدة.</p>
     </div>
 
     <div class="card" onclick="openModal('pdf-modal')">
@@ -515,23 +515,20 @@
 
 <!-- النوافذ المنبثقة -->
 
-<!-- نافذة الكتاب المدرسي -->
+<!-- نافذة الكتاب المدرسي المعتمد على منصة مدرستي -->
 <div id="textbook-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'textbook-modal')">
     <div class="modal-content">
         <div class="modal-header">
-            <h2>الكتاب المدرسي (PDF)</h2>
+            <h2>الكتاب المدرسي الرقمي (منصة مدرستي)</h2>
             <button class="close-btn" onclick="closeModal('textbook-modal')">&times;</button>
         </div>
         <div class="links-list">
 
             <div class="pdf-item">
-                <span><i class="fas fa-book" style="color: #059669; margin-left: 8px;"></i> كتاب الكفايات اللغوية الكامل</span>
+                <span><i class="fas fa-book" style="color: #059669; margin-left: 8px;"></i> كتب الكفايات اللغوية الرسمية</span>
                 <div class="pdf-actions">
-                    <a href="textbook.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('textbook-1')">
-                        <i class="fas fa-eye"></i> معاينة
-                    </a>
-                    <a href="textbook.pdf" class="btn-action btn-download" download="كتاب_الكفايات_اللغوية.pdf" onclick="markCompleted('textbook-1')">
-                        <i class="fas fa-download"></i> تحميل
+                    <a href="https://schools.madrasati.sa/books/E7027E8EDF24725B41C6D294DA2AADD7" class="btn-action btn-view" target="_blank" onclick="markCompleted('textbook-1')">
+                        <i class="fas fa-external-link-alt"></i> تصفح وقراءة الكتاب
                     </a>
                 </div>
             </div>
