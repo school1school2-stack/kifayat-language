@@ -6,11 +6,6 @@
     <title>بوابة الكفايات اللغوية | أ. عبدالعزيز الفيفي ثانوية الأمير عبدالمجيد 😉</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- مكتبات Firebase اللحظية -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-
     <style>
         :root {
             --bg-gradient: radial-gradient(circle at center, #111827 0%, #050810 100%);
@@ -97,91 +92,6 @@
             letter-spacing: 1px;
             opacity: 0.9;
             font-weight: 700;
-        }
-
-        /* تنسيقات لوحة الشرف */
-        .leaderboard-section {
-            width: 90%;
-            max-width: 1200px;
-            background: var(--card-glass);
-            border: 1px solid rgba(250, 204, 21, 0.4);
-            border-radius: 20px;
-            padding: 20px 25px;
-            margin-bottom: 25px;
-            backdrop-filter: blur(10px);
-            box-sizing: border-box;
-            box-shadow: 0 8px 32px rgba(250, 204, 21, 0.08);
-        }
-
-        .leaderboard-title {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 1.3rem;
-            font-weight: 900;
-            color: #facc15;
-            margin-bottom: 15px;
-            border-bottom: 1px solid var(--border-glass);
-            padding-bottom: 10px;
-        }
-
-        .leaderboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 12px;
-        }
-
-        .leader-card {
-            background: var(--link-bg);
-            border: 1px solid var(--border-glass);
-            border-radius: 12px;
-            padding: 10px 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: transform 0.3s ease;
-        }
-
-        .leader-card:hover {
-            transform: translateY(-3px);
-            border-color: #facc15;
-        }
-
-        .leader-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .rank-badge {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: var(--primary-glow);
-            color: #000;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85rem;
-        }
-
-        .rank-1 { background: #facc15; color: #000; box-shadow: 0 0 10px rgba(250, 204, 21, 0.5); }
-        .rank-2 { background: #e2e8f0; color: #000; }
-        .rank-3 { background: #b45309; color: #fff; }
-
-        .leader-name {
-            font-weight: bold;
-            font-size: 0.95rem;
-        }
-
-        .leader-score {
-            font-weight: 900;
-            color: #10b981;
-            font-size: 0.9rem;
-            background: rgba(16, 185, 129, 0.15);
-            padding: 3px 8px;
-            border-radius: 8px;
         }
 
         .progress-section {
@@ -353,6 +263,7 @@
         .icon-exam { background: linear-gradient(135deg, #ef4444, #991b1b); box-shadow: 0 10px 20px rgba(239, 68, 68, 0.3); }
         .icon-pdf { background: linear-gradient(135deg, #ec4899, #be185d); box-shadow: 0 10px 20px rgba(236, 72, 153, 0.3); }
         .icon-summary { background: linear-gradient(135deg, #a855f7, #6b21a8); box-shadow: 0 10px 20px rgba(168, 85, 247, 0.3); }
+        .icon-textbook { background: linear-gradient(135deg, #059669, #047857); box-shadow: 0 10px 20px rgba(5, 150, 105, 0.3); }
 
         .card:hover .icon-box { transform: rotateY(360deg); }
 
@@ -530,17 +441,6 @@
     <p>مرجع التدريبات والتطبيقات التفاعلية اللغوية 📚 - أ. عبدالعزيز الفيفي ثانوية الأمير عبدالمجيد 😉 🎓</p>
 </header>
 
-<!-- لوحة الشرف التفاعلية للطلاب -->
-<div class="leaderboard-section">
-    <div class="leaderboard-title">
-        <span><i class="fas fa-trophy"></i> 🏆 لوحة الشرف للأبطال (أعلى الدرجات)</span>
-        <span style="font-size: 0.8rem; color: var(--text-sub); font-weight: normal;">تحديث لحظي تلقائي ⚡</span>
-    </div>
-    <div class="leaderboard-grid" id="leaderboardList">
-        <div style="color: var(--text-sub); font-size: 0.9rem;">جاري تحميل أبطال الكفايات... ⏳</div>
-    </div>
-</div>
-
 <div class="progress-section">
     <div class="progress-header">
         <span><i class="fas fa-chart-line" style="color: #10b981;"></i> نسبة إنجازك في البوابة:</span>
@@ -593,6 +493,12 @@
         <p>اضغط لاستعراض نماذج الاختبارات المحاكية الشاملة.</p>
     </div>
 
+    <div class="card" onclick="openModal('textbook-modal')">
+        <div class="icon-box icon-textbook"><i class="fas fa-book"></i></div>
+        <h3>الكتاب المدرسي</h3>
+        <p>اضغط لاستعراض وتحميل نسخة الكتاب المدرسي الرقمية PDF.</p>
+    </div>
+
     <div class="card" onclick="openModal('pdf-modal')">
         <div class="icon-box icon-pdf"><i class="fas fa-dumbbell"></i></div>
         <h3>تدريبات وتمارين</h3>
@@ -609,6 +515,31 @@
 
 <!-- النوافذ المنبثقة -->
 
+<!-- نافذة الكتاب المدرسي -->
+<div id="textbook-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'textbook-modal')">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>الكتاب المدرسي (PDF)</h2>
+            <button class="close-btn" onclick="closeModal('textbook-modal')">&times;</button>
+        </div>
+        <div class="links-list">
+
+            <div class="pdf-item">
+                <span><i class="fas fa-book" style="color: #059669; margin-left: 8px;"></i> كتاب الكفايات اللغوية الكامل</span>
+                <div class="pdf-actions">
+                    <a href="textbook.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('textbook-1')">
+                        <i class="fas fa-eye"></i> معاينة
+                    </a>
+                    <a href="textbook.pdf" class="btn-action btn-download" download="كتاب_الكفايات_اللغوية.pdf" onclick="markCompleted('textbook-1')">
+                        <i class="fas fa-download"></i> تحميل
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <!-- نافذة تدريبات وتمارين -->
 <div id="pdf-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'pdf-modal')">
     <div class="modal-content">
@@ -619,24 +550,24 @@
         <div class="links-list">
 
             <div class="pdf-item">
-                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> تدريبات الجملة الاسمية 1 ( واجب )</span>
+                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> الجملة الاسمية 1</span>
                 <div class="pdf-actions">
                     <a href="present-verb-2.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('pdf-1')">
                         <i class="fas fa-eye"></i> معاينة
                     </a>
-                    <a href="present-verb-2.pdf" class="btn-action btn-download" download="تدريبات الجملة الاسمية 1.pdf" onclick="markCompleted('pdf-1')">
+                    <a href="present-verb-2.pdf" class="btn-action btn-download" download="الجملة الاسمية 1.pdf" onclick="markCompleted('pdf-1')">
                         <i class="fas fa-download"></i> تحميل
                     </a>
                 </div>
             </div>
 
             <div class="pdf-item">
-                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> تدريبات الجملة الاسمية 2 </span>
+                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> الجملة الاسمية 2</span>
                 <div class="pdf-actions">
                     <a href="present-verb-4.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('pdf-2')">
                         <i class="fas fa-eye"></i> معاينة
                     </a>
-                    <a href="present-verb-4.pdf" class="btn-action btn-download" download="تدريبات الجملة الاسمية 2 .pdf" onclick="markCompleted('pdf-2')">
+                    <a href="present-verb-4.pdf" class="btn-action btn-download" download="الجملة الاسمية 2.pdf" onclick="markCompleted('pdf-2')">
                         <i class="fas fa-download"></i> تحميل
                     </a>
                 </div>
@@ -655,40 +586,29 @@
             </div>
 
             <div class="pdf-item">
-                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i>تدريبات الفعل المضارع  1 ( واجب )</span>
+                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> ورقة عمل الفعل المضارع 1</span>
                 <div class="pdf-actions">
                     <a href="present-verb.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('pdf-4')">
                         <i class="fas fa-eye"></i> معاينة
                     </a>
-                    <a href="present-verb.pdf" class="btn-action btn-download" download=" تدريبات الفعل المضارع 1.pdf" onclick="markCompleted('pdf-4')">
+                    <a href="present-verb.pdf" class="btn-action btn-download" download="ورقة عمل الفعل المضارع 1.pdf" onclick="markCompleted('pdf-4')">
                         <i class="fas fa-download"></i> تحميل
                     </a>
                 </div>
             </div>
 
             <div class="pdf-item">
-                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> تدريبات الفعل المضارع 2</span>
+                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> ورقة عمل الفعل المضارع 2</span>
                 <div class="pdf-actions">
                     <a href="present-verb-3.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('pdf-5')">
                         <i class="fas fa-eye"></i> معاينة
                     </a>
-                    <a href="present-verb-3.pdf" class="btn-action btn-download" download="تدريبات الفعل المضارع 2.pdf" onclick="markCompleted('pdf-5')">
+                    <a href="present-verb-3.pdf" class="btn-action btn-download" download="ورقة عمل الفعل المضارع 2.pdf" onclick="markCompleted('pdf-5')">
                         <i class="fas fa-download"></i> تحميل
                     </a>
                 </div>
             </div>
-            <div class="pdf-item">
-                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> تدريبات الفاعل ونائب الفاعل </span>
-                <div class="pdf-actions">
-                    <a href="present-verb-5.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('pdf-2')">
-                        <i class="fas fa-eye"></i> معاينة
-                    </a>
-                    <a href="present-verb-5.pdf" class="btn-action btn-download" download="تدريبات الفاعل ونائب الفاعل2.pdf" onclick="markCompleted('pdf-2')">
-                        <i class="fas fa-download"></i> تحميل
-                    </a>
-                </div>
-            </div>
-            
+
         </div>
     </div>
 </div>
@@ -760,31 +680,10 @@
                 <span class="countdown-timer"></span>
                 <span class="status-box"></span>
             </a>
-            
-            <a class="model-link" 
-               data-id="exam-1"
-               data-url="https://school1school2-stack.github.io/ALgamlh3/" 
-               data-start="2026-09-09T08:00" 
-               data-end="2026-09-18T23:59" 
-               onclick="handleLinkClick(this)">
-                <span><i class="fas fa-file-signature"></i> نموذج (2): الجملة الاسمية</span>
-                <span class="countdown-timer"></span>
-                <span class="status-box"></span>
-            </a>
-            
+
             <a class="model-link" 
                data-id="exam-2"
                data-url="https://school1school2-stack.github.io/almtara/" 
-               data-start="2026-09-08T08:00" 
-               data-end="2026-09-25T23:59" 
-               onclick="handleLinkClick(this)">
-                <span><i class="fas fa-file-signature"></i> نموذج (1): الجملة الفعلية</span>
-                <span class="countdown-timer"></span>
-                <span class="status-box"></span>
-            </a>
-            <a class="model-link" 
-               data-id="exam-2"
-               data-url="https://school1school2-stack.github.io/ALgamlh2/" 
                data-start="2026-09-08T08:00" 
                data-end="2026-09-25T23:59" 
                onclick="handleLinkClick(this)">
@@ -792,7 +691,7 @@
                 <span class="countdown-timer"></span>
                 <span class="status-box"></span>
             </a>
-            
+
             <a class="model-link" 
                data-id="exam-3"
                data-url="https://school1school2-stack.github.io/almtara/" 
@@ -834,69 +733,6 @@
 </div>
 
 <script>
-    // إعدادات Firebase من لوحة القيادة الخاصة بك
-    const firebaseConfig = {
-        apiKey: "AIzaSyBkCO7FDQXd89YDf843J4_AtvEFvzzt-R0",
-        authDomain: "aztlg-494c3.firebaseapp.com",
-        projectId: "aztlg-494c3",
-        storageBucket: "aztlg-494c3.firebasestorage.app",
-        messagingSenderId: "597051893949",
-        appId: "1:597051893949:web:de5554ac900317a92b2fd4"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-
-    // الاستماع اللحظي للوحة الشرف مع عرض الدرجة الفعلية والكلية
-    function initLeaderboard() {
-        db.collection("alkfaeat_results").onSnapshot(snapshot => {
-            let studentsMap = {};
-
-            snapshot.forEach(doc => {
-                let data = doc.data();
-                if (!data.name || data.score === undefined || !data.total) return;
-
-                let pct = Math.round((data.score / data.total) * 100);
-                
-                // احتساب أفضل درجة حققها الطالب عبر كافة النماذج
-                if (!studentsMap[data.name] || pct > studentsMap[data.name].pct) {
-                    studentsMap[data.name] = {
-                        name: data.name,
-                        score: data.score,
-                        total: data.total,
-                        pct: pct
-                    };
-                }
-            });
-
-            let sortedList = Object.values(studentsMap).sort((a, b) => b.pct - a.pct);
-            let topStudents = sortedList.slice(0, 6); // عرض أعلى 6 طلاب فقط
-
-            const container = document.getElementById('leaderboardList');
-            if (topStudents.length === 0) {
-                container.innerHTML = `<div style="color: var(--text-sub);">لا توجد نتائج مسجلة حتى الآن. كن أول الأبطال! 🌟</div>`;
-                return;
-            }
-
-            let html = "";
-            topStudents.forEach((st, index) => {
-                let rankClass = index === 0 ? 'rank-1' : index === 1 ? 'rank-2' : index === 2 ? 'rank-3' : '';
-                let medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '⭐';
-
-                html += `
-                    <div class="leader-card">
-                        <div class="leader-info">
-                            <div class="rank-badge ${rankClass}">${index + 1}</div>
-                            <div class="leader-name">${medal} ${st.name}</div>
-                        </div>
-                        <div class="leader-score">${st.score} من ${st.total} (${st.pct}%)</div>
-                    </div>
-                `;
-            });
-
-            container.innerHTML = html;
-        });
-    }
-
     function openModal(modalId) {
         document.getElementById(modalId).classList.add('active');
         updateAllBadges();
@@ -1040,7 +876,6 @@
         updateThemeIcon(savedTheme);
         updateAllBadges();
         updateProgressBar();
-        initLeaderboard(); // تشغيل الربط اللحظي للوحة الشرف
         setInterval(updateAllBadges, 1000);
     })();
 </script>
