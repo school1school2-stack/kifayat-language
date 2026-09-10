@@ -99,7 +99,7 @@
             font-weight: 700;
         }
 
-        /* تنسيقات لوحة الشرف الجديدة */
+        /* تنسيقات لوحة الشرف */
         .leaderboard-section {
             width: 90%;
             max-width: 1200px;
@@ -127,7 +127,7 @@
 
         .leaderboard-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 12px;
         }
 
@@ -178,7 +178,7 @@
         .leader-score {
             font-weight: 900;
             color: #10b981;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             background: rgba(16, 185, 129, 0.15);
             padding: 3px 8px;
             border-radius: 8px;
@@ -846,7 +846,7 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    // الاستماع اللحظي للوحة الشرف
+    // الاستماع اللحظي للوحة الشرف مع عرض الدرجة الفعلية والكلية
     function initLeaderboard() {
         db.collection("alkfaeat_results").onSnapshot(snapshot => {
             let studentsMap = {};
@@ -888,7 +888,7 @@
                             <div class="rank-badge ${rankClass}">${index + 1}</div>
                             <div class="leader-name">${medal} ${st.name}</div>
                         </div>
-                        <div class="leader-score">${st.pct}%</div>
+                        <div class="leader-score">${st.score} من ${st.total} (${st.pct}%)</div>
                     </div>
                 `;
             });
