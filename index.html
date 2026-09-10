@@ -6,6 +6,11 @@
     <title>بوابة الكفايات اللغوية | أ. عبدالعزيز الفيفي ثانوية الأمير عبدالمجيد 😉</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- مكتبات Firebase اللحظية -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
     <style>
         :root {
             --bg-gradient: radial-gradient(circle at center, #111827 0%, #050810 100%);
@@ -92,6 +97,91 @@
             letter-spacing: 1px;
             opacity: 0.9;
             font-weight: 700;
+        }
+
+        /* تنسيقات لوحة الشرف الجديدة */
+        .leaderboard-section {
+            width: 90%;
+            max-width: 1200px;
+            background: var(--card-glass);
+            border: 1px solid rgba(250, 204, 21, 0.4);
+            border-radius: 20px;
+            padding: 20px 25px;
+            margin-bottom: 25px;
+            backdrop-filter: blur(10px);
+            box-sizing: border-box;
+            box-shadow: 0 8px 32px rgba(250, 204, 21, 0.08);
+        }
+
+        .leaderboard-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: #facc15;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border-glass);
+            padding-bottom: 10px;
+        }
+
+        .leaderboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 12px;
+        }
+
+        .leader-card {
+            background: var(--link-bg);
+            border: 1px solid var(--border-glass);
+            border-radius: 12px;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: transform 0.3s ease;
+        }
+
+        .leader-card:hover {
+            transform: translateY(-3px);
+            border-color: #facc15;
+        }
+
+        .leader-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rank-badge {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--primary-glow);
+            color: #000;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+        }
+
+        .rank-1 { background: #facc15; color: #000; box-shadow: 0 0 10px rgba(250, 204, 21, 0.5); }
+        .rank-2 { background: #e2e8f0; color: #000; }
+        .rank-3 { background: #b45309; color: #fff; }
+
+        .leader-name {
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        .leader-score {
+            font-weight: 900;
+            color: #10b981;
+            font-size: 0.95rem;
+            background: rgba(16, 185, 129, 0.15);
+            padding: 3px 8px;
+            border-radius: 8px;
         }
 
         .progress-section {
@@ -440,6 +530,17 @@
     <p>مرجع التدريبات والتطبيقات التفاعلية اللغوية 📚 - أ. عبدالعزيز الفيفي ثانوية الأمير عبدالمجيد 😉 🎓</p>
 </header>
 
+<!-- لوحة الشرف التفاعلية للطلاب -->
+<div class="leaderboard-section">
+    <div class="leaderboard-title">
+        <span><i class="fas fa-trophy"></i> 🏆 لوحة الشرف للأبطال (أعلى الدرجات)</span>
+        <span style="font-size: 0.8rem; color: var(--text-sub); font-weight: normal;">تحديث لحظي تلقائي ⚡</span>
+    </div>
+    <div class="leaderboard-grid" id="leaderboardList">
+        <div style="color: var(--text-sub); font-size: 0.9rem;">جاري تحميل أبطال الكفايات... ⏳</div>
+    </div>
+</div>
+
 <div class="progress-section">
     <div class="progress-header">
         <span><i class="fas fa-chart-line" style="color: #10b981;"></i> نسبة إنجازك في البوابة:</span>
@@ -576,7 +677,7 @@
                     </a>
                 </div>
             </div>
-  <div class="pdf-item">
+            <div class="pdf-item">
                 <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> تدريبات الفاعل ونائب الفاعل </span>
                 <div class="pdf-actions">
                     <a href="present-verb-5.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('pdf-2')">
@@ -733,6 +834,69 @@
 </div>
 
 <script>
+    // إعدادات Firebase من لوحة القيادة الخاصة بك
+    const firebaseConfig = {
+        apiKey: "AIzaSyBkCO7FDQXd89YDf843J4_AtvEFvzzt-R0",
+        authDomain: "aztlg-494c3.firebaseapp.com",
+        projectId: "aztlg-494c3",
+        storageBucket: "aztlg-494c3.firebasestorage.app",
+        messagingSenderId: "597051893949",
+        appId: "1:597051893949:web:de5554ac900317a92b2fd4"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // الاستماع اللحظي للوحة الشرف
+    function initLeaderboard() {
+        db.collection("alkfaeat_results").onSnapshot(snapshot => {
+            let studentsMap = {};
+
+            snapshot.forEach(doc => {
+                let data = doc.data();
+                if (!data.name || data.score === undefined || !data.total) return;
+
+                let pct = Math.round((data.score / data.total) * 100);
+                
+                // احتساب أفضل درجة حققها الطالب عبر كافة النماذج
+                if (!studentsMap[data.name] || pct > studentsMap[data.name].pct) {
+                    studentsMap[data.name] = {
+                        name: data.name,
+                        score: data.score,
+                        total: data.total,
+                        pct: pct
+                    };
+                }
+            });
+
+            let sortedList = Object.values(studentsMap).sort((a, b) => b.pct - a.pct);
+            let topStudents = sortedList.slice(0, 6); // عرض أعلى 6 طلاب فقط
+
+            const container = document.getElementById('leaderboardList');
+            if (topStudents.length === 0) {
+                container.innerHTML = `<div style="color: var(--text-sub);">لا توجد نتائج مسجلة حتى الآن. كن أول الأبطال! 🌟</div>`;
+                return;
+            }
+
+            let html = "";
+            topStudents.forEach((st, index) => {
+                let rankClass = index === 0 ? 'rank-1' : index === 1 ? 'rank-2' : index === 2 ? 'rank-3' : '';
+                let medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '⭐';
+
+                html += `
+                    <div class="leader-card">
+                        <div class="leader-info">
+                            <div class="rank-badge ${rankClass}">${index + 1}</div>
+                            <div class="leader-name">${medal} ${st.name}</div>
+                        </div>
+                        <div class="leader-score">${st.pct}%</div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        });
+    }
+
     function openModal(modalId) {
         document.getElementById(modalId).classList.add('active');
         updateAllBadges();
@@ -876,6 +1040,7 @@
         updateThemeIcon(savedTheme);
         updateAllBadges();
         updateProgressBar();
+        initLeaderboard(); // تشغيل الربط اللحظي للوحة الشرف
         setInterval(updateAllBadges, 1000);
     })();
 </script>
