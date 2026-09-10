@@ -351,6 +351,7 @@
         .icon-reading { background: linear-gradient(135deg, #10b981, #064e3b); box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3); }
         .icon-writing { background: linear-gradient(135deg, #8b5cf6, #4c1d95); box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3); }
         .icon-exam { background: linear-gradient(135deg, #ef4444, #991b1b); box-shadow: 0 10px 20px rgba(239, 68, 68, 0.3); }
+        .icon-textbook { background: linear-gradient(135deg, #059669, #047857); box-shadow: 0 10px 20px rgba(5, 150, 105, 0.3); }
         .icon-pdf { background: linear-gradient(135deg, #ec4899, #be185d); box-shadow: 0 10px 20px rgba(236, 72, 153, 0.3); }
         .icon-summary { background: linear-gradient(135deg, #a855f7, #6b21a8); box-shadow: 0 10px 20px rgba(168, 85, 247, 0.3); }
 
@@ -593,6 +594,12 @@
         <p>اضغط لاستعراض نماذج الاختبارات المحاكية الشاملة.</p>
     </div>
 
+    <div class="card" onclick="openModal('textbook-modal')">
+        <div class="icon-box icon-textbook"><i class="fas fa-book"></i></div>
+        <h3>الكتاب المدرسي</h3>
+        <p>اضغط لاستعراض وتصفح كتب المرحلة الرقمية المعتمدة.</p>
+    </div>
+
     <div class="card" onclick="openModal('pdf-modal')">
         <div class="icon-box icon-pdf"><i class="fas fa-dumbbell"></i></div>
         <h3>تدريبات وتمارين</h3>
@@ -608,6 +615,28 @@
 </div>
 
 <!-- النوافذ المنبثقة -->
+
+<!-- نافذة الكتاب المدرسي المعتمد على منصة مدرستي -->
+<div id="textbook-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'textbook-modal')">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>الكتاب المدرسي الرقمي (منصة مدرستي)</h2>
+            <button class="close-btn" onclick="closeModal('textbook-modal')">&times;</button>
+        </div>
+        <div class="links-list">
+
+            <div class="pdf-item">
+                <span><i class="fas fa-book" style="color: #059669; margin-left: 8px;"></i> كتب الكفايات اللغوية الرسمية</span>
+                <div class="pdf-actions">
+                    <a href="https://schools.madrasati.sa/books/E7027E8EDF24725B41C6D294DA2AADD7" class="btn-action btn-view" target="_blank" onclick="markCompleted('textbook-1')">
+                        <i class="fas fa-external-link-alt"></i> تصفح وقراءة الكتاب
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <!-- نافذة تدريبات وتمارين -->
 <div id="pdf-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'pdf-modal')">
@@ -677,13 +706,14 @@
                     </a>
                 </div>
             </div>
+            
             <div class="pdf-item">
                 <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> تدريبات الفاعل ونائب الفاعل </span>
                 <div class="pdf-actions">
-                    <a href="present-verb-5.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('pdf-2')">
+                    <a href="present-verb-5.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('pdf-6')">
                         <i class="fas fa-eye"></i> معاينة
                     </a>
-                    <a href="present-verb-5.pdf" class="btn-action btn-download" download="تدريبات الفاعل ونائب الفاعل2.pdf" onclick="markCompleted('pdf-2')">
+                    <a href="present-verb-5.pdf" class="btn-action btn-download" download="تدريبات الفاعل ونائب الفاعل2.pdf" onclick="markCompleted('pdf-6')">
                         <i class="fas fa-download"></i> تحميل
                     </a>
                 </div>
@@ -762,7 +792,7 @@
             </a>
             
             <a class="model-link" 
-               data-id="exam-1"
+               data-id="exam-2"
                data-url="https://school1school2-stack.github.io/ALgamlh3/" 
                data-start="2026-09-09T08:00" 
                data-end="2026-09-18T23:59" 
@@ -773,7 +803,7 @@
             </a>
             
             <a class="model-link" 
-               data-id="exam-2"
+               data-id="exam-3"
                data-url="https://school1school2-stack.github.io/almtara/" 
                data-start="2026-09-08T08:00" 
                data-end="2026-09-25T23:59" 
@@ -782,8 +812,9 @@
                 <span class="countdown-timer"></span>
                 <span class="status-box"></span>
             </a>
+
             <a class="model-link" 
-               data-id="exam-2"
+               data-id="exam-4"
                data-url="https://school1school2-stack.github.io/ALgamlh2/" 
                data-start="2026-09-08T08:00" 
                data-end="2026-09-25T23:59" 
@@ -794,7 +825,7 @@
             </a>
             
             <a class="model-link" 
-               data-id="exam-3"
+               data-id="exam-5"
                data-url="https://school1school2-stack.github.io/almtara/" 
                data-start="2026-09-15T08:00" 
                data-end="2026-09-28T23:59" 
