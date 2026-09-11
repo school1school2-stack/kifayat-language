@@ -12,6 +12,21 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
     <style>
+    :root {
+        --bg-gradient: radial-gradient(circle at center, #111827 0%, #050810 100%);
+        /* ... باقي المتغيرات ... */
+    }
+
+    /* أضف الكود هنا مثلاً */
+    .card h3 .unit-title {
+        color: #722F37; /* لون أحمر عودي */
+    }
+
+    body {
+        font-family: 'Tajawal', sans-serif;
+        /* ... باقي الخصائص ... */
+    }
+</style>
         :root {
             --bg-gradient: radial-gradient(circle at center, #111827 0%, #050810 100%);
             --card-glass: rgba(255, 255, 255, 0.03);
@@ -566,25 +581,25 @@
 
     <div class="card" onclick="openModal('grammar-modal')">
         <div class="icon-box icon-grammar"><i class="fas fa-book-open"></i></div>
-        <h3>الوحدة الأولى <br> الكفاية النحوية</h3>
+        <h3><span class="unit-title">الوحدة الأولى</span><br>الكفاية النحوية</h3>
         <p>اضغط هنا لاستعراض تمارين الجملة الاسمية - الفعل المضارع - الفاعل ونائب الفاعل.</p>
     </div>
 
     <div class="card" onclick="openModal('spelling-modal')">
         <div class="icon-box icon-spelling"><i class="fas fa-pen-nib"></i></div>
-        <h3>الوحدة الثانية <br> الكفاية الإملائية</h3>
+        <h3><span class="unit-title">الوحدة الثانية</span><br>الكفاية الإملائية</h3>
         <p>اضغط هنا لاستعراض تمارين علامات الترقيم - وأعراف الكتابة .</p>
     </div>
 
     <div class="card" onclick="openModal('reading-modal')">
         <div class="icon-box icon-reading"><i class="fas fa-brain"></i></div>
-        <h3>الوحدة الثالثة <br> الكفاية القرائية</h3>>
+        <h3><span class="unit-title">الوحدة الثالثة</span><br>الكفاية القرائية</h3>
         <p>اضغط لاستعراض نماذج الفهم القرائي والقراءة التحليلية.</p>
     </div>
 
     <div class="card" onclick="openModal('writing-modal')">
         <div class="icon-box icon-writing"><i class="fas fa-file-alt"></i></div>
-        <h3>الوحدة الرابعة <br> الكفاية الكتابية</h3>
+        <h3><span class="unit-title">الوحدة الرابعة</span><br>الكفاية الكتابية</h3>
         <p>اضغط لاستعراض تطبيقات مهارات التعبير والكتابة.</p>
     </div>
 
