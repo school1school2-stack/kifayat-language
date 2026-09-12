@@ -593,11 +593,51 @@
         <p>اضغط لاستعراض تطبيقات مهارات التعبير والكتابة.</p>
     </div>
 
-    <div class="card" onclick="openModal('exam-modal')">
-        <div class="icon-box icon-exam"><i class="fas fa-tasks"></i></div>
-        <h3>اختبارات تجريبية شاملة</h3>
-        <p>اضغط لاستعراض نماذج الاختبارات المحاكية الشاملة.</p>
+<!-- نافذة اختبارات تجريبية شاملة -->
+<div id="exam-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'exam-modal')">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>اختبارات تجريبية شاملة</h2>
+            <button class="close-btn" onclick="closeModal('exam-modal')">&times;</button>
+        </div>
+        <div class="links-list">
+
+            <a class="model-link" 
+               data-id="exam-comprehensive-1"
+               data-url="https://share.gemini.google/yJqeena6vMjL" 
+               data-start="2026-09-12T08:00" 
+               data-end="2026-09-30T23:59" 
+               onclick="handleLinkClick(this)">
+                <span><i class="fas fa-file-signature"></i> الاختبار التجريبي الشامل (1)</span>
+                <span class="countdown-timer"></span>
+                <span class="status-box"></span>
+            </a>
+
+            <a class="model-link" 
+               data-id="exam-comprehensive-2"
+               data-url="https://share.gemini.google/UgDgkirc2qNH" 
+               data-start="2026-09-12T08:00" 
+               data-end="2026-09-30T23:59" 
+               onclick="handleLinkClick(this)">
+                <span><i class="fas fa-file-signature"></i> الاختبار التجريبي الشامل (2)</span>
+                <span class="countdown-timer"></span>
+                <span class="status-box"></span>
+            </a>
+
+            <a class="model-link" 
+               data-id="exam-comprehensive-3"
+               data-url="https://share.gemini.google/mk6sNCnAlm2C" 
+               data-start="2026-09-12T08:00" 
+               data-end="2026-09-30T23:59" 
+               onclick="handleLinkClick(this)">
+                <span><i class="fas fa-file-signature"></i> الاختبار التجريبي الشامل (3)</span>
+                <span class="countdown-timer"></span>
+                <span class="status-box"></span>
+            </a>
+
+        </div>
     </div>
+</div>
 
     <div class="card" onclick="openModal('textbook-modal')">
         <div class="icon-box icon-textbook"><i class="fas fa-book"></i></div>
