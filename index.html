@@ -591,4 +591,614 @@
     <div class="card" onclick="openModal('writing-modal')">
         <div class="icon-box icon-writing"><i class="fas fa-file-alt"></i></div>
         <h3><span class="unit-title">الوحدة الرابعة</span><br>الكفاية الكتابية</h3>
-        <p>اضغط لاستع
+        <p>اضغط لاستعراض تطبيقات مهارات التعبير والكتابة.</p>
+    </div>
+
+    <div class="card" onclick="openModal('exam-modal')">
+        <div class="icon-box icon-exam"><i class="fas fa-tasks"></i></div>
+        <h3>اختبارات تجريبية شاملة</h3>
+        <p>اضغط لاستعراض نماذج الاختبارات المحاكية الشاملة.</p>
+    </div>
+
+    <div class="card" onclick="openModal('textbook-modal')">
+        <div class="icon-box icon-textbook"><i class="fas fa-book"></i></div>
+        <h3>الكتاب المدرسي</h3>
+        <p>اضغط لاستعراض وتصفح كتب المرحلة الرقمية المعتمدة.</p>
+    </div>
+
+    <div class="card" onclick="openModal('pdf-modal')">
+        <div class="icon-box icon-pdf"><i class="fas fa-dumbbell"></i></div>
+        <h3>تدريبات وتمارين</h3>
+        <p>اضغط للاطلاع على الأوراق التدريبية وتمارين الكفايات وتحميلها.</p>
+    </div>
+
+    <div class="card" onclick="openModal('summaries-modal')">
+        <div class="icon-box icon-summary"><i class="fas fa-book-reader"></i></div>
+        <h3>ملخصات</h3>
+        <p>اضغط للاطلاع على المذكرات والملخصات القواعدية والتحميل.</p>
+    </div>
+
+</div>
+
+<!-- النوافذ المنبثقة -->
+
+<!-- نافذة الكتاب المدرسي المعتمد على منصة مدرستي -->
+<div id="textbook-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'textbook-modal')">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>الكتاب المدرسي الرقمي (منصة مدرستي)</h2>
+            <button class="close-btn" onclick="closeModal('textbook-modal')">&times;</button>
+        </div>
+        <div class="links-list">
+
+            <div class="pdf-item">
+                <span><i class="fas fa-book" style="color: #059669; margin-left: 8px;"></i> كتب الصف أول ثانوي الاكترونية   </span>
+                <div class="pdf-actions">
+                    <a href="https://schools.madrasati.sa/books/E7027E8EDF24725B41C6D294DA2AADD7" class="btn-action btn-view" target="_blank" onclick="markCompleted('textbook-1')">
+                        <i class="fas fa-external-link-alt"></i> تصفح وقراءة الكتاب
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- نافذة تدريبات وتمارين -->
+<div id="pdf-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'pdf-modal')">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>تدريبات وتمارين (PDF)</h2>
+            <button class="close-btn" onclick="closeModal('pdf-modal')">&times;</button>
+        </div>
+        <div class="links-list">
+
+            <div class="pdf-item">
+                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> تدريبات الجملة الاسمية 1 ( واجب )</span>
+                <div class="pdf-actions">
+                    <a href="present-verb-2.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('pdf-1')">
+                        <i class="fas fa-eye"></i> معاينة
+                    </a>
+                    <a href="present-verb-2.pdf" class="btn-action btn-download" download="تدريبات الجملة الاسمية 1.pdf" onclick="markCompleted('pdf-1')">
+                        <i class="fas fa-download"></i> تحميل
+                    </a>
+                </div>
+            </div>
+
+            <div class="pdf-item">
+                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> تدريبات الجملة الاسمية 2 </span>
+                <div class="pdf-actions">
+                    <a href="present-verb-4.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('pdf-2')">
+                        <i class="fas fa-eye"></i> معاينة
+                    </a>
+                    <a href="present-verb-4.pdf" class="btn-action btn-download" download="تدريبات الجملة الاسمية 2 .pdf" onclick="markCompleted('pdf-2')">
+                        <i class="fas fa-download"></i> تحميل
+                    </a>
+                </div>
+            </div>
+
+            <div class="pdf-item">
+                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> كان وأخواتها</span>
+                <div class="pdf-actions">
+                    <a href="present-verb-1.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('pdf-3')">
+                        <i class="fas fa-eye"></i> معاينة
+                    </a>
+                    <a href="present-verb-1.pdf" class="btn-action btn-download" download="كان_وأخواتها.pdf" onclick="markCompleted('pdf-3')">
+                        <i class="fas fa-download"></i> تحميل
+                    </a>
+                </div>
+            </div>
+
+            <div class="pdf-item">
+                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i>تدريبات الفعل المضارع  1 ( واجب )</span>
+                <div class="pdf-actions">
+                    <a href="present-verb.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('pdf-4')">
+                        <i class="fas fa-eye"></i> معاينة
+                    </a>
+                    <a href="present-verb.pdf" class="btn-action btn-download" download=" تدريبات الفعل المضارع 1.pdf" onclick="markCompleted('pdf-4')">
+                        <i class="fas fa-download"></i> تحميل
+                    </a>
+                </div>
+            </div>
+
+            <div class="pdf-item">
+                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> تدريبات الفعل المضارع 2</span>
+                <div class="pdf-actions">
+                    <a href="present-verb-3.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('pdf-5')">
+                        <i class="fas fa-eye"></i> معاينة
+                    </a>
+                    <a href="present-verb-3.pdf" class="btn-action btn-download" download="تدريبات الفعل المضارع 2.pdf" onclick="markCompleted('pdf-5')">
+                        <i class="fas fa-download"></i> تحميل
+                    </a>
+                </div>
+            </div>
+            
+            <div class="pdf-item">
+                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i>  تدريبات الفاعل ونائب الفاعل( واجب )  </span>
+                <div class="pdf-actions">
+                    <a href="present-verb-5.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('pdf-6')">
+                        <i class="fas fa-eye"></i> معاينة
+                    </a>
+                    <a href="present-verb-5.pdf" class="btn-action btn-download" download=" تدريبات الفاعل ونائب الفاعل ( واجب ).pdf" onclick="markCompleted('pdf-6')">
+                        <i class="fas fa-download"></i> تحميل
+                    </a>
+                </div>
+            </div>
+            <div class="pdf-item">
+                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> تدريبات علامات الترقيم </span>
+                <div class="pdf-actions">
+                    <a href="summary-4.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('pdf-6')">
+                        <i class="fas fa-eye"></i> معاينة
+                    </a>
+                    <a href="summary-4.pdf" class="btn-action btn-download" download="تدريبات علامات الترقيم.pdf" onclick="markCompleted('pdf-6')">
+                        <i class="fas fa-download"></i> تحميل
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<!-- نافذة ملخصات -->
+<div id="summaries-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'summaries-modal')">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>الملخصات والمذكرات القواعدية (PDF)</h2>
+            <button class="close-btn" onclick="closeModal('summaries-modal')">&times;</button>
+        </div>
+        <div class="links-list">
+
+            <div class="pdf-item">
+                <span><i class="fas fa-file-pdf" style="color: #a855f7; margin-left: 8px;"></i> ملخص الجملة الاسمية ( المبتدأ والخبر )</span>
+                <div class="pdf-actions">
+                    <a href="summary-1.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('summary-1')">
+                        <i class="fas fa-eye"></i> معاينة
+                    </a>
+                    <a href="summary-1.pdf" class="btn-action btn-download" download="ملخص الجملة الاسمية ( المبتدأ والخبر ).pdf" onclick="markCompleted('summary-1')">
+                        <i class="fas fa-download"></i> تحميل
+                    </a>
+                </div>
+            </div>
+
+            <div class="pdf-item">
+                <span><i class="fas fa-file-pdf" style="color: #a855f7; margin-left: 8px;"></i> ملخص الفعل المضارع</span>
+                <div class="pdf-actions">
+                    <a href="summary-2.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('summary-2')">
+                        <i class="fas fa-eye"></i> معاينة
+                    </a>
+                    <a href="summary-2.pdf" class="btn-action btn-download" download="ملخص الفعل المضارع.pdf" onclick="markCompleted('summary-2')">
+                        <i class="fas fa-download"></i> تحميل
+                    </a>
+                </div>
+            </div>
+
+            <div class="pdf-item">
+                <span><i class="fas fa-file-pdf" style="color: #a855f7; margin-left: 8px;"></i> ملخص الفاعل ونائب الفاعل</span>
+                <div class="pdf-actions">
+                    <a href="summary-3.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('summary-3')">
+                        <i class="fas fa-eye"></i> معاينة
+                    </a>
+                    <a href="summary-3.pdf" class="btn-action btn-download" download="ملخص الفاعل ونائب الفاعل.pdf" onclick="markCompleted('summary-3')">
+                        <i class="fas fa-download"></i> تحميل
+                    </a>
+                </div>
+            </div>
+            <div class="pdf-item">
+                <span><i class="fas fa-file-pdf" style="color: #a855f7; margin-left: 8px;"></i> ملخص الوحدة 2 ( أعراف الكتابة وعلامات الترقيم  )</span>
+                <div class="pdf-actions">
+                    <a href="present-verb-6.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('summary-1')">
+                        <i class="fas fa-eye"></i> معاينة
+                    </a>
+                    <a href="present-verb-6.pdf" class="btn-action btn-download" download="ملخص الوحدة 2 ( أعراف الكتابة وعلامات الترقيم  ) .pdf" onclick="markCompleted('summary-1')">
+                        <i class="fas fa-download"></i> تحميل
+                    </a>
+                </div>
+            </div>
+                            <div class="pdf-item">
+                <span><i class="fas fa-file-pdf" style="color: #a855f7; margin-left: 8px;"></i> ملخص الوحدة 2 ( علامات الترقيم  )</span>
+                <div class="pdf-actions">
+                    <a href="present-verb-7.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('summary-1')">
+                        <i class="fas fa-eye"></i> معاينة
+                    </a>
+                    <a href="present-verb-7.pdf" class="btn-action btn-download" download="ملخص الوحدة 2 ( علامات الترقيم  ) .pdf" onclick="markCompleted('summary-1')">
+                        <i class="fas fa-download"></i> تحميل
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="grammar-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'grammar-modal')">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>نماذج الكفاية النحوية</h2>
+            <button class="close-btn" onclick="closeModal('grammar-modal')">&times;</button>
+        </div>
+        <div class="links-list">
+
+            <a class="model-link" 
+               data-id="exam-1"
+               data-url="https://school1school2-stack.github.io/ALgamlh1/" 
+               data-start="2026-09-09T08:00" 
+               data-end="2026-10-18T23:59" 
+               onclick="handleLinkClick(this)">
+                <span><i class="fas fa-file-signature"></i> نموذج (1): الجملة الاسمية</span>
+                <span class="countdown-timer"></span>
+                <span class="status-box"></span>
+            </a>
+            
+            <a class="model-link" 
+               data-id="exam-2"
+               data-url="https://school1school2-stack.github.io/ALgamlh3/" 
+               data-start="2026-09-09T08:00" 
+               data-end="2026-10-18T23:59" 
+               onclick="handleLinkClick(this)">
+                <span><i class="fas fa-file-signature"></i> نموذج (2): الجملة الاسمية</span>
+                <span class="countdown-timer"></span>
+                <span class="status-box"></span>
+            </a>
+            
+            <a class="model-link" 
+               data-id="exam-3"
+               data-url="https://school1school2-stack.github.io/almtara/" 
+               data-start="2026-09-08T08:00" 
+               data-end="2026-10-25T23:59" 
+               onclick="handleLinkClick(this)">
+                <span><i class="fas fa-file-signature"></i> نموذج (1): الجملة الفعلية</span>
+                <span class="countdown-timer"></span>
+                <span class="status-box"></span>
+            </a>
+
+            <a class="model-link" 
+               data-id="exam-4"
+               data-url="https://school1school2-stack.github.io/ALgamlh2/" 
+               data-start="2026-09-08T08:00" 
+               data-end="2026-10-25T23:59" 
+               onclick="handleLinkClick(this)">
+                <span><i class="fas fa-file-signature"></i> نموذج (2): الجملة الفعلية</span>
+                <span class="countdown-timer"></span>
+                <span class="status-box"></span>
+            </a>
+            
+            <a class="model-link" 
+               data-id="exam-5"
+               data-url="https://school1school2-stack.github.io/SSSSS/" 
+               data-start="2026-09-15T08:00" 
+               data-end="2026-10-28T23:59" 
+               onclick="handleLinkClick(this)">
+                <span><i class="fas fa-file-signature"></i> نموذج (3): الفاعل ونائب الفاعل</span>
+                <span class="countdown-timer"></span>
+                <span class="status-box"></span>
+            </a>
+
+        </div>
+    </div>
+</div>
+
+<div id="spelling-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'spelling-modal')">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>نماذج الكفاية الإملائية</h2>
+            <button class="close-btn" onclick="closeModal('spelling-modal')">&times;</button>
+        </div>
+        <div class="links-list">
+            <a class="model-link" 
+               data-id="exam-spelling-1"
+               data-url="https://school1school2-stack.github.io/Trqem/" 
+               data-start="2026-10-01T11:00" 
+               data-end="2026-11-20T23:59" 
+               onclick="handleLinkClick(this)">
+                <span><i class="fas fa-file-signature"></i> نموذج علامات الترقيم </span>
+                <span class="countdown-timer"></span>
+                <span class="status-box"></span>
+            </a>
+                    <div class="links-list">
+            <a class="model-link" 
+               data-id="exam-spelling-1"
+               data-url="https://school1school2-stack.github.io/SSSSS3/" 
+               data-start="2026-10-01T11:00" 
+               data-end="2026-11-20T23:59" 
+               onclick="handleLinkClick(this)">
+                <span><i class="fas fa-file-signature"></i> نموذج علامات الترقيم </span>
+                <span class="countdown-timer"></span>
+                <span class="status-box"></span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- نافذة اختبارات تجريبية شاملة -->
+<div id="exam-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'exam-modal')">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>اختبارات تجريبية شاملة</h2>
+            <button class="close-btn" onclick="closeModal('exam-modal')">&times;</button>
+        </div>
+        <div class="links-list">
+
+            <a class="model-link" 
+               data-id="exam-comprehensive-1"
+               data-url="https://share.gemini.google/yJqeena6vMjL" 
+               data-start="2026-09-12T08:00" 
+               data-end="2026-11-30T23:59" 
+               onclick="handleLinkClick(this)">
+                <span><i class="fas fa-file-signature"></i> الاختبار التجريبي الشامل (1)</span>
+                <span class="countdown-timer"></span>
+                <span class="status-box"></span>
+            </a>
+
+            <a class="model-link" 
+               data-id="exam-comprehensive-2"
+               data-url="https://share.gemini.google/UgDgkirc2qNH" 
+               data-start="2026-09-12T08:00" 
+               data-end="2026-11-30T23:59" 
+               onclick="handleLinkClick(this)">
+                <span><i class="fas fa-file-signature"></i> الاختبار التجريبي الشامل (2)</span>
+                <span class="countdown-timer"></span>
+                <span class="status-box"></span>
+            </a>
+
+            <a class="model-link" 
+               data-id="exam-comprehensive-3"
+               data-url="https://share.gemini.google/mk6sNCnAlm2C" 
+               data-start="2026-09-12T08:00" 
+               data-end="2026-11-30T23:59" 
+               onclick="handleLinkClick(this)">
+                <span><i class="fas fa-file-signature"></i> الاختبار التجريبي الشامل (3)</span>
+                <span class="countdown-timer"></span>
+                <span class="status-box"></span>
+            </a>
+            <a class="model-link" 
+               data-id="exam-comprehensive-3"
+               data-url="https://share.gemini.google/KP07MKVxeguj" 
+               data-start="2026-09-12T08:00" 
+               data-end="2026-11-30T23:59" 
+               onclick="handleLinkClick(this)">
+                <span><i class="fas fa-file-signature"></i> الاختبار التجريبي الشامل (4)</span>
+                <span class="countdown-timer"></span>
+                <span class="status-box"></span>
+            </a>  
+                        <a class="model-link" 
+               data-id="exam-comprehensive-3"
+               data-url="https://share.gemini.google/R26r28gyGi5z" 
+               data-start="2026-09-12T08:00" 
+               data-end="2026-11-30T23:59" 
+               onclick="handleLinkClick(this)">
+                <span><i class="fas fa-file-signature"></i> الاختبار التجريبي الشامل (5)</span>
+                <span class="countdown-timer"></span>
+                <span class="status-box"></span>
+            </a>
+                                    <a class="model-link" 
+               data-id="exam-comprehensive-3"
+               data-url="" 
+               data-start="2026-09-12T08:00" 
+               data-end="2026-11-30T23:59" 
+               onclick="handleLinkClick(this)">
+                <span><i class="fas fa-file-signature"></i> اختبار على علامات الترقيم   (6)</span>
+                <span class="countdown-timer"></span>
+                <span class="status-box"></span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    إعداد وتنفيذ: أ. عبدالعزيز الفيفي - ثانوية الأمير عبدالمجيد 😉 &copy; 2026
+</div>
+
+<script>
+    // إعدادات Firebase من لوحة القيادة الخاصة بك
+    const firebaseConfig = {
+        apiKey: "AIzaSyBkCO7FDQXd89YDf843J4_AtvEFvzzt-R0",
+        authDomain: "aztlg-494c3.firebaseapp.com",
+        projectId: "aztlg-494c3",
+        storageBucket: "aztlg-494c3.firebasestorage.app",
+        messagingSenderId: "597051893949",
+        appId: "1:597051893949:web:de5554ac900317a92b2fd4"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // الاستماع اللحظي للوحة الشرف مع عرض الدرجة الفعلية والكلية
+    function initLeaderboard() {
+        db.collection("alkfaeat_results").onSnapshot(snapshot => {
+            let studentsMap = {};
+
+            snapshot.forEach(doc => {
+                let data = doc.data();
+                if (!data.name || data.score === undefined || !data.total) return;
+
+                let pct = Math.round((data.score / data.total) * 100);
+                
+                // احتساب أفضل درجة حققها الطالب عبر كافة النماذج
+                if (!studentsMap[data.name] || pct > studentsMap[data.name].pct) {
+                    studentsMap[data.name] = {
+                        name: data.name,
+                        score: data.score,
+                        total: data.total,
+                        pct: pct
+                    };
+                }
+            });
+
+            let sortedList = Object.values(studentsMap).sort((a, b) => b.pct - a.pct);
+            let topStudents = sortedList.slice(0, 6); // عرض أعلى 6 طلاب فقط
+
+            const container = document.getElementById('leaderboardList');
+            if (topStudents.length === 0) {
+                container.innerHTML = `<div style="color: var(--text-sub);">لا توجد نتائج مسجلة حتى الآن. كن أول الأبطال! 🌟</div>`;
+                return;
+            }
+
+            let html = "";
+            topStudents.forEach((st, index) => {
+                let rankClass = index === 0 ? 'rank-1' : index === 1 ? 'rank-2' : index === 2 ? 'rank-3' : '';
+                let medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '⭐';
+
+                html += `
+                    <div class="leader-card">
+                        <div class="leader-info">
+                            <div class="rank-badge ${rankClass}">${index + 1}</div>
+                            <div class="leader-name">${medal} ${st.name}</div>
+                        </div>
+                        <div class="leader-score">${st.score} من ${st.total} (${st.pct}%)</div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        });
+    }
+
+    function openModal(modalId) {
+        document.getElementById(modalId).classList.add('active');
+        updateAllBadges();
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).classList.remove('active');
+    }
+
+    function closeModalOnOuterClick(event, modalId) {
+        if (event.target.id === modalId) {
+            closeModal(modalId);
+        }
+    }
+
+    function closeBanner() {
+        document.getElementById('announcementBanner').style.display = 'none';
+    }
+
+    function handleLinkClick(element) {
+        const url = element.getAttribute('data-url');
+        const itemId = element.getAttribute('data-id');
+        const startTimeStr = element.getAttribute('data-start');
+        const endTimeStr = element.getAttribute('data-end');
+        const now = new Date();
+
+        if (startTimeStr) {
+            const startTime = new Date(startTimeStr);
+            if (now < startTime) {
+                alert(`سيكون هذا النموذج متاحاً قريباً بإذن الله ⏳\nموعد الفتح: ${startTime.toLocaleString('ar-SA')}`);
+                return;
+            }
+        }
+
+        if (endTimeStr) {
+            const endTime = new Date(endTimeStr);
+            if (now > endTime) {
+                alert('عذراً، انتهت الفترة المحددة لتقديم هذا النموذج وهو مغلق حالياً 🔒');
+                return;
+            }
+        }
+
+        if (itemId) markCompleted(itemId);
+        window.open(url, '_blank');
+    }
+
+    function markCompleted(id) {
+        let completedList = JSON.parse(localStorage.getItem('student_completed_items') || '[]');
+        if (!completedList.includes(id)) {
+            completedList.push(id);
+            localStorage.setItem('student_completed_items', JSON.stringify(completedList));
+            updateProgressBar();
+        }
+    }
+
+    function updateProgressBar() {
+        const totalExams = document.querySelectorAll('.model-link').length;
+        const totalPdfs = document.querySelectorAll('.pdf-item').length;
+        const TOTAL_ITEMS = totalExams + totalPdfs;
+
+        let completedList = JSON.parse(localStorage.getItem('student_completed_items') || '[]');
+        let completedCount = completedList.length;
+        let percentage = TOTAL_ITEMS > 0 ? Math.min(Math.round((completedCount / TOTAL_ITEMS) * 100), 100) : 0;
+
+        document.getElementById('progressBarFill').style.width = percentage + '%';
+        document.getElementById('progressText').innerText = `${percentage}% (${completedCount} من ${TOTAL_ITEMS} مكتمل)`;
+    }
+
+    function updateAllBadges() {
+        const links = document.querySelectorAll('.model-link');
+        const now = new Date();
+
+        links.forEach(link => {
+            const startStr = link.getAttribute('data-start');
+            const endStr = link.getAttribute('data-end');
+            const statusBox = link.querySelector('.status-box');
+            const timerBox = link.querySelector('.countdown-timer');
+            
+            if (!statusBox || !timerBox) return;
+
+            let targetDate = null;
+            let timerPrefix = "";
+
+            if (startStr && new Date(startStr) > now) {
+                statusBox.innerHTML = `<span class="status-badge badge-upcoming">قريباً ⏳</span><i class="fas fa-lock"></i>`;
+                targetDate = new Date(startStr);
+                timerPrefix = "يفتح بعد: ";
+            } else if (endStr && new Date(endStr) < now) {
+                statusBox.innerHTML = `<span class="status-badge badge-expired">مغلق 🔒</span><i class="fas fa-times-circle"></i>`;
+                timerBox.style.display = 'none';
+                return;
+            } else if (endStr) {
+                statusBox.innerHTML = `<span class="status-badge badge-active">متاح الآن 🟢</span><i class="fas fa-external-link-alt"></i>`;
+                targetDate = new Date(endStr);
+                timerPrefix = "يغلق بعد: ";
+            }
+
+            if (targetDate) {
+                const diff = targetDate - now;
+                if (diff > 0) {
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                    let timeString = timerPrefix;
+                    if (days > 0) timeString += `${days}ي `;
+                    timeString += `${hours}س ${minutes}د ${seconds}ث`;
+
+                    timerBox.innerText = timeString;
+                    timerBox.style.display = 'inline-flex';
+                } else {
+                    timerBox.style.display = 'none';
+                }
+            }
+        });
+    }
+
+    function toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        
+        updateThemeIcon(newTheme);
+    }
+
+    function updateThemeIcon(theme) {
+        const icon = document.getElementById('themeIcon');
+        if (theme === 'light') {
+            icon.className = 'fas fa-sun';
+        } else {
+            icon.className = 'fas fa-moon';
+        }
+    }
+
+    (function initTheme() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+        updateAllBadges();
+        updateProgressBar();
+        initLeaderboard(); // تشغيل الربط اللحظي لوحة الشرف
+        setInterval(updateAllBadges, 1000);
+    })();
+</script>
+
+</body>
+</html>
