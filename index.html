@@ -1,1216 +1,508 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة الكفايات اللغوية | أ. عبدالعزيز الفيفي ثانوية الأمير عبدالمجيد 😉</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>المنصة المدرسية الشاملة - أ. عبدالعزيز الفيفي</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- مكتبات Firebase اللحظية -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <!-- ربط سحابة مشروع abdalmged-6b97e الجديد -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, getDocs, deleteDoc, onSnapshot, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDLDay0Kpfwq8vvDMXSqvXeH1Z3r941mrs",
+            authDomain: "abdalmged-6b97e.firebaseapp.com",
+            databaseURL: "https://abdalmged-6b97e-default-rtdb.firebaseio.com",
+            projectId: "abdalmged-6b97e",
+            storageBucket: "abdalmged-6b97e.firebasestorage.app",
+            messagingSenderId: "15647765856",
+            appId: "1:15647765856:web:454432fdf5a28bfeOddaO5",
+            measurementId: "G-D4ZM5NK4FE"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        window.db = db;
+        window.FirestoreFunctions = { doc, setDoc, getDoc, collection, getDocs, deleteDoc, onSnapshot, updateDoc };
+
+        window.saveToCloud = async function(data, docId = 'main_data') {
+            try {
+                await setDoc(doc(db, "user_data", docId), {
+                    ...data,
+                    updatedAt: new Date().toISOString()
+                });
+                return true;
+            } catch (error) {
+                console.error("خطأ أثناء الحفظ:", error);
+                return false;
+            }
+        };
+
+        window.loadFromCloud = async function(docId = 'main_data') {
+            try {
+                const docRef = doc(db, "user_data", docId);
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    return docSnap.data();
+                } else {
+                    return null;
+                }
+            } catch (error) {
+                console.error("خطأ أثناء الجلب:", error);
+                return null;
+            }
+        };
+    </script>
 
     <style>
-        :root {
-            --bg-gradient: radial-gradient(circle at center, #111827 0%, #050810 100%);
-            --card-glass: rgba(255, 255, 255, 0.03);
-            --border-glass: rgba(255, 255, 255, 0.1);
-            --primary-glow: #38bdf8;
-            --text-main: #ffffff;
-            --text-sub: #94a3b8;
-            --modal-bg: #111827;
-            --overlay-bg: rgba(5, 8, 16, 0.85);
-            --link-bg: rgba(255, 255, 255, 0.05);
-            --announcement-bg: linear-gradient(135deg, #0284c7 0%, #1e40af 100%);
+        :root { 
+            --maroon: #800000; --gold: #d4af37; --bg: #fdfaf1; --danger: #c62828; 
+            --success: #28a745; --info: #17a2b8; --accent: #0284c7; --text-main: #1e293b;
+            --primary: #1e3a8a; --card-bg: #ffffff; --border: #e2e8f0;
         }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); margin: 0; padding: 20px; direction: rtl; color: var(--text-main); }
+        
+        .auth-card { background: white; max-width: 450px; margin: 80px auto; border-radius: 15px; padding: 35px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); border-top: 8px solid var(--maroon); text-align: center; }
+        .input-field { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid #cbd5e1; border-radius: 8px; font-size: 1rem; text-align: center; outline: none; box-sizing: border-box; }
+        .btn { padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; color: white; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+        .btn:hover { opacity: 0.9; }
+        .btn-main { background: var(--maroon); width: 100%; padding: 12px; font-size: 1.1rem; }
 
-        [data-theme="light"] {
-            --bg-gradient: radial-gradient(circle at center, #f8fafc 0%, #e2e8f0 100%);
-            --card-glass: rgba(255, 255, 255, 0.7);
-            --border-glass: rgba(148, 163, 184, 0.2);
-            --primary-glow: #0284c7;
-            --text-main: #0f172a;
-            --text-sub: #475569;
-            --modal-bg: #ffffff;
-            --overlay-bg: rgba(241, 245, 249, 0.85);
-            --link-bg: rgba(241, 245, 249, 0.9);
-            --announcement-bg: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-        }
+        .admin-panel, .teacher-dashboard { display: none; background: white; max-width: 1200px; margin: auto; border-radius: 15px; padding: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); border-top: 8px solid var(--maroon); }
+        .header { text-align: center; border-bottom: 2px solid var(--gold); margin-bottom: 20px; padding-bottom: 10px; }
+        .section-box { background: #f4f4f4; padding: 20px; border-radius: 10px; margin-bottom: 25px; border: 1px dashed var(--maroon); }
+        textarea { width: 100%; height: 120px; padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-family: sans-serif; resize: vertical; box-sizing: border-box; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: white; }
+        th { background: var(--maroon); color: var(--gold); padding: 12px; font-size: 0.9rem; }
+        td { border-bottom: 1px solid #eee; padding: 10px; text-align: center; vertical-align: middle; font-size: 0.9rem; }
 
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background: var(--bg-gradient);
-            color: var(--text-main);
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-
-        .theme-toggle-btn {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: var(--card-glass);
-            border: 1px solid var(--border-glass);
-            color: var(--text-main);
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            cursor: pointer;
-            backdrop-filter: blur(10px);
-            z-index: 1001;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-
-        .theme-toggle-btn:hover {
-            transform: scale(1.1);
-            border-color: var(--primary-glow);
-        }
-
-        header {
-            text-align: center;
-            padding: 50px 20px 15px;
-        }
-
-        header h1 {
-            font-size: 2.8rem;
-            font-weight: 900;
-            letter-spacing: -1px;
-            color: var(--text-main);
-            margin-bottom: 12px;
-        }
-
-        header p {
-            color: var(--primary-glow);
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.9;
-            font-weight: 700;
-        }
-
-        .unit-title {
-            color: #000000; /* لون أحمر عودي للسطر الأول */
-        }
-
-        /* تنسيقات لوحة الشرف */
-        .leaderboard-section {
-            width: 90%;
-            max-width: 1200px;
-            background: var(--card-glass);
-            border: 1px solid rgba(250, 204, 21, 0.4);
-            border-radius: 20px;
-            padding: 20px 25px;
-            margin-bottom: 25px;
-            backdrop-filter: blur(10px);
-            box-sizing: border-box;
-            box-shadow: 0 8px 32px rgba(250, 204, 21, 0.08);
-        }
-
-        .leaderboard-title {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 1.3rem;
-            font-weight: 900;
-            color: #facc15;
-            margin-bottom: 15px;
-            border-bottom: 1px solid var(--border-glass);
-            padding-bottom: 10px;
-        }
-
-        .leaderboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 12px;
-        }
-
-        .leader-card {
-            background: var(--link-bg);
-            border: 1px solid var(--border-glass);
-            border-radius: 12px;
-            padding: 10px 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: transform 0.3s ease;
-        }
-
-        .leader-card:hover {
-            transform: translateY(-3px);
-            border-color: #facc15;
-        }
-
-        .leader-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .rank-badge {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: var(--primary-glow);
-            color: #000;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85rem;
-        }
-
-        .rank-1 { background: #facc15; color: #000; box-shadow: 0 0 10px rgba(250, 204, 21, 0.5); }
-        .rank-2 { background: #e2e8f0; color: #000; }
-        .rank-3 { background: #b45309; color: #fff; }
-
-        .leader-name {
-            font-weight: bold;
-            font-size: 0.95rem;
-        }
-
-        .leader-score {
-            font-weight: 900;
-            color: #10b981;
-            font-size: 0.9rem;
-            background: rgba(16, 185, 129, 0.15);
-            padding: 3px 8px;
-            border-radius: 8px;
-        }
-
-        .progress-section {
-            width: 90%;
-            max-width: 1200px;
-            background: var(--card-glass);
-            border: 1px solid var(--border-glass);
-            border-radius: 20px;
-            padding: 15px 25px;
-            margin-bottom: 20px;
-            backdrop-filter: blur(10px);
-            box-sizing: border-box;
-        }
-
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: bold;
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-        }
-
-        .progress-bar-container {
-            width: 100%;
-            height: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .progress-bar-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #10b981, #38bdf8);
-            border-radius: 10px;
-            transition: width 0.5s ease-in-out;
-        }
-
-        .announcement-banner {
-            width: 90%;
-            max-width: 1200px;
-            background: var(--announcement-bg);
-            border: 2px solid var(--primary-glow);
-            border-radius: 20px;
-            padding: 20px 25px;
-            margin-bottom: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-            box-sizing: border-box;
-            animation: pulse-attention 1.8s infinite ease-in-out;
-        }
-
-        @keyframes pulse-attention {
-            0% { transform: scale(1); box-shadow: 0 0 15px rgba(56, 189, 248, 0.3); }
-            50% { transform: scale(1.025); box-shadow: 0 0 35px rgba(56, 189, 248, 0.8), 0 0 10px rgba(250, 204, 21, 0.5); border-color: #facc15; }
-            100% { transform: scale(1); box-shadow: 0 0 15px rgba(56, 189, 248, 0.3); }
-        }
-
-        .announcement-content {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            color: #ffffff;
-            width: 100%;
-        }
-
-        .announcement-icon {
-            font-size: 2.2rem;
-            color: #facc15;
-            animation: ring 1.5s infinite;
-        }
-
-        @keyframes ring {
-            0% { transform: rotate(0); }
-            10% { transform: rotate(15deg); }
-            20% { transform: rotate(-10deg); }
-            30% { transform: rotate(15deg); }
-            40% { transform: rotate(0); }
-        }
-
-        .announcement-text {
-            font-size: 1.25rem;
-            font-weight: 800;
-            line-height: 1.5;
-            margin: 0;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .close-banner-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: #ffffff;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            font-size: 1.1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.3s;
-            flex-shrink: 0;
-        }
-
-        .close-banner-btn:hover { background: rgba(255, 255, 255, 0.4); transform: scale(1.1); }
-
-        .container {
-            max-width: 1200px;
-            width: 90%;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            padding-bottom: 80px;
-        }
-
-        .card {
-            background: var(--card-glass);
-            border: 1px solid var(--border-glass);
-            border-radius: 25px;
-            padding: 35px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(15px);
-        }
-
-        .card::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, rgba(56, 189, 248, 0.1) 0%, transparent 70%);
-            opacity: 0;
-            transition: 0.5s;
-        }
-
-        .card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--primary-glow);
-            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.2);
-        }
-
-        .card:hover::before { opacity: 1; }
-
-        .icon-box {
-            width: 85px;
-            height: 85px;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 36px;
-            border-radius: 20px;
-            color: white;
-            transition: 0.5s;
-            position: relative;
-            z-index: 2;
-        }
-
-        .icon-grammar { background: linear-gradient(135deg, #38bdf8, #1e40af); box-shadow: 0 10px 20px rgba(56, 189, 248, 0.3); }
-        .icon-spelling { background: linear-gradient(135deg, #f59e0b, #d97706); box-shadow: 0 10px 20px rgba(245, 158, 11, 0.3); }
-        .icon-reading { background: linear-gradient(135deg, #10b981, #064e3b); box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3); }
-        .icon-writing { background: linear-gradient(135deg, #8b5cf6, #4c1d95); box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3); }
-        .icon-exam { background: linear-gradient(135deg, #ef4444, #991b1b); box-shadow: 0 10px 20px rgba(239, 68, 68, 0.3); }
-        .icon-textbook { background: linear-gradient(135deg, #059669, #047857); box-shadow: 0 10px 20px rgba(5, 150, 105, 0.3); }
-        .icon-pdf { background: linear-gradient(135deg, #ec4899, #be185d); box-shadow: 0 10px 20px rgba(236, 72, 153, 0.3); }
-        .icon-summary { background: linear-gradient(135deg, #a855f7, #6b21a8); box-shadow: 0 10px 20px rgba(168, 85, 247, 0.3); }
-
-        .card:hover .icon-box { transform: rotateY(360deg); }
-
-        .card h3 {
-            font-size: 1.5rem;
-            color: var(--text-main);
-            margin-bottom: 10px;
-            position: relative;
-            z-index: 2;
-            line-height: 1.4;
-        }
-
-        .card p {
-            font-size: 0.95rem;
-            color: var(--text-sub);
-            line-height: 1.6;
-            position: relative;
-            z-index: 2;
-        }
-
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--overlay-bg);
-            backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-
-        .modal-overlay.active { opacity: 1; visibility: visible; }
-
-        .modal-content {
-            background: var(--modal-bg);
-            border: 1px solid var(--border-glass);
-            border-radius: 25px;
-            width: 90%;
-            max-width: 600px;
-            padding: 30px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-            position: relative;
-            transform: scale(0.8);
-            transition: all 0.3s ease;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        .modal-overlay.active .modal-content { transform: scale(1); }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-glass);
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-        }
-
-        .modal-header h2 { margin: 0; font-size: 1.6rem; color: var(--primary-glow); }
-
-        .close-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-sub);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .close-btn:hover { color: var(--text-main); }
-
-        .links-list { display: flex; flex-direction: column; gap: 12px; }
-
-        .model-link {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px 20px;
-            background: var(--link-bg);
-            border: 1px solid var(--border-glass);
-            border-radius: 15px;
-            color: var(--text-main);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .model-link:hover {
-            background: rgba(56, 189, 248, 0.15);
-            border-color: var(--primary-glow);
-            transform: translateX(-5px);
-        }
-
-        .model-link i { color: var(--primary-glow); }
-
-        .countdown-timer {
-            font-size: 0.82rem;
-            font-weight: bold;
-            color: #facc15;
-            background: rgba(250, 204, 21, 0.15);
-            padding: 4px 10px;
-            border-radius: 8px;
-            border: 1px solid rgba(250, 204, 21, 0.3);
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .pdf-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px 20px;
-            background: var(--link-bg);
-            border: 1px solid var(--border-glass);
-            border-radius: 15px;
-            color: var(--text-main);
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .pdf-actions { display: flex; gap: 10px; }
-
-        .btn-action {
-            padding: 8px 14px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: 0.3s ease;
-        }
-
-        .btn-view { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
-        .btn-view:hover { background: #38bdf8; color: #000; }
-
-        .btn-download { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); }
-        .btn-download:hover { background: #10b981; color: #000; }
-
-        .status-badge {
-            font-size: 0.8rem;
-            padding: 4px 10px;
-            border-radius: 10px;
-            font-weight: bold;
-            margin-right: 8px;
-        }
-        .badge-upcoming { background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.4); }
-        .badge-active { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); }
-        .badge-expired { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); }
-
-        .footer {
-            margin-top: auto;
-            padding: 30px;
-            color: var(--text-sub);
-            font-size: 0.9rem;
-            text-align: center;
-        }
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 25px; }
+        .card-option { background: #f8fafc; padding: 30px; border-radius: 15px; text-align: center; cursor: pointer; border: 2px solid var(--border); transition: 0.3s; }
+        .card-option:hover { border-color: var(--primary); background: #e0f2fe; transform: translateY(-3px); }
+        .card-option i { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; }
     </style>
 </head>
 <body>
 
-<button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="تبديل الوضع">
-    <i class="fas fa-moon" id="themeIcon"></i>
-</button>
-
-<header>
-    <h1>بوابة الكفايات اللغوية</h1>
-    <p>مرجع التدريبات والتطبيقات التفاعلية اللغوية 📚 - أ. عبدالعزيز الفيفي ثانوية الأمير عبدالمجيد 😉 🎓</p>
-</header>
-
-<!-- لوحة الشرف التفاعلية للطلاب -->
-<div class="leaderboard-section">
-    <div class="leaderboard-title">
-        <span><i class="fas fa-trophy"></i> 🏆 لوحة الشرف للأبطال (أعلى الدرجات)</span>
-        <span style="font-size: 0.8rem; color: var(--text-sub); font-weight: normal;">تحديث لحظي تلقائي ⚡</span>
-    </div>
-    <div class="leaderboard-grid" id="leaderboardList">
-        <div style="color: var(--text-sub); font-size: 0.9rem;">جاري تحميل أبطال الكفايات... ⏳</div>
-    </div>
-</div>
-
-<div class="progress-section">
-    <div class="progress-header">
-        <span><i class="fas fa-chart-line" style="color: #10b981;"></i> نسبة إنجازك في البوابة:</span>
-        <span id="progressText">0% (0 من 0 مكتمل)</span>
-    </div>
-    <div class="progress-bar-container">
-        <div class="progress-bar-fill" id="progressBarFill"></div>
-    </div>
-</div>
-
-<div class="announcement-banner" id="announcementBanner">
-    <div class="announcement-content">
-        <i class="fas fa-bullhorn announcement-icon"></i>
-        <p class="announcement-text">
-            📢 تنبيه هام للطلاب: تم إضافة أوراق عمل جديدة، واختبارات الجملة الاسمية والفعلية متاحة الآن، كما تم إضافة أيقونة الكتب المدرسية الرقمية للتصفح!
-        </p>
-    </div>
-    <button class="close-banner-btn" onclick="closeBanner()" title="إغلاق الإعلان">&times;</button>
-</div>
-
-<div class="container">
-
-    <div class="card" onclick="openModal('grammar-modal')">
-        <div class="icon-box icon-grammar"><i class="fas fa-book-open"></i></div>
-        <h3><span class="unit-title">الوحدة الأولى</span><br>الكفاية النحوية</h3>
-        <p>اضغط هنا لاستعراض تمارين الجملة الاسمية - الفعل المضارع - الفاعل ونائب الفاعل.</p>
+    <!-- 1. شاشة تسجيل الدخول المباشر -->
+    <div class="auth-card" id="loginScreen">
+        <h2 style="color: var(--maroon); margin-top:0;"><i class="fas fa-school"></i> بوابة المنصة المدرسية</h2>
+        <p style="color: #666; font-size: 0.95rem;">أدخل إيميلك للدخول (إيميلك الإداري أو إيميل أي معلم):</p>
+        <input type="email" id="loginEmail" class="input-field" placeholder="t486739@rb.moe.gov.sa" value="t486739@rb.moe.gov.sa">
+        <button class="btn btn-main" onclick="verifyLogin()">دخول المنصة 🚀</button>
+        <p id="loginMsg" style="margin-top: 15px; font-weight: bold;"></p>
     </div>
 
-    <div class="card" onclick="openModal('spelling-modal')">
-        <div class="icon-box icon-spelling"><i class="fas fa-pen-nib"></i></div>
-        <h3><span class="unit-title">الوحدة الثانية</span><br>الكفاية الإملائية</h3>
-        <p>اضغط هنا لاستعراض تمارين علامات الترقيم - وأعراف الكتابة .</p>
-    </div>
-
-    <div class="card" onclick="openModal('reading-modal')">
-        <div class="icon-box icon-reading"><i class="fas fa-brain"></i></div>
-        <h3><span class="unit-title">الوحدة الثالثة</span><br>الكفاية القرائية</h3>
-        <p>اضغط لاستعراض نماذج الفهم القرائي والقراءة التحليلية.</p>
-    </div>
-
-    <div class="card" onclick="openModal('writing-modal')">
-        <div class="icon-box icon-writing"><i class="fas fa-file-alt"></i></div>
-        <h3><span class="unit-title">الوحدة الرابعة</span><br>الكفاية الكتابية</h3>
-        <p>اضغط لاستعراض تطبيقات مهارات التعبير والكتابة.</p>
-    </div>
-
-    <div class="card" onclick="openModal('exam-modal')">
-        <div class="icon-box icon-exam"><i class="fas fa-tasks"></i></div>
-        <h3>اختبارات تجريبية شاملة</h3>
-        <p>اضغط لاستعراض نماذج الاختبارات المحاكية الشاملة.</p>
-    </div>
-
-    <div class="card" onclick="openModal('textbook-modal')">
-        <div class="icon-box icon-textbook"><i class="fas fa-book"></i></div>
-        <h3>الكتاب المدرسي</h3>
-        <p>اضغط لاستعراض وتصفح كتب المرحلة الرقمية المعتمدة.</p>
-    </div>
-
-    <div class="card" onclick="openModal('pdf-modal')">
-        <div class="icon-box icon-pdf"><i class="fas fa-dumbbell"></i></div>
-        <h3>تدريبات وتمارين</h3>
-        <p>اضغط للاطلاع على الأوراق التدريبية وتمارين الكفايات وتحميلها.</p>
-    </div>
-
-    <div class="card" onclick="openModal('summaries-modal')">
-        <div class="icon-box icon-summary"><i class="fas fa-book-reader"></i></div>
-        <h3>ملخصات</h3>
-        <p>اضغط للاطلاع على المذكرات والملخصات القواعدية والتحميل.</p>
-    </div>
-
-</div>
-
-<!-- النوافذ المنبثقة -->
-
-<!-- نافذة الكتاب المدرسي المعتمد على منصة مدرستي -->
-<div id="textbook-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'textbook-modal')">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>الكتاب المدرسي الرقمي (منصة مدرستي)</h2>
-            <button class="close-btn" onclick="closeModal('textbook-modal')">&times;</button>
+    <!-- 2. لوحة تحكم المدير (أ. عبدالعزيز الفيفي) -->
+    <div class="admin-panel" id="adminScreen">
+        <div class="header">
+            <h2 style="color: var(--maroon);">لوحة التحكم الشاملة (أ. عبدالعزيز الفيفي) 🔒</h2>
+            <p>إدارة المعلمين والطلاب العامين في المدرسة</p>
+            <button class="btn" style="background: var(--danger); margin-top:10px;" onclick="location.reload()">تسجيل خروج</button>
         </div>
-        <div class="links-list">
 
-            <div class="pdf-item">
-                <span><i class="fas fa-book" style="color: #059669; margin-left: 8px;"></i> كتب الصف أول ثانوي الاكترونية   </span>
-                <div class="pdf-actions">
-                    <a href="https://schools.madrasati.sa/books/E7027E8EDF24725B41C6D294DA2AADD7" class="btn-action btn-view" target="_blank" onclick="markCompleted('textbook-1')">
-                        <i class="fas fa-external-link-alt"></i> تصفح وقراءة الكتاب
-                    </a>
-                </div>
+        <div class="section-box">
+            <h3>👨‍🏫 إدارة المعلمين (إضافة / تعديل / حذف / مشاركة رابط المنصة)</h3>
+            <div style="margin-top:15px; display:flex; gap:10px; flex-wrap:wrap;">
+                <input type="text" id="tName" class="input-field" placeholder="اسم المعلم" style="flex:1; margin:0;">
+                <input type="text" id="tSubject" class="input-field" placeholder="المادة" style="flex:1; margin:0;" value="الكفايات اللغوية">
+                <input type="email" id="tEmail" class="input-field" placeholder="البريد الإلكتروني للمعلم" style="flex:1; margin:0;">
+                <button class="btn" style="background: var(--success);" onclick="saveTeacher()">حفظ المعلم 🌟</button>
             </div>
+            <table id="teachersTable" style="margin-top:20px;">
+                <thead><tr><th>اسم المعلم</th><th>المادة</th><th>البريد الإلكتروني</th><th>الإجراءات والأدوات</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
 
+        <div class="section-box">
+            <h3>🎓 القائمة العامة للطلاب (متاحة لجميع المعلمين)</h3>
+            <label style="font-size:0.9rem; color:#666;">لصق قائمة الطلاب (الاسم والإيميل سطر بسطر):</label>
+            <textarea id="bulkInput" placeholder="الصق هنا.. الاسم ثم الإيميل"></textarea>
+            <div style="margin-top: 10px; display:flex; gap:10px;">
+                <button class="btn" style="background: var(--maroon); color: var(--gold);" onclick="smartBulkAddStudents()">رفع واعتماد الطلاب 🚀</button>
+                <button class="btn" style="background: var(--danger);" onclick="deleteAllStudents()">حذف جميع الطلاب 🗑️</button>
+            </div>
+            <table id="studentsTable" style="margin-top:20px;">
+                <thead><tr><th>اسم الطالب</th><th>البريد الإلكتروني</th><th>الإجراء</th></tr></thead>
+                <tbody></tbody>
+            </table>
         </div>
     </div>
-</div>
 
-<!-- نافذة تدريبات وتمارين -->
-<div id="pdf-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'pdf-modal')">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>تدريبات وتمارين (PDF)</h2>
-            <button class="close-btn" onclick="closeModal('pdf-modal')">&times;</button>
+    <!-- 3. لوحة المعلم المستقلة (الأيقونات الثلاث) -->
+    <div class="teacher-dashboard" id="teacherScreen">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--primary); padding-bottom: 10px; margin-bottom: 20px;">
+            <div>
+                <h2 id="teacherWelcomeTitle" style="color: var(--primary); margin:0;">المعلم</h2>
+                <span id="teacherSubjectTitle" style="color: #64748b; font-weight:bold;">ثانوية الأمير عبدالمجيد 😉</span>
+            </div>
+            <button class="btn" style="background: var(--danger);" onclick="location.reload()">تسجيل خروج</button>
         </div>
-        <div class="links-list">
 
-            <div class="pdf-item">
-                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> تدريبات الجملة الاسمية 1 ( واجب )</span>
-                <div class="pdf-actions">
-                    <a href="present-verb-2.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('pdf-1')">
-                        <i class="fas fa-eye"></i> معاينة
-                    </a>
-                    <a href="present-verb-2.pdf" class="btn-action btn-download" download="تدريبات الجملة الاسمية 1.pdf" onclick="markCompleted('pdf-1')">
-                        <i class="fas fa-download"></i> تحميل
-                    </a>
-                </div>
+        <div class="dashboard-grid" id="teacherMenuGrid">
+            <div class="card-option" onclick="openTeacherSection('reports')">
+                <i class="fas fa-chart-line"></i>
+                <h3>متابعة الطلاب والدرجات</h3>
+                <p>لوحة تحليل الأداء والرسوم البيانية الخاصة بي</p>
             </div>
-
-            <div class="pdf-item">
-                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> تدريبات الجملة الاسمية 2 </span>
-                <div class="pdf-actions">
-                    <a href="present-verb-4.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('pdf-2')">
-                        <i class="fas fa-eye"></i> معاينة
-                    </a>
-                    <a href="present-verb-4.pdf" class="btn-action btn-download" download="تدريبات الجملة الاسمية 2 .pdf" onclick="markCompleted('pdf-2')">
-                        <i class="fas fa-download"></i> تحميل
-                    </a>
-                </div>
+            <div class="card-option" onclick="openTeacherSection('exams')">
+                <i class="fas fa-file-alt"></i>
+                <h3>منصة عمل الاختبارات</h3>
+                <p>إنشاء وتشكيل وتوليد الاختبارات المتقدمة الخاصة بي</p>
             </div>
-
-            <div class="pdf-item">
-                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> كان وأخواتها</span>
-                <div class="pdf-actions">
-                    <a href="present-verb-1.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('pdf-3')">
-                        <i class="fas fa-eye"></i> معاينة
-                    </a>
-                    <a href="present-verb-1.pdf" class="btn-action btn-download" download="كان_وأخواتها.pdf" onclick="markCompleted('pdf-3')">
-                        <i class="fas fa-download"></i> تحميل
-                    </a>
-                </div>
-            </div>
-
-            <div class="pdf-item">
-                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i>تدريبات الفعل المضارع  1 ( واجب )</span>
-                <div class="pdf-actions">
-                    <a href="present-verb.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('pdf-4')">
-                        <i class="fas fa-eye"></i> معاينة
-                    </a>
-                    <a href="present-verb.pdf" class="btn-action btn-download" download=" تدريبات الفعل المضارع 1.pdf" onclick="markCompleted('pdf-4')">
-                        <i class="fas fa-download"></i> تحميل
-                    </a>
-                </div>
-            </div>
-
-            <div class="pdf-item">
-                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> تدريبات الفعل المضارع 2</span>
-                <div class="pdf-actions">
-                    <a href="present-verb-3.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('pdf-5')">
-                        <i class="fas fa-eye"></i> معاينة
-                    </a>
-                    <a href="present-verb-3.pdf" class="btn-action btn-download" download="تدريبات الفعل المضارع 2.pdf" onclick="markCompleted('pdf-5')">
-                        <i class="fas fa-download"></i> تحميل
-                    </a>
-                </div>
-            </div>
-            
-            <div class="pdf-item">
-                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i>  تدريبات الفاعل ونائب الفاعل( واجب )  </span>
-                <div class="pdf-actions">
-                    <a href="present-verb-5.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('pdf-6')">
-                        <i class="fas fa-eye"></i> معاينة
-                    </a>
-                    <a href="present-verb-5.pdf" class="btn-action btn-download" download=" تدريبات الفاعل ونائب الفاعل ( واجب ).pdf" onclick="markCompleted('pdf-6')">
-                        <i class="fas fa-download"></i> تحميل
-                    </a>
-                </div>
-            </div>
-            <div class="pdf-item">
-                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> تدريبات علامات الترقيم </span>
-                <div class="pdf-actions">
-                    <a href="summary-4.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('pdf-6')">
-                        <i class="fas fa-eye"></i> معاينة
-                    </a>
-                    <a href="summary-4.pdf" class="btn-action btn-download" download="تدريبات علامات الترقيم.pdf" onclick="markCompleted('pdf-6')">
-                        <i class="fas fa-download"></i> تحميل
-                    </a>
-             
-                </div>
-            </div>
-            <div class="pdf-item">
-                <span><i class="fas fa-file-pdf" style="color: #ec4899; margin-left: 8px;"></i> اختبار تجريبي الفترة الأولى  </span>
-                <div class="pdf-actions">
-                    <a href="present-verb-8.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('pdf-2')">
-                        <i class="fas fa-eye"></i> معاينة
-                    </a>
-                    <a href="present-verb-8.pdf" class="btn-action btn-download" download="اختبار تجريبي الفترة الأولى  .pdf" onclick="markCompleted('pdf-8')">
-                        <i class="fas fa-download"></i> تحميل
-                    </a>
-                </div>
+            <div class="card-option" onclick="openTeacherSection('classes')">
+                <i class="fas fa-users"></i>
+                <h3>إضافة وفصول الطلاب</h3>
+                <p>إنشاء فصولي الخاصة وإدارة طلابي بحرية تامة</p>
             </div>
         </div>
+
+        <div id="teacherSectionContainer" style="margin-top: 25px;"></div>
     </div>
-</div>
-
-<!-- نافذة ملخصات -->
-<div id="summaries-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'summaries-modal')">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>الملخصات والمذكرات القواعدية (PDF)</h2>
-            <button class="close-btn" onclick="closeModal('summaries-modal')">&times;</button>
-        </div>
-        <div class="links-list">
-
-            <div class="pdf-item">
-                <span><i class="fas fa-file-pdf" style="color: #a855f7; margin-left: 8px;"></i> ملخص الجملة الاسمية ( المبتدأ والخبر )</span>
-                <div class="pdf-actions">
-                    <a href="summary-1.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('summary-1')">
-                        <i class="fas fa-eye"></i> معاينة
-                    </a>
-                    <a href="summary-1.pdf" class="btn-action btn-download" download="ملخص الجملة الاسمية ( المبتدأ والخبر ).pdf" onclick="markCompleted('summary-1')">
-                        <i class="fas fa-download"></i> تحميل
-                    </a>
-                </div>
-            </div>
-
-            <div class="pdf-item">
-                <span><i class="fas fa-file-pdf" style="color: #a855f7; margin-left: 8px;"></i> ملخص الفعل المضارع</span>
-                <div class="pdf-actions">
-                    <a href="summary-2.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('summary-2')">
-                        <i class="fas fa-eye"></i> معاينة
-                    </a>
-                    <a href="summary-2.pdf" class="btn-action btn-download" download="ملخص الفعل المضارع.pdf" onclick="markCompleted('summary-2')">
-                        <i class="fas fa-download"></i> تحميل
-                    </a>
-                </div>
-            </div>
-
-            <div class="pdf-item">
-                <span><i class="fas fa-file-pdf" style="color: #a855f7; margin-left: 8px;"></i> ملخص الفاعل ونائب الفاعل</span>
-                <div class="pdf-actions">
-                    <a href="summary-3.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('summary-3')">
-                        <i class="fas fa-eye"></i> معاينة
-                    </a>
-                    <a href="summary-3.pdf" class="btn-action btn-download" download="ملخص الفاعل ونائب الفاعل.pdf" onclick="markCompleted('summary-3')">
-                        <i class="fas fa-download"></i> تحميل
-                    </a>
-                </div>
-            </div>
-            <div class="pdf-item">
-                <span><i class="fas fa-file-pdf" style="color: #a855f7; margin-left: 8px;"></i> ملخص الوحدة 2 ( أعراف الكتابة وعلامات الترقيم  )</span>
-                <div class="pdf-actions">
-                    <a href="present-verb-6.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('summary-1')">
-                        <i class="fas fa-eye"></i> معاينة
-                    </a>
-                    <a href="present-verb-6.pdf" class="btn-action btn-download" download="ملخص الوحدة 2 ( أعراف الكتابة وعلامات الترقيم  ) .pdf" onclick="markCompleted('summary-1')">
-                        <i class="fas fa-download"></i> تحميل
-                    </a>
-                </div>
-            </div>
-                            <div class="pdf-item">
-                <span><i class="fas fa-file-pdf" style="color: #a855f7; margin-left: 8px;"></i> ملخص الوحدة 2 ( علامات الترقيم  )</span>
-                <div class="pdf-actions">
-                    <a href="present-verb-7.pdf" class="btn-action btn-view" target="_blank" onclick="markCompleted('summary-1')">
-                        <i class="fas fa-eye"></i> معاينة
-                    </a>
-                    <a href="present-verb-7.pdf" class="btn-action btn-download" download="ملخص الوحدة 2 ( علامات الترقيم  ) .pdf" onclick="markCompleted('summary-1')">
-                        <i class="fas fa-download"></i> تحميل
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="grammar-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'grammar-modal')">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>نماذج الكفاية النحوية</h2>
-            <button class="close-btn" onclick="closeModal('grammar-modal')">&times;</button>
-        </div>
-        <div class="links-list">
-
-            <a class="model-link" 
-               data-id="exam-1"
-               data-url="https://school1school2-stack.github.io/ALgamlh1/" 
-               data-start="2026-09-09T08:00" 
-               data-end="2026-10-08T23:59" 
-               onclick="handleLinkClick(this)">
-                <span><i class="fas fa-file-signature"></i> نموذج (1): الجملة الاسمية</span>
-                <span class="countdown-timer"></span>
-                <span class="status-box"></span>
-            </a>
-            
-            <a class="model-link" 
-               data-id="exam-2"
-               data-url="https://school1school2-stack.github.io/ALgamlh3/" 
-               data-start="2026-09-09T08:00" 
-               data-end="2026-10-08T23:59" 
-               onclick="handleLinkClick(this)">
-                <span><i class="fas fa-file-signature"></i> نموذج (2): الجملة الاسمية</span>
-                <span class="countdown-timer"></span>
-                <span class="status-box"></span>
-            </a>
-            
-            <a class="model-link" 
-               data-id="exam-3"
-               data-url="https://school1school2-stack.github.io/almtara/" 
-               data-start="2026-09-08T08:00" 
-               data-end="2026-10-08T23:59" 
-               onclick="handleLinkClick(this)">
-                <span><i class="fas fa-file-signature"></i> نموذج (1): الجملة الفعلية</span>
-                <span class="countdown-timer"></span>
-                <span class="status-box"></span>
-            </a>
-
-            <a class="model-link" 
-               data-id="exam-4"
-               data-url="https://school1school2-stack.github.io/ALgamlh2/" 
-               data-start="2026-09-08T08:00" 
-               data-end="2026-10-08T23:59" 
-               onclick="handleLinkClick(this)">
-                <span><i class="fas fa-file-signature"></i> نموذج (2): الجملة الفعلية</span>
-                <span class="countdown-timer"></span>
-                <span class="status-box"></span>
-            </a>
-            
-            <a class="model-link" 
-               data-id="exam-5"
-               data-url="https://school1school2-stack.github.io/SSSSS/" 
-               data-start="2026-09-15T08:00" 
-               data-end="2026-10-08T23:59" 
-               onclick="handleLinkClick(this)">
-                <span><i class="fas fa-file-signature"></i> نموذج (3): الفاعل ونائب الفاعل</span>
-                <span class="countdown-timer"></span>
-                <span class="status-box"></span>
-            </a>
-
-        </div>
-    </div>
-</div>
-
-<div id="spelling-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'spelling-modal')">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>نماذج الكفاية الإملائية</h2>
-            <button class="close-btn" onclick="closeModal('spelling-modal')">&times;</button>
-        </div>
-        
-        <div class="links-list">
-            <a class="model-link" 
-               data-id="exam-spelling-1"
-               data-url="https://school1school2-stack.github.io/Trqem/" 
-               data-start="2026-10-21T11:00" 
-               data-end="2026-11-20T23:59" 
-               onclick="handleLinkClick(this)">
-                <span><i class="fas fa-file-signature"></i> نموذج علامات الترقيم </span>
-                <span class="countdown-timer"></span>
-                <span class="status-box"></span>
-            </a>
-
-            <a class="model-link" 
-               data-id="exam-spelling-2"
-               data-url="https://school1school2-stack.github.io/SSSSS3/" 
-               data-start="2026-10-21T11:00" 
-               data-end="2026-11-20T23:59" 
-               onclick="handleLinkClick(this)">
-                <span><i class="fas fa-file-signature"></i> علامات الترقيم </span>
-                <span class="countdown-timer"></span>
-                <span class="status-box"></span>
-            </a>
-        </div>
-    </div>
-</div>
-
-<!-- نافذة اختبارات تجريبية شاملة -->
-<div id="exam-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'exam-modal')">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>اختبارات تجريبية شاملة</h2>
-            <button class="close-btn" onclick="closeModal('exam-modal')">&times;</button>
-        </div>
-        <div class="links-list">
-
-            <a class="model-link" 
-               data-id="exam-comprehensive-1"
-               data-url="https://share.gemini.google/yJqeena6vMjL" 
-               data-start="2026-09-12T08:00" 
-               data-end="2026-11-30T23:59" 
-               onclick="handleLinkClick(this)">
-                <span><i class="fas fa-file-signature"></i> الاختبار التجريبي الشامل (1)</span>
-                <span class="countdown-timer"></span>
-                <span class="status-box"></span>
-            </a>
-
-            <a class="model-link" 
-               data-id="exam-comprehensive-2"
-               data-url="https://share.gemini.google/UgDgkirc2qNH" 
-               data-start="2026-09-12T08:00" 
-               data-end="2026-11-30T23:59" 
-               onclick="handleLinkClick(this)">
-                <span><i class="fas fa-file-signature"></i> الاختبار التجريبي الشامل (2)</span>
-                <span class="countdown-timer"></span>
-                <span class="status-box"></span>
-            </a>
-
-            <a class="model-link" 
-               data-id="exam-comprehensive-3"
-               data-url="https://share.gemini.google/mk6sNCnAlm2C" 
-               data-start="2026-09-12T08:00" 
-               data-end="2026-11-30T23:59" 
-               onclick="handleLinkClick(this)">
-                <span><i class="fas fa-file-signature"></i> الاختبار التجريبي الشامل (3)</span>
-                <span class="countdown-timer"></span>
-                <span class="status-box"></span>
-            </a>
-            <a class="model-link" 
-               data-id="exam-comprehensive-3"
-               data-url="https://share.gemini.google/KP07MKVxeguj" 
-               data-start="2026-09-12T08:00" 
-               data-end="2026-11-30T23:59" 
-               onclick="handleLinkClick(this)">
-                <span><i class="fas fa-file-signature"></i> الاختبار التجريبي الشامل (4)</span>
-                <span class="countdown-timer"></span>
-                <span class="status-box"></span>
-            </a>  
-                        <a class="model-link" 
-               data-id="exam-comprehensive-3"
-               data-url="https://share.gemini.google/R26r28gyGi5z" 
-               data-start="2026-09-12T08:00" 
-               data-end="2026-11-30T23:59" 
-               onclick="handleLinkClick(this)">
-                <span><i class="fas fa-file-signature"></i> الاختبار التجريبي الشامل (5)</span>
-                <span class="countdown-timer"></span>
-                <span class="status-box"></span>
-            </a>
-                                    <a class="model-link" 
-               data-id="exam-comprehensive-3"
-               data-url="https://share.gemini.google/R26r28gyGi5z" 
-               data-start="2026-09-12T08:00" 
-               data-end="2026-09-20T23:59" 
-               onclick="handleLinkClick(this)">
-                <span><i class="fas fa-file-signature"></i> اختبار على علامات الترقيم   (6)</span>
-                <span class="countdown-timer"></span>
-                <span class="status-box"></span>
-            </a>
-        </div>
-    </div>
-</div>
-
-<div class="footer">
-    إعداد وتنفيذ: أ. عبدالعزيز الفيفي - ثانوية الأمير عبدالمجيد 😉 &copy; 2026
-</div>
 
 <script>
-    // إعدادات Firebase من لوحة القيادة الخاصة بك
-    const firebaseConfig = {
-        apiKey: "AIzaSyBkCO7FDQXd89YDf843J4_AtvEFvzzt-R0",
-        authDomain: "aztlg-494c3.firebaseapp.com",
-        projectId: "aztlg-494c3",
-        storageBucket: "aztlg-494c3.firebasestorage.app",
-        messagingSenderId: "597051893949",
-        appId: "1:597051893949:web:de5554ac900317a92b2fd4"
+    const adminEmail = "t486739@rb.moe.gov.sa";
+    let currentTeacherEmail = "";
+
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const tParam = urlParams.get('teacher');
+        if(tParam) {
+            document.getElementById('loginEmail').value = tParam;
+        }
     };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
 
-    // الاستماع اللحظي للوحة الشرف مع عرض الدرجة الفعلية والكلية
-    function initLeaderboard() {
-        db.collection("alkfaeat_results").onSnapshot(snapshot => {
-            let studentsMap = {};
+    async function verifyLogin() {
+        const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+        const msg = document.getElementById('loginMsg');
+        if(!email) { msg.style.color = "red"; msg.innerText = "الرجاء إدخال البريد الإلكتروني."; return; }
 
-            snapshot.forEach(doc => {
-                let data = doc.data();
-                if (!data.name || data.score === undefined || !data.total) return;
+        msg.style.color = "var(--accent)";
+        msg.innerText = "جاري الدخول... ⏳";
 
-                let pct = Math.round((data.score / data.total) * 100);
-                
-                // احتساب أفضل درجة حققها الطالب عبر كافة النماذج
-                if (!studentsMap[data.name] || pct > studentsMap[data.name].pct) {
-                    studentsMap[data.name] = {
-                        name: data.name,
-                        score: data.score,
-                        total: data.total,
-                        pct: pct
-                    };
+        try {
+            if(email === adminEmail || email.includes("admin")) {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('adminScreen').style.display = 'block';
+                loadAdminData();
+                return;
+            }
+
+            currentTeacherEmail = email;
+            let tData = { name: "معلم المادة", subject: "الكفايات اللغوية", email: email };
+            try {
+                const docRef = doc(window.db, "allowed_teachers", email);
+                const docSnap = await window.FirestoreFunctions.getDoc(docRef);
+                if(docSnap.exists()) {
+                    tData = docSnap.data();
                 }
-            });
+            } catch(err) { console.error(err); }
 
-            let sortedList = Object.values(studentsMap).sort((a, b) => b.pct - a.pct);
-            let topStudents = sortedList.slice(0, 6); // عرض أعلى 6 طلاب فقط
-
-            const container = document.getElementById('leaderboardList');
-            if (topStudents.length === 0) {
-                container.innerHTML = `<div style="color: var(--text-sub);">لا توجد نتائج مسجلة حتى الآن. كن أول الأبطال! 🌟</div>`;
-                return;
-            }
-
-            let html = "";
-            topStudents.forEach((st, index) => {
-                let rankClass = index === 0 ? 'rank-1' : index === 1 ? 'rank-2' : index === 2 ? 'rank-3' : '';
-                let medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '⭐';
-
-                html += `
-                    <div class="leader-card">
-                        <div class="leader-info">
-                            <div class="rank-badge ${rankClass}">${index + 1}</div>
-                            <div class="leader-name">${medal} ${st.name}</div>
-                        </div>
-                        <div class="leader-score">${st.score} من ${st.total} (${st.pct}%)</div>
-                    </div>
-                `;
-            });
-
-            container.innerHTML = html;
-        });
-    }
-
-    function openModal(modalId) {
-        document.getElementById(modalId).classList.add('active');
-        updateAllBadges();
-    }
-
-    function closeModal(modalId) {
-        document.getElementById(modalId).classList.remove('active');
-    }
-
-    function closeModalOnOuterClick(event, modalId) {
-        if (event.target.id === modalId) {
-            closeModal(modalId);
-        }
-    }
-
-    function closeBanner() {
-        document.getElementById('announcementBanner').style.display = 'none';
-    }
-
-    function handleLinkClick(element) {
-        const url = element.getAttribute('data-url');
-        const itemId = element.getAttribute('data-id');
-        const startTimeStr = element.getAttribute('data-start');
-        const endTimeStr = element.getAttribute('data-end');
-        const now = new Date();
-
-        if (startTimeStr) {
-            const startTime = new Date(startTimeStr);
-            if (now < startTime) {
-                alert(`سيكون هذا النموذج متاحاً قريباً بإذن الله ⏳\nموعد الفتح: ${startTime.toLocaleString('ar-SA')}`);
-                return;
-            }
-        }
-
-        if (endTimeStr) {
-            const endTime = new Date(endTimeStr);
-            if (now > endTime) {
-                alert('عذراً، انتهت الفترة المحددة لتقديم هذا النموذج وهو مغلق حالياً 🔒');
-                return;
-            }
-        }
-
-        if (itemId) markCompleted(itemId);
-        window.open(url, '_blank');
-    }
-
-    function markCompleted(id) {
-        let completedList = JSON.parse(localStorage.getItem('student_completed_items') || '[]');
-        if (!completedList.includes(id)) {
-            completedList.push(id);
-            localStorage.setItem('student_completed_items', JSON.stringify(completedList));
-            updateProgressBar();
-        }
-    }
-
-    function updateProgressBar() {
-        const totalExams = document.querySelectorAll('.model-link').length;
-        const totalPdfs = document.querySelectorAll('.pdf-item').length;
-        const TOTAL_ITEMS = totalExams + totalPdfs;
-
-        let completedList = JSON.parse(localStorage.getItem('student_completed_items') || '[]');
-        let completedCount = completedList.length;
-        let percentage = TOTAL_ITEMS > 0 ? Math.min(Math.round((completedCount / TOTAL_ITEMS) * 100), 100) : 0;
-
-        document.getElementById('progressBarFill').style.width = percentage + '%';
-        document.getElementById('progressText').innerText = `${percentage}% (${completedCount} من ${TOTAL_ITEMS} مكتمل)`;
-    }
-
-    function updateAllBadges() {
-        const links = document.querySelectorAll('.model-link');
-        const now = new Date();
-
-        links.forEach(link => {
-            const startStr = link.getAttribute('data-start');
-            const endStr = link.getAttribute('data-end');
-            const statusBox = link.querySelector('.status-box');
-            const timerBox = link.querySelector('.countdown-timer');
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('teacherScreen').style.display = 'block';
+            document.getElementById('teacherWelcomeTitle').innerText = `المعلم: ${tData.name}`;
+            document.getElementById('teacherSubjectTitle').innerText = `${tData.subject} - ثانوية الأمير عبدالمجيد 😉`;
             
-            if (!statusBox || !timerBox) return;
-
-            let targetDate = null;
-            let timerPrefix = "";
-
-            if (startStr && new Date(startStr) > now) {
-                statusBox.innerHTML = `<span class="status-badge badge-upcoming">قريباً ⏳</span><i class="fas fa-lock"></i>`;
-                targetDate = new Date(startStr);
-                timerPrefix = "يفتح بعد: ";
-            } else if (endStr && new Date(endStr) < now) {
-                statusBox.innerHTML = `<span class="status-badge badge-expired">مغلق 🔒</span><i class="fas fa-times-circle"></i>`;
-                timerBox.style.display = 'none';
-                return;
-            } else if (endStr) {
-                statusBox.innerHTML = `<span class="status-badge badge-active">متاح الآن 🟢</span><i class="fas fa-external-link-alt"></i>`;
-                targetDate = new Date(endStr);
-                timerPrefix = "يغلق بعد: ";
-            }
-
-            if (targetDate) {
-                const diff = targetDate - now;
-                if (diff > 0) {
-                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-                    let timeString = timerPrefix;
-                    if (days > 0) timeString += `${days}ي `;
-                    timeString += `${hours}س ${minutes}د ${seconds}ث`;
-
-                    timerBox.innerText = timeString;
-                    timerBox.style.display = 'inline-flex';
-                } else {
-                    timerBox.style.display = 'none';
-                }
-            }
-        });
-    }
-
-    function toggleTheme() {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-        
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        
-        updateThemeIcon(newTheme);
-    }
-
-    function updateThemeIcon(theme) {
-        const icon = document.getElementById('themeIcon');
-        if (theme === 'light') {
-            icon.className = 'fas fa-sun';
-        } else {
-            icon.className = 'fas fa-moon';
+        } catch (e) {
+            msg.style.color = "red";
+            msg.innerText = "حدث خطأ في النظام. حاول مرة أخرى.";
         }
     }
 
-    (function initTheme() {
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        document.documentElement.setAttribute('data-theme', savedTheme);
-        updateThemeIcon(savedTheme);
-        updateAllBadges();
-        updateProgressBar();
-        initLeaderboard(); // تشغيل الربط اللحظي لوحة الشرف
-        setInterval(updateAllBadges, 1000);
-    })();
-</script>
+    async function saveTeacher() {
+        const name = document.getElementById('tName').value.trim();
+        const subject = document.getElementById('tSubject').value.trim();
+        const email = document.getElementById('tEmail').value.trim().toLowerCase();
+        
+        if(!name || !subject || !email) {
+            alert("الرجاء تعبئة بيانات المعلم كاملة.");
+            return;
+        }
 
+        try {
+            const docRef = doc(window.db, "allowed_teachers", email);
+            await window.FirestoreFunctions.setDoc(docRef, { name, subject, email });
+            alert("تم حفظ المعلم بنجاح! 🌟");
+            document.getElementById('tName').value = "";
+            document.getElementById('tSubject').value = "الكفايات اللغوية";
+            document.getElementById('tEmail').value = "";
+            loadAdminData();
+        } catch(e) {
+            alert("خطأ أثناء حفظ المعلم.");
+        }
+    }
+
+    async function loadAdminData() {
+        const tTbody = document.querySelector("#teachersTable tbody");
+        tTbody.innerHTML = "";
+        try {
+            const querySnapshot = await window.FirestoreFunctions.getDocs(window.FirestoreFunctions.collection(window.db, "allowed_teachers"));
+            querySnapshot.forEach((documentSnapshot) => {
+                const d = documentSnapshot.data();
+                const shareLink = `${window.location.origin}${window.location.pathname}?teacher=${encodeURIComponent(d.email)}`;
+                tTbody.innerHTML += `
+                    <tr>
+                        <td><b>${d.name}</b></td>
+                        <td>${d.subject}</td>
+                        <td>${d.email}</td>
+                        <td>
+                            <button class="btn" style="background:var(--info); padding:5px 8px; font-size:0.8rem;" onclick="copyTeacherLink('${shareLink}')">🔗 مشاركة</button>
+                            <button class="btn" style="background:var(--success); padding:5px 8px; font-size:0.8rem;" onclick="editTeacher('${d.email}', '${d.name}', '${d.subject}')">✏️ تعديل</button>
+                            <button class="btn" style="background:var(--danger); padding:5px 8px; font-size:0.8rem;" onclick="deleteTeacher('${d.email}')">🗑️ حذف</button>
+                        </td>
+                    </tr>`;
+            });
+        } catch(e) {}
+
+        const sTbody = document.querySelector("#studentsTable tbody");
+        window.FirestoreFunctions.onSnapshot(window.FirestoreFunctions.collection(window.db, "allowed_students"), (snapshot) => {
+            sTbody.innerHTML = "";
+            snapshot.forEach(docSnap => {
+                const d = docSnap.data();
+                sTbody.innerHTML += `<tr><td>${d.name}</td><td>${docSnap.id}</td><td><button class="btn" style="background:var(--danger); padding:4px 10px;" onclick="deleteStudent('${docSnap.id}')">حذف</button></td></tr>`;
+            });
+        });
+    }
+
+    function copyTeacherLink(link) {
+        navigator.clipboard.writeText(link).then(() => alert("تم نسخ رابط منصة المعلم بنجاح! 📋"));
+    }
+
+    async function editTeacher(email, currentName, currentSubject) {
+        const newName = prompt("تعديل اسم المعلم:", currentName);
+        if(!newName) return;
+        const newSub = prompt("تعديل المادة الدراسية:", currentSubject);
+        if(!newSub) return;
+
+        try {
+            const docRef = doc(window.db, "allowed_teachers", email);
+            await window.FirestoreFunctions.updateDoc(docRef, { name: newName, subject: newSub });
+            alert("تم تحديث بيانات المعلم بنجاح!");
+            loadAdminData();
+        } catch(e) { alert("خطأ أثناء التحديث."); }
+    }
+
+    async function deleteTeacher(email) {
+        if(confirm("حذف المعلم؟")) {
+            await window.FirestoreFunctions.deleteDoc(doc(window.db, "allowed_teachers", email));
+            loadAdminData();
+        }
+    }
+
+    async function deleteStudent(email) {
+        if(confirm("حذف الطالب من القائمة العامة؟")) {
+            await window.FirestoreFunctions.deleteDoc(doc(window.db, "allowed_students", email));
+        }
+    }
+
+    async function smartBulkAddStudents() {
+        const input = document.getElementById("bulkInput").value.trim();
+        if(!input) return alert("يرجى لصق قائمة الطلاب");
+        const lines = input.split('\n').map(l => l.trim()).filter(l => l !== "");
+        let count = 0;
+
+        for(let i = 0; i < lines.length; i++) {
+            let l1 = lines[i], l2 = lines[i+1];
+            if(!l2) break;
+            let name = "", email = "";
+            if(!l1.includes('@') && l2.includes('@')) { name = l1; email = l2.toLowerCase(); i++; }
+            else if(l1.includes('@') && !l2.includes('@')) { email = l1.toLowerCase(); name = l2; i++; }
+            if(name && email) {
+                const ref = doc(window.db, "allowed_students", email);
+                await window.FirestoreFunctions.setDoc(ref, { name, email, added_at: new Date().toISOString() });
+                count++;
+            }
+        }
+        if(count > 0) {
+            alert(`تم رفع واعتماد ${count} طالب في القائمة العامة بنجاح! 🎓`);
+            document.getElementById("bulkInput").value = "";
+        } else {
+            alert("تأكد من تنسيق السطرين (الاسم ثم الإيميل).");
+        }
+    }
+
+    async function deleteAllStudents() {
+        if(!confirm("تحذير: مسح جميع الطلاب المعتمدين؟")) return;
+        const querySnapshot = await window.FirestoreFunctions.getDocs(window.FirestoreFunctions.collection(window.db, "allowed_students"));
+        for (const documentSnapshot of querySnapshot.docs) {
+            await window.FirestoreFunctions.deleteDoc(documentSnapshot.ref);
+        }
+        alert("تمت تصفية قائمة الطلاب.");
+    }
+
+    function openTeacherSection(type) {
+        const container = document.getElementById('teacherSectionContainer');
+        if(type === 'reports') {
+            container.innerHTML = `
+                <div style="background:white; padding:25px; border-radius:15px; border:1px solid var(--border);">
+                    <h3>📊 لوحة متابعة الطلاب والدرجات (الخاصة بي)</h3>
+                    <p style="color:#64748b;">هنا تظهر لوحة المتابعة والتحليل الخاصة بدرجات طلابك المسجلين فقط.</p>
+                </div>`;
+        } else if(type === 'exams') {
+            container.innerHTML = `
+                <div style="background:white; padding:25px; border-radius:15px; border:1px solid var(--border);">
+                    <h3>📝 منصة عمل الاختبارات الخاصة بي</h3>
+                    <p style="color:#64748b;">أنشئ اختباراتك واربطها بنطاقك السحابي المستقل.</p>
+                </div>`;
+        } else if(type === 'classes') {
+            container.innerHTML = `
+                <div style="background:white; padding:25px; border-radius:15px; border:1px solid var(--border);">
+                    <h3>📚 إدارة فصولي وطلاب الفصول</h3>
+                    <div style="display:flex; gap:10px; margin-top:15px; flex-wrap:wrap;">
+                        <input type="text" id="newClassName" class="input-field" placeholder="اسم الفصل (مثال: أول ثانوي 1)" style="margin:0; flex:1;">
+                        <button class="btn" style="background:var(--primary);" onclick="createTeacherClass()">إنشاء الفصل 📁</button>
+                    </div>
+                    <div id="teacherClassesList" style="margin-top:20px;"></div>
+                </div>`;
+            loadTeacherClasses();
+        }
+    }
+
+    async function createTeacherClass() {
+        const cName = document.getElementById('newClassName').value.trim();
+        if(!cName) return alert("الرجاء إدخال اسم الفصل.");
+        
+        try {
+            const classId = cName.replace(/\s+/g, '_');
+            const docIdKey = `teacher_${currentTeacherEmail.replace(/[@.]/g, '_')}_class_${classId}`;
+            
+            await window.saveToCloud({
+                className: cName,
+                teacherEmail: currentTeacherEmail,
+                students: []
+            }, docIdKey);
+
+            alert(`تم إنشاء الفصل (${cName}) بنجاح في سحابك الخاص!`);
+            document.getElementById('newClassName').value = "";
+            loadTeacherClasses();
+        } catch(e) { alert("حدث خطأ أثناء إنشاء الفصل."); }
+    }
+
+    async function loadTeacherClasses() {
+        const listDiv = document.getElementById('teacherClassesList');
+        if(!listDiv) return;
+        listDiv.innerHTML = "<p>جاري تحميل فصولك الدراسية...</p>";
+
+        try {
+            const querySnapshot = await window.FirestoreFunctions.getDocs(window.FirestoreFunctions.collection(window.db, "user_data"));
+            listDiv.innerHTML = "";
+            let found = false;
+
+            querySnapshot.forEach(docSnap => {
+                const docId = docSnap.id;
+                const data = docSnap.data();
+                
+                if(docId.startsWith(`teacher_${currentTeacherEmail.replace(/[@.]/g, '_')}_`) && data.className) {
+                    found = true;
+                    let studentsHtml = "";
+                    if(data.students && data.students.length > 0) {
+                        data.students.forEach((st) => {
+                            studentsHtml += `<tr><td>${st.name}</td><td>${st.email}</td><td><button class="btn" style="background:var(--danger); padding:2px 6px; font-size:0.75rem;" onclick="removeStudentFromClass('${docId}', '${st.email}')">حذف</button></td></tr>`;
+                        });
+                    } else {
+                        studentsHtml = `<tr><td colspan="3" style="color:#888;">لا يوجد طلاب في هذا الفصل حالياً</td></tr>`;
+                    }
+
+                    listDiv.innerHTML += `
+                        <div style="background:#f8fafc; border:1px solid var(--border); padding:15px; border-radius:10px; margin-bottom:15px;">
+                            <h4 style="margin-top:0; color:var(--maroon);">${data.className}</h4>
+                            <div style="display:flex; gap:10px; margin-bottom:10px; flex-wrap:wrap;">
+                                <button class="btn" style="background:var(--success); font-size:0.8rem;" onclick="addStudentFromGlobalList('${docId}')">➕ إضافة من القائمة العامة</button>
+                                <button class="btn" style="background:var(--info); font-size:0.8rem;" onclick="addNewStudentDirectly('${docId}')">✨ إضافة طالب جديد (وتسجيله بالعامة)</button>
+                            </div>
+                            <table>
+                                <thead><tr><th>اسم الطالب</th><th>البريد الإلكتروني</th><th>إجراء</th></tr></thead>
+                                <tbody>${studentsHtml}</tbody>
+                            </table>
+                        </div>`;
+                }
+            });
+
+            if(!found) {
+                listDiv.innerHTML = "<p style='color:#666;'>لا توجد فصول مضافة حتى الآن. قم بإنشاء فصل جديد بالأعلى.</p>";
+            }
+        } catch(e) { listDiv.innerHTML = "<p style='color:red;'>خطأ في جلب الفصول.</p>"; }
+    }
+
+    async function addStudentFromGlobalList(docIdKey) {
+        try {
+            const globalSnap = await window.FirestoreFunctions.getDocs(window.FirestoreFunctions.collection(window.db, "allowed_students"));
+            if(globalSnap.empty) return alert("القائمة العامة فارغة حالياً.");
+            
+            let optionsStr = "اختر رقماً من القائمة العامة للطلاب:\n";
+            let studentsArr = [];
+            let i = 1;
+            globalSnap.forEach(s => {
+                let d = s.data();
+                studentsArr.push(d);
+                optionsStr += `${i++}. ${d.name} (${d.email})\n`;
+            });
+
+            let choice = prompt(optionsStr);
+            if(!choice) return;
+            let idx = parseInt(choice) - 1;
+            if(isNaN(idx) || idx < 0 || idx >= studentsArr.length) return alert("اختيار غير صالح.");
+
+            let selectedStudent = studentsArr[idx];
+            const currentData = await window.loadFromCloud(docIdKey) || { students: [] };
+            let currentStudents = currentData.students || [];
+
+            if(currentStudents.some(s => s.email === selectedStudent.email)) return alert("الطالب مضاف مسبقاً في هذا الفصل.");
+            currentStudents.push(selectedStudent);
+
+            currentData.students = currentStudents;
+            await window.saveToCloud(currentData, docIdKey);
+            alert("تم إضافة الطالب للفصل بنجاح!");
+            loadTeacherClasses();
+        } catch(e) { alert("حدث خطأ أثناء الإضافة."); }
+    }
+
+    async function addNewStudentDirectly(docIdKey) {
+        let name = prompt("أدخل اسم الطالب الجديد:");
+        if(!name) return;
+        let email = prompt("أدخل البريد الإلكتروني للطالب:");
+        if(!email) return;
+        email = email.trim().toLowerCase();
+
+        try {
+            const globalRef = doc(window.db, "allowed_students", email);
+            await window.FirestoreFunctions.setDoc(globalRef, { name, email, added_at: new Date().toISOString() });
+
+            const currentData = await window.loadFromCloud(docIdKey) || { students: [] };
+            let currentStudents = currentData.students || [];
+
+            if(!currentStudents.some(s => s.email === email)) {
+                currentStudents.push({ name, email });
+            }
+
+            currentData.students = currentStudents;
+            await window.saveToCloud(currentData, docIdKey);
+
+            alert("تم إضافة الطالب وحفظه في القائمة العامة وفصلك بنجاح! 🌟");
+            loadTeacherClasses();
+        } catch(e) { alert("حدث خطأ أثناء الحفظ."); }
+    }
+
+    async function removeStudentFromClass(docIdKey, studentEmail) {
+        if(!confirm("إزالة الطالب من هذا الفصل؟")) return;
+        try {
+            const currentData = await window.loadFromCloud(docIdKey);
+            if(currentData && currentData.students) {
+                currentData.students = currentData.students.filter(s => s.email !== studentEmail);
+                await window.saveToCloud(currentData, docIdKey);
+                alert("تمت إزالة الطالب من الفصل.");
+                loadTeacherClasses();
+            }
+        } catch(e) { alert("خطأ أثناء الإزالة."); }
+    }
+</script>
 </body>
 </html>
