@@ -931,6 +931,29 @@
         </div>
     </div>
 </div>
+    <!-- نافذة الكفاية القرائية (الوحدة الثالثة) -->
+<div id="reading-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'reading-modal')">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>نماذج الكفاية القرائية</h2>
+            <button class="close-btn" onclick="closeModal('reading-modal')">&times;</button>
+        </div>
+        <div class="links-list">
+
+            <a class="model-link" 
+               data-id="exam-reading-1"
+               data-url="https://school1school2-stack.github.io/Qraah/" 
+               data-start="2026-10-15T08:00" 
+               data-end="2026-11-30T23:59" 
+               onclick="handleLinkClick(this)">
+                <span><i class="fas fa-file-signature"></i> نموذج الكفاية القرائية</span>
+                <span class="countdown-timer"></span>
+                <span class="status-box"></span>
+            </a>
+
+        </div>
+    </div>
+</div>
 
 <!-- نافذة اختبارات تجريبية شاملة -->
 <div id="exam-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'exam-modal')">
