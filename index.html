@@ -1001,7 +1001,27 @@
         </div>
     </div>
 </div>
-
+<!-- نافذة الكفاية الكتابية (الوحدة الرابعة) -->
+<div id="writing-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'writing-modal')">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>نماذج الكفاية الكتابية</h2>
+            <button class="close-btn" onclick="closeModal('writing-modal')">&times;</button>
+        </div>
+        <div class="links-list">
+            <a class="model-link" 
+               data-id="exam-writing-1"
+               data-url="https://aztlaztl1512-bit.github.io/-4/" 
+               data-start="2026-10-15T08:00" 
+               data-end="2026-12-30T23:59" 
+               onclick="handleLinkClick(this)">
+                <span><i class="fas fa-file-signature"></i> مراجعة شاملة (الوحدة الرابعة)</span>
+                <span class="countdown-timer"></span>
+                <span class="status-box"></span>
+            </a>
+        </div>
+    </div>
+</div>
 <!-- نافذة اختبارات تجريبية شاملة -->
 <div id="exam-modal" class="modal-overlay" onclick="closeModalOnOuterClick(event, 'exam-modal')">
     <div class="modal-content">
